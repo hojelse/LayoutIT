@@ -32,14 +32,14 @@ var currPage = 1;
 function goLeft() {
     if(currPage != 1){
         currPage -= 1;
-        document.getElementById('pages').style.transform += "translateX("+ screen.width +"px)";
+        document.getElementById('pages').style.transform += "translateX("+ window.innerWidth +"px)";
     }
 }
 
 function goRight() {
     if(currPage != pageAmt){
         currPage += 1;
-        document.getElementById('pages').style.transform += "translateX("+ -screen.width +"px)";
+        document.getElementById('pages').style.transform += "translateX("+ -window.innerWidth +"px)";
     }
 }
 
