@@ -8,6 +8,9 @@ window.onload = function() {
 
     window.onresize = setPageStyleValues;
 
+    addPage();
+    changeToCurrPage();
+
     setPageStyleValues();
 }
 
@@ -26,45 +29,50 @@ function firekey(e) {
 }
 
 var pctPageW = 20;
-var pageAmt = 1;
+var pageAmt = 0;
 var currPage = 1;
+
+var collPages = [];
+
+class Page {
+    constructor(pageNum){
+        this.pageNum = pageNum;
+    }
+}
 
 function goLeft() {
     if(currPage != 1){
         currPage -= 1;
-        document.getElementById('pages').style.transform += "translateX("+ window.innerWidth +"px)";
+        changeToCurrPage();
     }
 }
 
 function goRight() {
     if(currPage != pageAmt){
         currPage += 1;
-        document.getElementById('pages').style.transform += "translateX("+ -window.innerWidth +"px)";
+        changeToCurrPage();
     }
+}
+
+function changeToCurrPage(){
+    var page = document.getElementById('page');
+
+    page.innerHTML = collPages[currPage-1].pageNum;
 }
 
 function addPage() {
-    console.log("add");
     pageAmt++;
-    document.getElementById('pages').style.width = (pageAmt * 100) + "%";
-
-    var page = document.createElement('div');
-    page.className = "page";
-    page.innerText = pageAmt + "";
-    document.getElementById('pages').appendChild(page);
-
-    setPageStyleValues();
+    collPages.push(new Page(pageAmt));
+    console.log(collPages.length);
 }
 
 function setPageStyleValues(){
-    var pctTotal = (1/pageAmt) * 100;
-    var pctPage = (pctTotal/100) * pctPageW;
-    var pctMargin = (pctTotal/100) * (100 - pctPageW);
-    var pages = document.getElementById('pages').children;
-    for(var i = 0; i < pages.length; i++){
-        pages[i].style.width = pctPage + "%";
-        pages[i].style.height = pages[i].clientWidth * 1.4142857;
-        pages[i].style.marginLeft = (pctMargin/2) + "%";
-        pages[i].style.marginRight = (pctMargin/2) + "%";
-    }
+    var page = document.getElementById('pages').children[0];
+
+        page.style.width = pctPageW + "%";
+        page.style.height = page.clientWidth * 1.4142857;
+
+        var margin = (100 - pctPageW) / 2;
+        page.style.marginLeft = margin + "%";
+        page.style.marginRight = margin + "%";
 }
