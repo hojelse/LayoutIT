@@ -19,6 +19,8 @@ window.onload = function() {
     document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
     document.onkeydown = firekey;
+    console.log("set firekey event");
+    
 
     window.onresize = resizePage;
 
@@ -48,9 +50,7 @@ window.onload = function() {
     currPageNumber++;
     changeToCurrPage();
     getThemes();
-    resizePage();
-    console.log("hej");
-    
+    resizePage();    
 }
 
 function firekey(e) {
@@ -62,7 +62,7 @@ function firekey(e) {
             break;
         case 39:
             goRight();
-            break;
+            break;           
     }
 }
 
