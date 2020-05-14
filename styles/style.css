@@ -35,13 +35,35 @@ body {
 }
 
 .book {
-    background-color: lightblue;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative;
     width: 200px;
     height: 150px;
     margin: 10px;
+
+    background-color: lightblue;
+    color: #333333;
+    text-decoration: none;
+}
+
+.hoverButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    right: 10px;
+    
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
 }
 
 .content {
