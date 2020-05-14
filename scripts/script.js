@@ -2,7 +2,7 @@ window.onload = function() {
     console.log("add functions")
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
-    document.getElementById("add").onclick = addPage;
+    document.getElementById("addPage").onclick = addPage;
 
     document.onkeydown = firekey;
 

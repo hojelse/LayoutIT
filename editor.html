@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor</title>
+
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/print.css">
+    <script src="scripts/script.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <a href="pages.html">Back button</a>
+        <button class="printAsPdf" onclick="window.print()">Print as pdf</button>
+        <a href="index.html">Home</a>
+    </div>
+    <div class="pageInformation">
+        <h2>Page <span class="pageNumber">1</span> - Book "<span class="bookTitle">My book</span>"</h2>
+    </div>
+    <div id="pages" class="pageContainer">
+        <div id="page" class="page"></div>
+    </div>
+    <div class="buttons">
+        <button id="left" class="leftButton arrowButton"></button>
+        <button id="right" class="rightButton arrowButton"></button>
+        <button id="addPage">Add page</button>
+    </div>
+    <div class="tools">
+        <button class="addText">Add Text</button>
+        <button class="addImage">Add Image</button>
+        <button class="addSticker">Add Sticker</button>
+        <button class="setTheme">Set Theme</button>
+    </div>
+</body>
+</html>

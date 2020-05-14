@@ -52,3 +52,24 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.leftButton {
+    background: url('../assets/leftArrow.png');
+}
+
+.rightButton {
+    background: url('../assets/rightArrow.png');
+}
+
+.arrowButton {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    height: 50px;
+    width: 60px;
+}
+
+
