@@ -10,7 +10,7 @@ window.onload = function() {
     document.getElementById("addPage").onclick = addPage;
     document.getElementById("addText").onclick = addTextField;
 
-    document.querySelector('#imgInput').addEventListener('click', uploadNewImg)
+    document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
     document.onkeydown = firekey;
 
@@ -27,9 +27,11 @@ window.onload = function() {
     
     currPageNumber++;
     changeToCurrPage();
-    getTheames()
-    setPageStyleValues();
+    getThemes();
+    // setPageStyleValues(); TODO spørg Emil
     resizePage();
+    console.log("hej");
+    
 }
 
 function firekey(e) {
@@ -59,13 +61,17 @@ class Page {
     }
 }
 
-function uploadNewImg(){
-    const reader = new FileReader();
-    reader.onload = function () {
-        let img = new Image();
-        img.src = reader.result;
-    };
-    reader.readAsDataURL(imageInput.files[0]);
+function uploadNewImg(event){
+    let url = URL.createObjectURL(event.target.files[0])
+    let img = new Image();
+    img.src = url;
+    console.log(collectionOfPages[currPageNumber-1]);
+    console.log(img);
+    
+    collectionOfPages[currPageNumber-1].collectionOfImages.push(img);
+
+    page.appendChild(img);
+    
 }
 
 function goLeft() {
@@ -104,6 +110,12 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
+
+    let currCollectionOfImages = currPage.collectionOfImages;
+
+    currCollectionOfImages.forEach(element => {
+        page.appendChild(element);
+    });
 }
 
 function setUpTextField(text) {

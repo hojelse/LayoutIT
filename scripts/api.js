@@ -1,4 +1,4 @@
-async function getTheames(){
+async function getThemes(){
     fetch('https://itu-sdbg-s2020.now.sh/api/themes')
     .then(response => response.json())
     .then(data => console.log('data is', data))
