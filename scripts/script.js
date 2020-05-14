@@ -77,12 +77,12 @@ function resizePage() {
     var page = document.getElementById('pages').children[0];
     const pageContainer = document.querySelector('.pageContainer');
 
-    const pageConainerIsWide = pageContainer.clientHeight / pageContainer.clientWidth < aHeight;
+    const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
     if(pageConainerIsWide){
-        page.style.height = pageContainer.clientHeight + "px";
-        page.style.width = pageContainer.clientHeight * aWidth + "px";
+        page.style.height = pageContainer.offsetHeight + "px";
+        page.style.width = pageContainer.offsetHeight * aWidth + "px";
     } else {
-        page.style.width = pageContainer.clientWidth + "px";
-        page.style.height = pageContainer.clientWidth * aHeight + "px";
+        page.style.width = pageContainer.offsetWidth + "px";
+        page.style.height = pageContainer.offsetWidth * aHeight + "px";
     }
 }
