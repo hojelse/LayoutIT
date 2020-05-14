@@ -86,4 +86,8 @@ body {
     width: 60px;
 }
 
+.arrowButton:hover {
+    opacity: 0.6;
+}
+
 
