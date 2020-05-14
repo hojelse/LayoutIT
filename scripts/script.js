@@ -81,8 +81,10 @@ function resizePage() {
     if(pageConainerIsWide){
         pageContainer.style.flexDirection = "column";
         page.style.width = pageContainer.offsetHeight * aWidth + "px";
+        page.style.height = "auto";
     } else {
         pageContainer.style.flexDirection = "row";
         page.style.height = pageContainer.offsetWidth * aHeight + "px";
+        page.style.width = "auto";
     }
 }
