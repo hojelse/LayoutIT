@@ -1,3 +1,7 @@
+let addPageButton;
+let goRightButton;
+let page;
+
 window.onload = function() {
     console.log("add functions")
     document.getElementById("left").onclick = goLeft;
@@ -8,10 +12,15 @@ window.onload = function() {
 
     window.onresize = resizePage;
 
+    page = document.getElementById('page');
+    addPageButton = document.getElementById('addPage');
+    goRightButton = this.document.getElementById('right');
+
     addPage();
     changeToCurrPage();
 
     resizePage();
+    
 }
 
 function firekey(e) {
@@ -28,8 +37,8 @@ function firekey(e) {
     }
 }
 
-var pageAmt = 0;
-var currPage = 1;
+var pageAmount = 0;
+var currPage = 0;
 
 var collPages = [];
 
@@ -47,34 +56,50 @@ function goLeft() {
 }
 
 function goRight() {
-    if(currPage != pageAmt){
+    if(currPage != pageAmount){
         currPage += 1;
         changeToCurrPage();
     }
 }
 
 function changeToCurrPage() {
-    var page = document.getElementById('page');
-
     page.innerHTML = collPages[currPage-1].pageNum;
+
+    if(currPage == pageAmount){
+        addPageButton.hidden = false;
+        goRightButton.hidden = true;
+    } else {
+        addPageButton.hidden = true;
+        goRightButton.hidden = false;
+    }
 }
 
 function addPage() {
-    pageAmt++;
-    collPages.push(new Page(pageAmt));
-    console.log(collPages.length);
+    pageAmount++;
+    collPages.push(new Page(pageAmount));
+    
+    currPage++;
+    changeToCurrPage();
 }
 
-var pctPageW = 80;
-var pctPageH = 90;
+// var pctPageW = 80;
+// var pctPageH = 100;
+
+// Ratio for A-format pages (A4 A3 ect.)
+var aHeight = 1.414285714;
+var aWidth = 0.7070707;
 
 function resizePage() {
-    var page = document.getElementById('pages').children[0];
-    if(window.innerHeight / window.innerWidth < 1.414285714){
-        page.style.height = pctPageH + "%";
-        page.style.width = page.clientHeight * 0.7070707;
+    const pageContainer = document.querySelector('.pageContainer');
+
+    const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
+    if(pageConainerIsWide){
+        pageContainer.style.flexDirection = "column";
+        page.style.width = pageContainer.offsetHeight * aWidth + "px";
+        page.style.height = "auto";
     } else {
-        page.style.width = pctPageW + "%";
-        page.style.height = page.clientWidth * 1.414285714;
+        pageContainer.style.flexDirection = "row";
+        page.style.height = pageContainer.offsetWidth * aHeight + "px";
+        page.style.width = "auto";
     }
 }

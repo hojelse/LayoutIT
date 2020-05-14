@@ -1,7 +1,17 @@
-/*body {
-    overflow-x: hidden;
-    background-image: linear-gradient(to right, red , yellow);
-}*/
+html {
+    height: 100%;
+}
+
+body {
+    /* overflow-x: hidden; */
+    /* background-image: linear-gradient(to right, red , yellow); */
+    background-color: #f6f6f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100%;
+}
 
 .flexCol {
     display: flex;
@@ -37,16 +47,16 @@
 }
 
 .pageContainer {
+    flex-grow: 1;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 90%;
-    
 }
 
 .page {
+    flex-grow: 1;
     background-color: white;
 }
 
@@ -64,6 +74,10 @@
     background: url('../assets/rightArrow.png');
 }
 
+.addPageButton {
+    background: url('../assets/plus.png');
+}
+
 .arrowButton {
     background-size: contain;
     background-repeat: no-repeat;
@@ -73,6 +87,10 @@
     cursor: pointer;
     height: 50px;
     width: 60px;
+}
+
+.arrowButton:hover {
+    opacity: 0.6;
 }
 
 
