@@ -29,7 +29,7 @@ function firekey(e) {
     }
 }
 
-var pageAmt = 0;
+var pageAmount = 0;
 var currPage = 1;
 
 var collPages = [];
@@ -48,7 +48,7 @@ function goLeft() {
 }
 
 function goRight() {
-    if(currPage != pageAmt){
+    if(currPage != pageAmount){
         currPage += 1;
         changeToCurrPage();
     }
@@ -61,8 +61,8 @@ function changeToCurrPage() {
 }
 
 function addPage() {
-    pageAmt++;
-    collPages.push(new Page(pageAmt));
+    pageAmount++;
+    collPages.push(new Page(pageAmount));
     console.log(collPages.length);
 }
 
@@ -77,7 +77,8 @@ function resizePage() {
     var page = document.getElementById('pages').children[0];
     const pageContainer = document.querySelector('.pageContainer');
 
-    if(pageContainer.clientHeight / pageContainer.clientWidth < aHeight){
+    const pageConainerIsWide = pageContainer.clientHeight / pageContainer.clientWidth < aHeight;
+    if(pageConainerIsWide){
         page.style.height = pageContainer.clientHeight + "px";
         page.style.width = pageContainer.clientHeight * aWidth + "px";
     } else {
