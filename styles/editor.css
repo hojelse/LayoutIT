@@ -1,0 +1,59 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.pageContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.page {
+  flex-grow: 1;
+  background-color: white;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.leftButton {
+  background: url('../assets/leftArrow.png');
+}
+
+.rightButton {
+  background: url('../assets/rightArrow.png');
+}
+
+.addPageButton {
+  background: url('../assets/plus.png');
+}
+
+.arrowButton {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  height: 50px;
+  width: 60px;
+}
+
+.arrowButton:hover {
+  opacity: 0.6;
+}
