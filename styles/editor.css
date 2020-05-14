@@ -25,6 +25,9 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  --pad: 10px;
+  padding: var(--pad);
 }
 
 .buttons {
