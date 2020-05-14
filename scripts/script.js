@@ -30,7 +30,7 @@ function firekey(e) {
 }
 
 var pageAmount = 0;
-var currPage = 1;
+var currPage = 0;
 
 var collPages = [];
 
@@ -58,12 +58,22 @@ function changeToCurrPage() {
     var page = document.getElementById('page');
 
     page.innerHTML = collPages[currPage-1].pageNum;
+
+    if(currPage == pageAmount){
+        document.getElementById('addPage').hidden = false;
+        document.getElementById('right').hidden = true;
+    } else {
+        document.getElementById('addPage').hidden = true;
+        document.getElementById('right').hidden = false;
+    }
 }
 
 function addPage() {
     pageAmount++;
     collPages.push(new Page(pageAmount));
-    console.log(collPages.length);
+    
+    currPage++;
+    changeToCurrPage();
 }
 
 // var pctPageW = 80;
