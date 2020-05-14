@@ -12,6 +12,7 @@ window.onload = function() {
     changeToCurrPage();
 
     resizePage();
+    
 }
 
 function firekey(e) {
@@ -65,16 +66,22 @@ function addPage() {
     console.log(collPages.length);
 }
 
-var pctPageW = 80;
-var pctPageH = 90;
+// var pctPageW = 80;
+// var pctPageH = 100;
+
+// Ratio for A-format pages (A4 A3 ect.)
+var aHeight = 1.414285714;
+var aWidth = 0.7070707;
 
 function resizePage() {
     var page = document.getElementById('pages').children[0];
-    if(window.innerHeight / window.innerWidth < 1.414285714){
-        page.style.height = pctPageH + "%";
-        page.style.width = page.clientHeight * 0.7070707;
+    const pageContainer = document.querySelector('.pageContainer');
+
+    if(pageContainer.clientHeight / pageContainer.clientWidth < aHeight){
+        page.style.height = pageContainer.clientHeight + "px";
+        page.style.width = pageContainer.clientHeight * aWidth + "px";
     } else {
-        page.style.width = pctPageW + "%";
-        page.style.height = page.clientWidth * 1.414285714;
+        page.style.width = pageContainer.clientWidth + "px";
+        page.style.height = pageContainer.clientWidth * aHeight + "px";
     }
 }
