@@ -79,10 +79,10 @@ function resizePage() {
 
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
     if(pageConainerIsWide){
-        page.style.height = pageContainer.offsetHeight + "px";
+        pageContainer.style.flexDirection = "column";
         page.style.width = pageContainer.offsetHeight * aWidth + "px";
     } else {
-        page.style.width = pageContainer.offsetWidth + "px";
+        pageContainer.style.flexDirection = "row";
         page.style.height = pageContainer.offsetWidth * aHeight + "px";
     }
 }
