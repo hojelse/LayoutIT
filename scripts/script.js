@@ -11,6 +11,7 @@ let imgBox3;
 let imgBoxs;
 let themes;
 let currentTheme;
+let themesFromApi;
 
 
 window.onload = function() {
@@ -55,18 +56,26 @@ window.onload = function() {
     
     currPageNumber++;
     changeToCurrPage();
-    resizePage();
-    console.log("hej");
-    
-    /*
-    let params = new URLSearchParams(document.location.search.substring(1));
-    let themeIndex = parseInt(params.get("index"), 10);
-    getTheme(themeIndex);
-    console.log(themeIndex);
-    */
     resizePage();  
 
-    setThemeFromRadioButtons();
+    getDataFromApi();
+
+
+}
+
+
+function getDataFromApi() {
+    
+    fetch('https://itu-sdbg-s2020.now.sh/api/themes')
+    .then(response => response.json())
+    .then(data => {
+        apiData = data.themes[0];
+        page.style.backgroundColor = apiData.styles.secondaryColor;
+        textContainer.style.color = apiData.styles.primaryColor;
+
+        themesFromApi = data.themes;
+    })
+    .catch(error => console.error(error));
 }
 
 function firekey(e) {
@@ -235,17 +244,8 @@ fetch('https://itu-sdbg-s2020.now.sh/api/themes')
 function setThemeFromRadioButtons() {
     for (let i = 0, length = themes.length; i < length; i++) {
         if (themes[i].checked) {
-            fetch('https://itu-sdbg-s2020.now.sh/api/themes')
-            .then(response => response.json())
-            .then(data => {
-                let apiData;
-                apiData = data.themes[i];
-                page.style.backgroundColor = apiData.styles.secondaryColor;
-                textContainer.style.color = apiData.styles.primaryColor;
-                console.log(apiData.styles.secondaryColor); // Prints result from `response.json()` in getRequest
-            })
-            .catch(error => console.error(error))
-        console.log(apiData.styles.secondaryColor);
+            page.style.backgroundColor = themesFromApi[i].styles.secondaryColor;
+            textContainer.style.color = themesFromApi[i].styles.primaryColor;
         break;
         }
     }
