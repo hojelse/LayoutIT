@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/print.css">
+    <link rel="stylesheet" href="styles/pageElements.css">
     <script src="scripts/script.js"></script>
+    <script src="scripts/api.js"></script>
 </head>
 <body>
     <div class="nav">
@@ -27,8 +29,9 @@
         <button id="addPage" class="addPageButton arrowButton" hidden></button>
     </div>
     <div class="tools">
-        <button class="addText">Add Text</button>
-        <button class="addImage">Add Image</button>
+        <button id="addText" class="addText">Add Text</button>
+        <button class="addImage" onclick="imgInput.click();">Add Image</button>
+        <input id="imgInput" type="file" style="display: none;">
         <button class="addSticker">Add Sticker</button>
         <button class="setTheme">Set Theme</button>
     </div>
