@@ -1,5 +1,5 @@
 window.onload = function(){
-  openCity(event, 'pages')
+  openCity(event, 'pages') 
 }
 
 function openCity(evt, cityName) {

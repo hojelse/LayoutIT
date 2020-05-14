@@ -3,6 +3,12 @@ let goRightButton;
 let page;
 let imageInput;
 let pageNumberSpan;
+let textContainer;
+let imgBox0;
+let imgBox1;
+let imgBox2;
+let imgBox3;
+let imgBoxs;
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -13,6 +19,8 @@ window.onload = function() {
     document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
     document.onkeydown = firekey;
+    console.log("set firekey event");
+    
 
     window.onresize = resizePage;
 
@@ -21,6 +29,20 @@ window.onload = function() {
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput')
     pageNumberSpan = this.document.querySelector('.pageNumber')
+
+
+    textContainer = this.document.querySelector('.textContainer')
+    imgBox0 = this.document.querySelector('#imgBox0')
+    imgBox1 = this.document.querySelector('#imgBox1')
+    imgBox2 = this.document.querySelector('#imgBox2')
+    imgBox3 = this.document.querySelector('#imgBox3')
+
+    imgBoxes = [
+        imgBox0,
+        imgBox1,
+        imgBox2,
+        imgBox3
+    ]
 
     pageAmount++;
     collectionOfPages.push(new Page(pageAmount));
@@ -37,6 +59,7 @@ window.onload = function() {
     getTheme(themeIndex);
     console.log(themeIndex);
     */
+
 }
 
 function firekey(e) {
@@ -48,7 +71,7 @@ function firekey(e) {
             break;
         case 39:
             goRight();
-            break;
+            break;           
     }
 }
 
@@ -64,19 +87,36 @@ class Page {
         this.pageNumber = pageNumber;
         this.texts = [];
     }
+
+    addImage(img) {
+        this.collectionOfImages.push(img)
+        clearImageBoxes()
+        fillImageBoxes(this.collectionOfImages)
+    }
+}
+
+function fillImageBoxes(collectionOfImages) {
+    for (let i = 0; i < imgBoxes.length; i++) {
+        if(collectionOfImages[i] == undefined) continue;
+        console.log(collectionOfImages[i].src);
+        console.log(imgBoxes[i]);
+        
+        imgBoxes[i].style.backgroundImage = "url(" + collectionOfImages[i].src + ")";  
+    }
+}
+
+function clearImageBoxes(){   
+    for (let i = 0; i < imgBoxes.length; i++) {
+        imgBoxes[i].style.backgroundImage = "none";
+    }
 }
 
 function uploadNewImg(event){
     let url = URL.createObjectURL(event.target.files[0])
     let img = new Image();
     img.src = url;
-    console.log(collectionOfPages[currPageNumber-1]);
-    console.log(img);
     
-    collectionOfPages[currPageNumber-1].collectionOfImages.push(img);
-
-    page.appendChild(img);
-    
+    collectionOfPages[currPageNumber-1].addImage(img);
 }
 
 function goLeft() {
@@ -96,8 +136,8 @@ function goRight() {
 }
 
 function changeToCurrPage() {
-    page.innerHTML = "";
-    
+    clearImageBoxes()
+    textContainer.innerHTML = ""
     let currPage = collectionOfPages[currPageNumber-1];
     pageNumberSpan.innerText = currPage.pageNumber;
 
@@ -115,12 +155,7 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
-
-    let currCollectionOfImages = currPage.collectionOfImages;
-
-    currCollectionOfImages.forEach(element => {
-        page.appendChild(element);
-    });
+    fillImageBoxes(currPage.collectionOfImages);
 }
 
 function setUpTextField(text) {
@@ -139,7 +174,7 @@ function setUpTextField(text) {
         }
     });
     textField.value = text;
-    page.appendChild(textField);
+    textContainer.appendChild(textField);
 }
 
 function addPage() {
