@@ -27,7 +27,8 @@ window.onload = function() {
     
     currPageNumber++;
     changeToCurrPage();
-
+    getTheames()
+    setPageStyleValues();
     resizePage();
 }
 
