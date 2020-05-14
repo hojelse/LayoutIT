@@ -1,12 +1,40 @@
 @media print {
-  @page page1 {
+  @page {
     margin: 0;
-    /* size: A4 landscape; */
+    /* size: A4 portrait; */
   }
 
   html {
     -webkit-print-color-adjust: exact !important;
   }
 
-  
+  .resizer {
+    display: none;
+  }
+
+  button {
+    display: none;
+  }
+
+  .page {
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .pageInformation {
+    display: none;
+  }
+
+  .buttons {
+    display: none;
+  }
+
+  .tools {
+    display: none;
+  }
+
 }

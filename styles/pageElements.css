@@ -3,3 +3,32 @@
   width: 100%;
   text-align: center;
 }
+
+.imagesContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.imagesCol {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.resizer {
+  flex-grow: 0;
+}
+
+.imageContainer {
+  flex-grow: 1;
+  display: flex;
+}
+
+.imgBox {
+  flex-grow: 1;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

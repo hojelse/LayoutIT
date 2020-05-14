@@ -23,6 +23,8 @@ body {
 .page {
   flex-grow: 1;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .buttons {
