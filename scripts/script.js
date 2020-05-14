@@ -27,11 +27,16 @@ window.onload = function() {
     
     currPageNumber++;
     changeToCurrPage();
-    getThemes();
-    // setPageStyleValues(); TODO spørg Emil
     resizePage();
+    getTheme(0);
     console.log("hej");
     
+    /*
+    let params = new URLSearchParams(document.location.search.substring(1));
+    let themeIndex = parseInt(params.get("index"), 10);
+    getTheme(themeIndex);
+    console.log(themeIndex);
+    */
 }
 
 function firekey(e) {
