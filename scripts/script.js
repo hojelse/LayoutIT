@@ -1,12 +1,14 @@
 let addPageButton;
 let goRightButton;
 let page;
+let imageInput;
 
 window.onload = function() {
-    console.log("add functions")
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
     document.getElementById("addPage").onclick = addPage;
+
+    document.querySelector('#imgInput').addEventListener('click', uploadNewImg)
 
     document.onkeydown = firekey;
 
@@ -15,12 +17,12 @@ window.onload = function() {
     page = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
     goRightButton = this.document.getElementById('right');
+    imageInput = this.document.querySelector('#imgInput')
 
     addPage();
     changeToCurrPage();
 
     resizePage();
-    
 }
 
 function firekey(e) {
@@ -37,35 +39,47 @@ function firekey(e) {
     }
 }
 
-var pageAmount = 0;
-var currPage = 0;
+let pageAmount = 0;
+let currPageNumber = 0;
 
-var collPages = [];
+let collectionOfPages = [];
 
 class Page {
-    constructor(pageNum) {
-        this.pageNum = pageNum;
+    collectionOfImages = []
+    
+    constructor(pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }
 
+function uploadNewImg(){
+    const reader = new FileReader();
+    reader.onload = function () {
+        let img = new Image();
+        img.src = reader.result;
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+}
+
 function goLeft() {
-    if(currPage != 1){
-        currPage -= 1;
+    if(currPageNumber != 1){
+        currPageNumber -= 1;
         changeToCurrPage();
     }
 }
 
 function goRight() {
-    if(currPage != pageAmount){
-        currPage += 1;
+    if(currPageNumber != pageAmount){
+        currPageNumber += 1;
         changeToCurrPage();
     }
 }
 
 function changeToCurrPage() {
-    page.innerHTML = collPages[currPage-1].pageNum;
+    let currPage = collectionOfPages[currPageNumber-1];
+    page.innerHTML = currPage.pageNumber;
 
-    if(currPage == pageAmount){
+    if(currPageNumber == pageAmount){
         addPageButton.hidden = false;
         goRightButton.hidden = true;
     } else {
@@ -76,18 +90,18 @@ function changeToCurrPage() {
 
 function addPage() {
     pageAmount++;
-    collPages.push(new Page(pageAmount));
+    collectionOfPages.push(new Page(pageAmount));
     
-    currPage++;
+    currPageNumber++;
     changeToCurrPage();
 }
 
-// var pctPageW = 80;
-// var pctPageH = 100;
+// let pctPageW = 80;
+// let pctPageH = 100;
 
 // Ratio for A-format pages (A4 A3 ect.)
-var aHeight = 1.414285714;
-var aWidth = 0.7070707;
+let aHeight = 1.414285714;
+let aWidth = 0.7070707;
 
 function resizePage() {
     const pageContainer = document.querySelector('.pageContainer');
