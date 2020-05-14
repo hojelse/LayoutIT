@@ -1,5 +1,5 @@
 @media print {
-  @page {
+  @page page1 {
     margin: 0;
     /* size: A4 landscape; */
   }
@@ -7,4 +7,6 @@
   html {
     -webkit-print-color-adjust: exact !important;
   }
+
+  
 }
