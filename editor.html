@@ -62,11 +62,11 @@
         <button class="setTheme">Set Theme</button>
        
     </div>
-    <div>
+    <div class="radiobuttons">
         <form action="">
-            <input type="radio" name="theme" value="børnebog" id="børnebog">
-            <input type="radio" name="theme" value="rejsebog" id="rejsebog">
-            <input type="radio" name="theme" value="formel" id="formel">
+            <input type="radio" name="theme" value="børnebog" id="børnebog" onchange="setThemeFromRadioButtons()" checked="checked">
+            <input type="radio" name="theme" value="rejsebog" id="rejsebog" onchange="setThemeFromRadioButtons()">
+            <input type="radio" name="theme" value="formel" id="formel" onchange="setThemeFromRadioButtons()">
             <input type="submit" value="submit">
         </form>
     </div>

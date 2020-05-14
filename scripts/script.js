@@ -9,6 +9,9 @@ let imgBox1;
 let imgBox2;
 let imgBox3;
 let imgBoxs;
+let themes;
+let currentTheme;
+
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -20,6 +23,8 @@ window.onload = function() {
 
     document.onkeydown = firekey;
     console.log("set firekey event");
+
+    themes = document.getElementsByName("theme");
     
 
     window.onresize = resizePage;
@@ -36,6 +41,7 @@ window.onload = function() {
     imgBox1 = this.document.querySelector('#imgBox1')
     imgBox2 = this.document.querySelector('#imgBox2')
     imgBox3 = this.document.querySelector('#imgBox3')
+    
 
     imgBoxes = [
         imgBox0,
@@ -50,7 +56,6 @@ window.onload = function() {
     currPageNumber++;
     changeToCurrPage();
     resizePage();
-    getTheme(0);
     console.log("hej");
     
     /*
@@ -59,7 +64,9 @@ window.onload = function() {
     getTheme(themeIndex);
     console.log(themeIndex);
     */
+    resizePage();  
 
+    setThemeFromRadioButtons();
 }
 
 function firekey(e) {
@@ -163,6 +170,7 @@ function setUpTextField(text) {
     textField.classList.add("pagetext");
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
+    textField.style.background = "transparent";
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -184,6 +192,7 @@ function addPage() {
     savePage();
     currPageNumber++;
     changeToCurrPage();
+    
 }
 
 function addTextField() {
@@ -209,6 +218,42 @@ function resizePage() {
         page.style.width = "auto";
     }
 }
+
+/*
+function getTheme(index) {
+fetch('https://itu-sdbg-s2020.now.sh/api/themes')
+.then(response => response.json())
+.then(data => {
+    apiData = data.themes[index];
+    console.log(data.themes[index]); // Prints result from `response.json()` in getRequest
+    console.log(data.themes[2].styles.secondaryColor);
+})
+.catch(error => console.error(error))
+}
+*/
+
+function setThemeFromRadioButtons() {
+    for (let i = 0, length = themes.length; i < length; i++) {
+        if (themes[i].checked) {
+            fetch('https://itu-sdbg-s2020.now.sh/api/themes')
+            .then(response => response.json())
+            .then(data => {
+                let apiData;
+                apiData = data.themes[i];
+                page.style.backgroundColor = apiData.styles.secondaryColor;
+                textContainer.style.color = apiData.styles.primaryColor;
+                console.log(apiData.styles.secondaryColor); // Prints result from `response.json()` in getRequest
+            })
+            .catch(error => console.error(error))
+        console.log(apiData.styles.secondaryColor);
+        break;
+        }
+    }
+}
+
+
+
+
 
 function savePage() {
     var page = collectionOfPages[currPageNumber-1];
