@@ -1,6 +1,6 @@
 let addPageButton;
 let goRightButton;
-
+let page;
 
 window.onload = function() {
     console.log("add functions")
@@ -12,6 +12,7 @@ window.onload = function() {
 
     window.onresize = resizePage;
 
+    page = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
     goRightButton = this.document.getElementById('right');
 
@@ -62,8 +63,6 @@ function goRight() {
 }
 
 function changeToCurrPage() {
-    var page = document.getElementById('page');
-
     page.innerHTML = collPages[currPage-1].pageNum;
 
     if(currPage == pageAmount){
@@ -91,7 +90,6 @@ var aHeight = 1.414285714;
 var aWidth = 0.7070707;
 
 function resizePage() {
-    var page = document.getElementById('pages').children[0];
     const pageContainer = document.querySelector('.pageContainer');
 
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
