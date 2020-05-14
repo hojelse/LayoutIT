@@ -1,17 +1,15 @@
-/*html {
+html {
     height: 100%;
 }
 
 body {
-    /* overflow-x: hidden; */
-    /* background-image: linear-gradient(to right, red , yellow); */
-    /*background-color: #f6f6f6;
+    background-color: #f6f6f6;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     min-height: 100%;
-}*/
+}
 
 .flexCol {
     display: flex;
