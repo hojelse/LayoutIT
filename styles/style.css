@@ -1,4 +1,4 @@
-html {
+/*html {
     height: 100%;
 }
 
@@ -9,7 +9,7 @@ body {
     align-items: center;
     flex-direction: column;
     min-height: 100%;
-}
+}*/
 
 .flexCol {
     display: flex;
@@ -54,11 +54,12 @@ body {
 
     position: absolute;
     right: 10px;
-    
+
     width: 40px;
     height: 40px;
     border-radius: 40px;
 
+    visibility: hidden;
     text-decoration: none;
     background-color: #EEEEEE;
     color: #333333;

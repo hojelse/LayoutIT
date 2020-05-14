@@ -44,6 +44,16 @@ async function updateBookList() {
 
         bookList.appendChild(book);
 
+        book.onmouseenter = function() {
+            edit.style.visibility = 'visible';
+            print.style.visibility = 'visible';
+        }
+
+        book.onmouseleave = function() {
+            edit.style.visibility = 'hidden';
+            print.style.visibility = 'hidden';
+        }
+
         const spacing = (book.offsetHeight-2*edit.offsetHeight)/3;
         edit.style.bottom = spacing + "px";
         print.style.bottom = spacing*2 + edit.offsetHeight + "px";
