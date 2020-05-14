@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/print.css">
     <link rel="stylesheet" href="styles/pageElements.css">
+
     <script defer src="scripts/state.js"></script>
-    <script src="scripts/script.js"></script>
     <script src="scripts/api.js"></script>
+    <script src="scripts/script.js"></script>
 </head>
 <body>
     <div class="nav">
@@ -58,6 +59,15 @@
         <input id="imgInput" type="file" style="display: none;">
         <button class="addSticker">Add Sticker</button>
         <button class="setTheme">Set Theme</button>
+       
+    </div>
+    <div class="radiobuttons">
+        <form action="">
+            <input type="radio" name="theme" value="børnebog" id="børnebog" onchange="setThemeFromRadioButtons()" checked="checked">
+            <input type="radio" name="theme" value="rejsebog" id="rejsebog" onchange="setThemeFromRadioButtons()">
+            <input type="radio" name="theme" value="formel" id="formel" onchange="setThemeFromRadioButtons()">
+            <input type="submit" value="submit">
+        </form>
     </div>
     <script defer src="scripts/dragdrop.js"></script>
 </body>

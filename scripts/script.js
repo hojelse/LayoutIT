@@ -4,11 +4,10 @@ let page;
 let imageInput;
 let pageNumberSpan;
 let textContainer;
-// let imageContainer0;
-// let imageContainer1;
-// let imageContainer2;
-// let imageContainer3;
 let imageContainers;
+let themes;
+let currentTheme;
+let themesFromApi;
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -20,6 +19,8 @@ window.onload = function() {
 
     document.onkeydown = firekey;
     console.log("set firekey event");
+
+    themes = document.getElementsByName("theme");
     
     window.onresize = resizePage;
 
@@ -43,8 +44,26 @@ window.onload = function() {
     
     currPageNumber++;
     changeToCurrPage();
-    getThemes();
-    resizePage();    
+    resizePage();  
+
+    getDataFromApi();
+
+
+}
+
+
+function getDataFromApi() {
+    
+    fetch('https://itu-sdbg-s2020.now.sh/api/themes')
+    .then(response => response.json())
+    .then(data => {
+        apiData = data.themes[0];
+        page.style.backgroundColor = apiData.styles.secondaryColor;
+        textContainer.style.color = apiData.styles.primaryColor;
+
+        themesFromApi = data.themes;
+    })
+    .catch(error => console.error(error));
 }
 
 function firekey(e) {
@@ -105,7 +124,6 @@ class Page {
 
     addImage(url) {
         for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
-            console.log("empty!");
             let currentImgBox = this.collectionOfImgBoxes[i];
             if (currentImgBox ===  'undefined' || currentImgBox === null){
                 let newImgBox = new ImgBox();
@@ -118,9 +136,7 @@ class Page {
         }
     }
 
-    swapImage(a, b){
-        console.log(this.collectionOfImgBoxes);
-        
+    swapImage(a, b){       
         let temp = this.collectionOfImgBoxes[a];
         this.collectionOfImgBoxes[a] = this.collectionOfImgBoxes[b];
         this.collectionOfImgBoxes[b] = temp;
@@ -136,8 +152,6 @@ function fillImageBoxes(collectionOfImgBoxes) {
 }
 
 function clearImageBoxes(){
-    console.log("clear boxes");
-    
     for (let i = 0; i < imageContainers.length; i++) {
         imageContainers[i].innerHTML = "";
     }
@@ -192,6 +206,7 @@ function setUpTextField(text) {
     textField.classList.add("pagetext");
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
+    textField.style.background = "transparent";
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -213,6 +228,7 @@ function addPage() {
     savePage();
     currPageNumber++;
     changeToCurrPage();
+    
 }
 
 function addTextField() {
@@ -238,6 +254,33 @@ function resizePage() {
         page.style.width = "auto";
     }
 }
+
+/*
+function getTheme(index) {
+fetch('https://itu-sdbg-s2020.now.sh/api/themes')
+.then(response => response.json())
+.then(data => {
+    apiData = data.themes[index];
+    console.log(data.themes[index]); // Prints result from `response.json()` in getRequest
+    console.log(data.themes[2].styles.secondaryColor);
+})
+.catch(error => console.error(error))
+}
+*/
+
+function setThemeFromRadioButtons() {
+    for (let i = 0, length = themes.length; i < length; i++) {
+        if (themes[i].checked) {
+            page.style.backgroundColor = themesFromApi[i].styles.secondaryColor;
+            textContainer.style.color = themesFromApi[i].styles.primaryColor;
+        break;
+        }
+    }
+}
+
+
+
+
 
 function savePage() {
     var page = collectionOfPages[currPageNumber-1];
