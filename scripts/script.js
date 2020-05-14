@@ -2,6 +2,7 @@ let addPageButton;
 let goRightButton;
 let page;
 let imageInput;
+let pageNumberSpan;
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -19,6 +20,7 @@ window.onload = function() {
     addPageButton = document.getElementById('addPage');
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput')
+    pageNumberSpan = this.document.querySelector('.pageNumber')
 
     pageAmount++;
     collectionOfPages.push(new Page(pageAmount));
@@ -30,7 +32,6 @@ window.onload = function() {
 }
 
 function firekey(e) {
-    console.log("key fired");
     e = e || window.event;
 
     switch(e.keyCode){
@@ -86,28 +87,13 @@ function changeToCurrPage() {
     page.innerHTML = "";
     
     let currPage = collectionOfPages[currPageNumber-1];
-    page.innerHTML = currPage.pageNumber;
+    pageNumberSpan.innerText = currPage.pageNumber;
 
     var textlist = currPage.texts;
     
     for(var i = 0; i < textlist.length; i++){
-        var textField = document.createElement('input');
-        textField.classList.add("pagetext");
-        textField.setAttribute("type", "text");
-        textField.style.border = 'none';
-        textField.placeholder = "Enter text here";
-        textField.size = 16;
-        textField.addEventListener('keyup', function() {
-            var target = event.target;
-            var text = target.value;
-            if(text.length < 16) {
-                target.size = 16;
-            } else {
-                target.size = text.length + 6;
-            }
-        })
-        textField.value = textlist[i];
-        page.appendChild(textField);
+        let text = textlist[i];
+        setUpTextField(text);
     }
 
     if(currPageNumber == pageAmount){
@@ -117,6 +103,25 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
+}
+
+function setUpTextField(text) {
+    var textField = document.createElement('input');
+    textField.classList.add("pagetext");
+    textField.setAttribute("type", "text");
+    textField.placeholder = "Enter text here";
+    textField.addEventListener('keyup', function () {
+        var target = event.target;
+        var text = target.value;
+        if (text.length < 16) {
+            target.size = 16;
+        }
+        else {
+            target.size = text.length + 6;
+        }
+    });
+    textField.value = text;
+    page.appendChild(textField);
 }
 
 function addPage() {
@@ -129,22 +134,7 @@ function addPage() {
 }
 
 function addTextField() {
-    var textField = document.createElement('input');
-    textField.classList.add("pagetext");
-    textField.setAttribute("type", "text");
-    textField.style.border = 'none';
-    textField.placeholder = "Enter text here";
-    textField.size = 16;
-    textField.addEventListener('keyup', function() {
-        var target = event.target;
-        var text = target.value;
-        if(text.length < 16) {
-            target.size = 16;
-        } else {
-            target.size = text.length + 6;
-        }
-    })
-    document.getElementById('page').appendChild(textField);
+    setUpTextField("");
 }
 
 
