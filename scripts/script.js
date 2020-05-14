@@ -7,6 +7,7 @@ window.onload = function() {
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
     document.getElementById("addPage").onclick = addPage;
+    document.getElementById("addText").onclick = addTextField;
 
     document.querySelector('#imgInput').addEventListener('click', uploadNewImg)
 
@@ -19,7 +20,10 @@ window.onload = function() {
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput')
 
-    addPage();
+    pageAmount++;
+    collectionOfPages.push(new Page(pageAmount));
+    
+    currPageNumber++;
     changeToCurrPage();
 
     resizePage();
@@ -49,6 +53,7 @@ class Page {
     
     constructor(pageNumber) {
         this.pageNumber = pageNumber;
+        this.texts = [];
     }
 }
 
@@ -63,6 +68,7 @@ function uploadNewImg(){
 
 function goLeft() {
     if(currPageNumber != 1){
+        savePage();
         currPageNumber -= 1;
         changeToCurrPage();
     }
@@ -70,14 +76,39 @@ function goLeft() {
 
 function goRight() {
     if(currPageNumber != pageAmount){
+        savePage();
         currPageNumber += 1;
         changeToCurrPage();
     }
 }
 
 function changeToCurrPage() {
+    page.innerHTML = "";
+    
     let currPage = collectionOfPages[currPageNumber-1];
     page.innerHTML = currPage.pageNumber;
+
+    var textlist = currPage.texts;
+    
+    for(var i = 0; i < textlist.length; i++){
+        var textField = document.createElement('input');
+        textField.classList.add("pagetext");
+        textField.setAttribute("type", "text");
+        textField.style.border = 'none';
+        textField.placeholder = "Enter text here";
+        textField.size = 16;
+        textField.addEventListener('keyup', function() {
+            var target = event.target;
+            var text = target.value;
+            if(text.length < 16) {
+                target.size = 16;
+            } else {
+                target.size = text.length + 6;
+            }
+        })
+        textField.value = textlist[i];
+        page.appendChild(textField);
+    }
 
     if(currPageNumber == pageAmount){
         addPageButton.hidden = false;
@@ -92,12 +123,30 @@ function addPage() {
     pageAmount++;
     collectionOfPages.push(new Page(pageAmount));
     
+    savePage();
     currPageNumber++;
     changeToCurrPage();
 }
 
-// let pctPageW = 80;
-// let pctPageH = 100;
+function addTextField() {
+    var textField = document.createElement('input');
+    textField.classList.add("pagetext");
+    textField.setAttribute("type", "text");
+    textField.style.border = 'none';
+    textField.placeholder = "Enter text here";
+    textField.size = 16;
+    textField.addEventListener('keyup', function() {
+        var target = event.target;
+        var text = target.value;
+        if(text.length < 16) {
+            target.size = 16;
+        } else {
+            target.size = text.length + 6;
+        }
+    })
+    document.getElementById('page').appendChild(textField);
+}
+
 
 // Ratio for A-format pages (A4 A3 ect.)
 let aHeight = 1.414285714;
@@ -115,5 +164,16 @@ function resizePage() {
         pageContainer.style.flexDirection = "row";
         page.style.height = pageContainer.offsetWidth * aHeight + "px";
         page.style.width = "auto";
+    }
+}
+
+function savePage() {
+    var page = collectionOfPages[currPageNumber-1];
+    var textlist = page.texts;
+    textlist.splice(0,textlist.length);
+
+    var pagetexts = document.getElementsByClassName('pagetext');
+    for(var i = 0; i < pagetexts.length; i++){
+        textlist.push(pagetexts[i].value);
     }
 }
