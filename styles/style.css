@@ -14,18 +14,21 @@
 }
 
 .bookContainer {
-    margin: 20px;
+    margin: auto;
     justify-content: center;
-    align-items: center;
+    width: 100%;
+}
+
+.bookList {
+    flex-wrap: wrap;
+    margin: auto;
 }
 
 .book {
     background-color: blue;
     width: 200px;
     height: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
+    margin: 10px;
 }
 
 .content {
