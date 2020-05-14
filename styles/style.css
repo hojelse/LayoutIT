@@ -71,6 +71,10 @@ body {
     background: url('../assets/rightArrow.png');
 }
 
+.addPageButton {
+    background: url('../assets/plus.png');
+}
+
 .arrowButton {
     background-size: contain;
     background-repeat: no-repeat;

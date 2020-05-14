@@ -1,3 +1,7 @@
+let addPageButton;
+let goRightButton;
+
+
 window.onload = function() {
     console.log("add functions")
     document.getElementById("left").onclick = goLeft;
@@ -7,6 +11,9 @@ window.onload = function() {
     document.onkeydown = firekey;
 
     window.onresize = resizePage;
+
+    addPageButton = document.getElementById('addPage');
+    goRightButton = this.document.getElementById('right');
 
     addPage();
     changeToCurrPage();
@@ -60,11 +67,11 @@ function changeToCurrPage() {
     page.innerHTML = collPages[currPage-1].pageNum;
 
     if(currPage == pageAmount){
-        document.getElementById('addPage').hidden = false;
-        document.getElementById('right').hidden = true;
+        addPageButton.hidden = false;
+        goRightButton.hidden = true;
     } else {
-        document.getElementById('addPage').hidden = true;
-        document.getElementById('right').hidden = false;
+        addPageButton.hidden = true;
+        goRightButton.hidden = false;
     }
 }
 
