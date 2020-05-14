@@ -28,6 +28,7 @@ async function updateBookList() {
 
         const edit = document.createElement("a");
         edit.className = 'hoverButton';
+        edit.href = './pages.html';
         /* editLabel is a placeholder for an icon */
         const editLabel = document.createElement("div");
         editLabel.appendChild(document.createTextNode("edit"));
