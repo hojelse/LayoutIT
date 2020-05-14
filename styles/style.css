@@ -1,6 +1,36 @@
-body {
+/*body {
     overflow-x: hidden;
     background-image: linear-gradient(to right, red , yellow);
+}*/
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.bookContainer {
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.book {
+    background-color: blue;
+    width: 200px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.content {
+    background-color: white;
+    margin: 20px;
 }
 
 .pageContainer {
