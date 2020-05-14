@@ -1,3 +1,7 @@
+let addPageButton;
+let goRightButton;
+let page;
+
 window.onload = function() {
     console.log("add functions")
     document.getElementById("left").onclick = goLeft;
@@ -8,6 +12,10 @@ window.onload = function() {
     document.onkeydown = firekey;
 
     window.onresize = resizePage;
+
+    page = document.getElementById('page');
+    addPageButton = document.getElementById('addPage');
+    goRightButton = this.document.getElementById('right');
 
     pageAmount++;
     collPages.push(new Page(pageAmount));
@@ -89,11 +97,11 @@ function changeToCurrPage() {
     }
 
     if(currPage == pageAmount){
-        document.getElementById('addPage').hidden = false;
-        document.getElementById('right').hidden = true;
+        addPageButton.hidden = false;
+        goRightButton.hidden = true;
     } else {
-        document.getElementById('addPage').hidden = true;
-        document.getElementById('right').hidden = false;
+        addPageButton.hidden = true;
+        goRightButton.hidden = false;
     }
 }
 
@@ -133,7 +141,6 @@ var aHeight = 1.414285714;
 var aWidth = 0.7070707;
 
 function resizePage() {
-    var page = document.getElementById('pages').children[0];
     const pageContainer = document.querySelector('.pageContainer');
 
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
