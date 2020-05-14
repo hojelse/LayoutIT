@@ -10,7 +10,7 @@ window.onload = function() {
 
     addPage();
     changeToCurrPage();
-
+    getTheames()
     setPageStyleValues();
 }
 
