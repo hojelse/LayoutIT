@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pages</title>
+
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/print.css">
+  <script src="scripts/script.js"></script>
+  <script src="scripts/tabs.js"></script>
+</head>
+
+<body>
+  <div class="nav">
+    <a href="./index.html">Back button</a>
+    <button class="printAsPdf" onclick="window.print()">Print as pdf</button>
+    <a href="./index.html">Home</a>
+  </div>
+  <div class="titleWrapper">
+    <input type="text" id="title" placeholder="My Title">
+    <button class="editTitle">Edit Title</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'pages')">Pages</button>
+      <button class="tablinks" onclick="openCity(event, 'themes')">Themes</button>
+    </div>
+
+    <div id="pages" class="tabcontent">
+      <button class="addPage">
+        <a href="./editor.html">+</a>
+      </button>
+    </div>
+
+    <div id="themes" class="tabcontent">
+      <button class="theme">theme a</button>
+      <button class="theme">theme b</button>
+      <button class="theme">theme c</button>
+      <button class="theme">theme d</button>
+    </div>
+  </div>
+
+</body>
+
+</html>
