@@ -6,12 +6,12 @@ window.onload = function() {
 
     document.onkeydown = firekey;
 
-    window.onresize = setPageStyleValues;
+    window.onresize = resizePage;
 
     addPage();
     changeToCurrPage();
 
-    setPageStyleValues();
+    resizePage();
 }
 
 function firekey(e) {
@@ -28,14 +28,13 @@ function firekey(e) {
     }
 }
 
-var pctPageW = 20;
 var pageAmt = 0;
 var currPage = 1;
 
 var collPages = [];
 
 class Page {
-    constructor(pageNum){
+    constructor(pageNum) {
         this.pageNum = pageNum;
     }
 }
@@ -54,7 +53,7 @@ function goRight() {
     }
 }
 
-function changeToCurrPage(){
+function changeToCurrPage() {
     var page = document.getElementById('page');
 
     page.innerHTML = collPages[currPage-1].pageNum;
@@ -66,13 +65,16 @@ function addPage() {
     console.log(collPages.length);
 }
 
-function setPageStyleValues(){
+var pctPageW = 80;
+var pctPageH = 90;
+
+function resizePage() {
     var page = document.getElementById('pages').children[0];
-
+    if(window.innerHeight / window.innerWidth < 1.414285714){
+        page.style.height = pctPageH + "%";
+        page.style.width = page.clientHeight * 0.7070707;
+    } else {
         page.style.width = pctPageW + "%";
-        page.style.height = page.clientWidth * 1.4142857;
-
-        var margin = (100 - pctPageW) / 2;
-        page.style.marginLeft = margin + "%";
-        page.style.marginRight = margin + "%";
+        page.style.height = page.clientWidth * 1.414285714;
+    }
 }
