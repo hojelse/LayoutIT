@@ -10,9 +10,6 @@ function makeResizableDiv(imagesCol) {
   const imageContainer2 = imagesCol.querySelector('.imageContainer2');
   const resizer = imagesCol.querySelector('.resizer');
 
-  console.log(imageContainer1)
-  console.log(imageContainer2)
-
   const minimum_size = 100;
   let original_height_1 = 0;
   let original_y_1 = 0;
