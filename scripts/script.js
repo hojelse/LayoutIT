@@ -17,6 +17,8 @@ let titleInput;
 
 let chooseTheme;
 
+let pageContainer;
+
 class Book {
     pages = [];
     title = "title";
@@ -36,6 +38,10 @@ window.onload = function () {
     document.onkeydown = firekey;
 
     themes = document.getElementsByName("theme");
+
+    pageContainer = document.querySelector('.pageContainer');
+
+    document.querySelector('.printAsPdf').onclick = printAsPdf;
 
     window.onresize = resizePage;
 
@@ -228,7 +234,7 @@ function changeToCurrPage() {
     }
     setImageContainersResizeState(currPage);
     fillImageBoxes(currPage.collectionOfImgBoxes);
-    setUpSelectableImgBox();
+    // setUpSelectableImgBox();
 }
 
 function setUpTextField(text) {
@@ -272,9 +278,6 @@ let aHeight = 1.414285714;
 let aWidth = 0.7070707;
 
 function resizePage() {
-    console.log("resize");
-    const pageContainer = document.querySelector('.pageContainer');
-
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
     if (pageConainerIsWide) {
         pageContainer.style.flexDirection = "column";
@@ -340,22 +343,48 @@ function savePage() {
     localStorage.setItem("booklist", JSON.stringify(localBooks));
 }
 
-let currentlySelectedImgBox = null;
+function printAsPdf() {
+    postPrintPages();
+    window.print();
+}
 
-function setUpSelectableImgBox() {
-    DOMImgBoxes = [
-        this.document.querySelector('.imageContainer[data-id="0"] > .imgBox'),
-        this.document.querySelector('.imageContainer[data-id="1"] > .imgBox'),
-        this.document.querySelector('.imageContainer[data-id="2"] > .imgBox'),
-        this.document.querySelector('.imageContainer[data-id="3"] > .imgBox')
-    ]
+function postPrintPages() {
+    document.querySelectorAll('.page.onlyForPrint').forEach(onlyForPrintPage => {
+        if(!(onlyForPrintPage === null || onlyForPrintPage === 'undefined')){
+            onlyForPrintPage.remove();
+        }
+    });
 
-    for (let i = 0; i < DOMImgBoxes.length; i++) {
-        if(DOMImgBoxes[i] === 'undefined' || DOMImgBoxes[i] === null) continue;
-        DOMImgBoxes[i].addEventListener("click", selectImgBox)
+    let pageContent = pageContainer.querySelector('.page');
+
+    let numberOfPages = collectionOfPages.length;
+    let root = document.documentElement;
+    root.style.setProperty('--numberOfPages', numberOfPages + "00%");
+
+    for (let i = 0; i < numberOfPages; i++) {
+        let pageCopy = pageContent.cloneNode(true);
+        pageCopy.removeAttribute('id');
+        pageCopy.classList.add('onlyForPrint');
+        pageContainer.appendChild(pageCopy);
     }
 }
 
-function selectImgBox() {
-    console.log(event.currentTarget);
-}
+// let currentlySelectedImgBox = null;
+
+// function setUpSelectableImgBox() {
+//     DOMImgBoxes = [
+//         this.document.querySelector('.imageContainer[data-id="0"] > .imgBox'),
+//         this.document.querySelector('.imageContainer[data-id="1"] > .imgBox'),
+//         this.document.querySelector('.imageContainer[data-id="2"] > .imgBox'),
+//         this.document.querySelector('.imageContainer[data-id="3"] > .imgBox')
+//     ]
+
+//     for (let i = 0; i < DOMImgBoxes.length; i++) {
+//         if(DOMImgBoxes[i] === 'undefined' || DOMImgBoxes[i] === null) continue;
+//         DOMImgBoxes[i].addEventListener("click", selectImgBox)
+//     }
+// }
+
+// function selectImgBox() {
+//     console.log(event.currentTarget);
+// }

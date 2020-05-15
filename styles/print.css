@@ -1,3 +1,7 @@
+.onlyForPrint {
+  display: none;
+}
+
 @media print {
   @page {
     margin: 0;
@@ -6,6 +10,7 @@
 
   html {
     -webkit-print-color-adjust: exact !important;
+    height: var(--numberOfPages);
   }
 
   .resizer {
@@ -14,6 +19,14 @@
 
   button {
     display: none;
+  }
+
+  .page:not(.onlyForPrint) {
+    display: none;
+  }
+
+  .onlyForPrint {
+    display: flex !important;
   }
 
   .page {
@@ -39,6 +52,11 @@
 
   .dropdown {
     display: none;
+  }
+
+  .imageContainer {
+    background-color: transparent !important;
+    background: none !important;
   }
 
 }
