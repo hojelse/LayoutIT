@@ -1,7 +1,6 @@
 var totalBooks = 5;
 
 window.onload = function() {
-    console.log("books");
     window.addEventListener('resize', resize);
 
     startUp();
@@ -11,7 +10,6 @@ window.onload = function() {
 }
 
 function startUp() {
-    console.log(localStorage.getItem('booklist'));
     if(localStorage.getItem('booklist') == null){
         localStorage.setItem("booklist", JSON.stringify([]));
     }
@@ -54,13 +52,12 @@ function resize() {
 }
 
 async function updateBookList() {
-    /* Der mangeler API kald i denne funktion */
     const bookList = document.getElementById("bookList");
     bookList.innerHTML = "";
 
     const addBookButton = document.createElement("div");
     addBookButton.className = 'book button unselectable';
-    /*addBookButton.onclick = addBook;*/
+    addBookButton.onclick = addBook;
 
     const icon = document.createElement("img");
     icon.src = '/assets/plus.svg';
@@ -70,15 +67,13 @@ async function updateBookList() {
     bookList.appendChild(addBookButton);
 
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
-    /*for(i = 0; i < localBooks.length; i++) {*/
-    for(i = 0; i < 5; i++) {
+    for(i = 0; i < localBooks.length; i++) {
         const book = document.createElement("a");
         book.className = 'book';
         book.onclick = openBook;
 
         const title = document.createElement("div");
-        /*title.appendChild(document.createTextNode(localBooks[i].title));*/
-        title.appendChild(document.createTextNode("book " + i));
+        title.appendChild(document.createTextNode(localBooks[i].title));
         book.appendChild(title);
 
         const edit = document.createElement("a");
@@ -89,12 +84,6 @@ async function updateBookList() {
         editIcon.src = '/assets/edit.svg';
         editIcon.className = 'icon';
         edit.appendChild(editIcon);
-
-        /* editLabel is a placeholder for an icon */
-        /*const editLabel = document.createElement("div");
-        editLabel.appendChild(document.createTextNode("edit"));
-        edit.appendChild(editLabel);*/
-
         book.appendChild(edit);
 
         const print = document.createElement("a");
@@ -104,12 +93,6 @@ async function updateBookList() {
         printIcon.src = '/assets/print.svg';
         printIcon.className = 'icon';
         print.appendChild(printIcon);
-
-        /* printLabel is a placeholder for an icon */
-        /*const printLabel = document.createElement("div");
-        printLabel.appendChild(document.createTextNode("print"));
-        print.appendChild(printLabel);*/
-
         book.appendChild(print);
 
         bookList.appendChild(book);
