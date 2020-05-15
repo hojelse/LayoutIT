@@ -1,9 +1,45 @@
 window.onload = function() {
     
     window.addEventListener('resize', resize);
+    document.getElementById('addbook').onclick = addBook;
+
+    startUp();
 
     updateBookList();
     resize();
+}
+
+function startUp() {
+    if(localStorage.getItem('booklist') == "[]"){
+        localStorage.setItem("booklist", JSON.stringify([]));
+    }
+    localStorage.setItem("currBook", "");
+    localStorage.setItem("clickedPage", "");
+}
+
+class Book {
+    pages = [];
+    title = "title";
+}
+
+function addBook() {
+    let books = JSON.parse(localStorage.getItem("booklist"));
+    let newBook = new Book();
+    books.push(newBook);
+    localStorage.setItem("booklist", JSON.stringify(books));
+
+    updateBookList();
+}
+
+function openBook() {
+    e = window.event;
+    var target = e.target || e.srcElement;
+    var book = target.children;
+    var title = book[0].innerHTML;
+    
+    localStorage.setItem("currBook", title);
+
+    window.location.href = "./pages.html"
 }
 
 function resize() {
@@ -17,13 +53,14 @@ async function updateBookList() {
     /* Der mangeler API kald i denne funktion */
     const bookList = document.getElementById("bookList");
     bookList.innerHTML = "";
-    for(i = 0; i < 5; i++) {
+    let localBooks = JSON.parse(localStorage.getItem("booklist"));
+    for(i = 0; i < localBooks.length; i++) {
         const book = document.createElement("a");
         book.className = 'book';
-        book.href = './pages.html'; /* Skal ændres til at gå til visning af bogen*/
+        book.onclick = openBook;
 
         const title = document.createElement("div");
-        title.appendChild(document.createTextNode("Book " + (i+1)));
+        title.appendChild(document.createTextNode(localBooks[i].title));
         book.appendChild(title);
 
         const edit = document.createElement("a");

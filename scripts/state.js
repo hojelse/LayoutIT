@@ -1,5 +1,5 @@
 document.onkeydown = firekey;
-console.log("press i:increaseValue o:setTo0 p:increaseValue")
+console.log("press i:increaseValue o:setTo0 p:printValue")
 
 function firekey(e) {
   e = e || window.event;
