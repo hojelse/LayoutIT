@@ -33,10 +33,10 @@ window.onload = function() {
     textContainer = this.document.querySelector('.textContainer');
 
     imageContainers = [
-        this.document.querySelector('#imageContainer0'),
-        this.document.querySelector('#imageContainer1'),
-        this.document.querySelector('#imageContainer2'),
-        this.document.querySelector('#imageContainer3')
+        this.document.querySelector('.imageContainer[data-id="0"]'),
+        this.document.querySelector('.imageContainer[data-id="1"]'),
+        this.document.querySelector('.imageContainer[data-id="2"]'),
+        this.document.querySelector('.imageContainer[data-id="3"]')
     ]
 
     pageAmount++;
@@ -48,7 +48,7 @@ window.onload = function() {
 
     getDataFromApi();
 
-
+    resizeLayoutInit();
 }
 
 
