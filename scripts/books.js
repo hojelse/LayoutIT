@@ -1,7 +1,7 @@
 var totalBooks = 5;
 
 window.onload = function() {
-    
+    console.log("books");
     window.addEventListener('resize', resize);
 
     startUp();
@@ -11,7 +11,8 @@ window.onload = function() {
 }
 
 function startUp() {
-    if(localStorage.getItem('booklist') == "[]"){
+    console.log(localStorage.getItem('booklist'));
+    if(localStorage.getItem('booklist') == null){
         localStorage.setItem("booklist", JSON.stringify([]));
     }
     localStorage.setItem("currBook", "");
@@ -21,6 +22,7 @@ function startUp() {
 class Book {
     pages = [];
     title = "title";
+    theme = 2;
 }
 
 function addBook() {

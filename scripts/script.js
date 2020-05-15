@@ -18,6 +18,7 @@ let chooseTheme;
 
 
 window.onload = function() {
+    console.log("scripts");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
     document.getElementById("addPage").onclick = addPage;
@@ -49,14 +50,15 @@ window.onload = function() {
         this.document.querySelector('.imageContainer[data-id="2"]'),
         this.document.querySelector('.imageContainer[data-id="3"]')
     ]
-
-    startUp();
     
-    document.getElementById("booktitle").innerHTML = thisbook.title;
-    changeToCurrPage();
-    resizePage();  
-    resizeLayoutInit();
+    startUp();
     getDataFromApi();
+    chooseTheme.value = thisbook.theme;
+
+    document.getElementById("booktitle").innerHTML = thisbook.title;
+  
+    //changeToCurrPage();
+    
 }
 
 function startUp() {
@@ -69,7 +71,7 @@ function startUp() {
     }
     collectionOfPages = thisbook.pages;
     pageAmount = collectionOfPages.length;
-    currPageNumber = localStorage.getItem("clickedPage");
+    currPageNumber = parseInt(localStorage.getItem("clickedPage"));
 }
 
 
@@ -78,10 +80,16 @@ function getDataFromApi() {
     fetch('https://itu-sdbg-s2020.now.sh/api/themes')
     .then(response => response.json())
     .then(data => {
-        currentTheme = 0;
+        console.log(data.themes);
+        currentTheme = thisbook.theme;
+        console.log(currentTheme);
         apiData = data.themes[currentTheme];
         page.style.backgroundColor = apiData.styles.secondaryColor;
         themesFromApi = data.themes;
+        setTheme(thisbook.theme);
+        changeToCurrPage();
+        resizePage();  
+        resizeLayoutInit();
     })
     .catch(error => console.error(error));
 }
@@ -212,6 +220,7 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
+    
     fillImageBoxes(currPage.collectionOfImgBoxes);
 }
 
@@ -256,6 +265,7 @@ let aHeight = 1.414285714;
 let aWidth = 0.7070707;
 
 function resizePage() {
+    console.log("resize");
     const pageContainer = document.querySelector('.pageContainer');
 
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
@@ -274,20 +284,30 @@ function setThemeFromDropdown() {
 
     let selectedTheme = chooseTheme.value;
     currentTheme = selectedTheme;
-    page.style.backgroundColor = themesFromApi[selectedTheme].styles.secondaryColor;
+
+    thisbook.theme = selectedTheme;
+    let localBooks = JSON.parse(localStorage.getItem("booklist"));
+    let currBook = localStorage.getItem("currBook");
+    for(var i = 0; i < localBooks.length; i++){
+        if(localBooks[i].title == currBook){
+            localBooks[i] = thisbook;
+        }
+    }
+    localStorage.setItem("booklist", JSON.stringify(localBooks));
+    
+    setTheme(currentTheme);
+}
+
+function setTheme(theme) {
+    page.style.backgroundColor = "#" + themesFromApi[theme].styles.secondaryColor;
 
     let textFields = document.querySelectorAll('.pagetext');
 
     textFields.forEach(element => {
-        element.style.color = themesFromApi[selectedTheme].styles.primaryColor;
-        element.style.fontFamily = themesFromApi[selectedTheme].styles.fontFamily;
+        element.style.color = "#" + themesFromApi[theme].styles.primaryColor;
+        element.style.fontFamily = themesFromApi[theme].styles.fontFamily;
     });
-
 }
-
-
-
-
 
 function savePage() {
     var page = collectionOfPages[currPageNumber-1];
