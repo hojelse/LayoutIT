@@ -17,14 +17,7 @@ class Page {
   addImage(url) {
       for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
           let currentImgBox = this.collectionOfImgBoxes[i];
-          let newImgBox = new ImgBox();
-          newImgBox.setURL(url);
-          this.collectionOfImgBoxes[i] = newImgBox;
-          clearImageBoxes();
-          fillImageBoxes(this.collectionOfImgBoxes);
-          break;
-
-          if (currentImgBox ===  'undefined' || currentImgBox === null){
+          if (currentImgBox === 'undefined' || currentImgBox === null){
               let newImgBox = new ImgBox();
               newImgBox.setURL(url);
               this.collectionOfImgBoxes[i] = newImgBox;

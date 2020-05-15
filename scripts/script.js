@@ -16,7 +16,6 @@ let currPageNumber;
 
 let chooseTheme;
 
-
 window.onload = function () {
     console.log("scripts");
     document.getElementById("left").onclick = goLeft;
@@ -74,14 +73,13 @@ function startUp() {
     let tempCollectionOfPages = [];
     for (let i = 0; i < thisbook.pages.length; i++) {
         let tempPage = Object.assign(new Page(i), thisbook.pages[i]);
-        let tempCollectionOfImgBoxes = [];
+        let tempCollectionOfImgBoxes = [null,null,null,null];
         for (let i = 0; i < tempPage.collectionOfImgBoxes.length; i++) {
-            tempCollectionOfImgBoxes.push(Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]));
-            // debugger;
+            if (tempPage.collectionOfImgBoxes[i] === null) continue;
+            tempCollectionOfImgBoxes[i] = Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]);
         }
-        // debugger;
         tempPage.collectionOfImgBoxes = tempCollectionOfImgBoxes;
-        tempCollectionOfPages.push(tempPage);
+        tempCollectionOfPages[i] = tempPage;
     }
     collectionOfPages = tempCollectionOfPages;
 
@@ -294,6 +292,8 @@ function setTheme(theme) {
 }
 
 function savePage() {
+    debugger;
+    
     var page = collectionOfPages[currPageNumber - 1];
     var textlist = page.texts;
     textlist.splice(0, textlist.length);
