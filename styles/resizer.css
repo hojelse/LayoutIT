@@ -1,0 +1,32 @@
+.resizer {
+  width: 100%;
+  --hover-area: 40px;
+  height: var(--hover-area);
+  margin: calc(0px - var(--hover-area) / 2) 0;
+  cursor: n-resize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.resizer::after {
+  content: "";
+  background-color: rgb(0, 140, 255);
+  width: 30%;
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px -2px rgba(0, 0, 0, 0.9);
+  height: 6px;
+}
+
+@media (hover: hover) {
+  .resizer::after {
+    transition: 80ms ease-in-out;
+    height: 0px;
+  }
+  
+  .resizer:hover::after {
+    height: 6px;
+  }
+}
