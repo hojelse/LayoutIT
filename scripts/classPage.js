@@ -12,6 +12,7 @@ class Page {
       this.texts = [];
       this.collectionOfImgBoxes = [null,null,null,null];
       this.layout = LAYOUTS.FOUR_IMAGE;
+      this.resizeState = [1,1,1,1];
   }
 
   addImage(url) {

@@ -155,6 +155,13 @@ function fillImageBoxes(collectionOfImgBoxes) {
     initDragAndDrop(); // drag drop
 }
 
+function setImageContainersResizeState(page){
+    console.log("setting resize state : " + page.resizeState);
+    for (let i = 0; i < imageContainers.length; i++) {
+        imageContainers[i].style.flexGrow = page.resizeState[i];      
+    }
+}
+
 function clearImageBoxes() {
     for (let i = 0; i < imageContainers.length; i++) {
         imageContainers[i].innerHTML = "";
@@ -202,8 +209,9 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
-
+    setImageContainersResizeState(currPage);
     fillImageBoxes(currPage.collectionOfImgBoxes);
+    setUpSelectableImgBox();
 }
 
 function setUpTextField(text) {
@@ -296,6 +304,11 @@ function savePage() {
     var textlist = page.texts;
     textlist.splice(0, textlist.length);
 
+    for (let i = 0; i < imageContainers.length; i++) {
+        page.resizeState[i] = imageContainers[i].style.flexGrow;
+        thisbook.pages[currPageNumber-1] = page;
+    }
+
     var pagetexts = document.getElementsByClassName('pagetext');
     for (var i = 0; i < pagetexts.length; i++) {
         textlist.push(pagetexts[i].value);
@@ -308,4 +321,24 @@ function savePage() {
         }
     }
     localStorage.setItem("booklist", JSON.stringify(localBooks));
+}
+
+let currentlySelectedImgBox = null;
+
+function setUpSelectableImgBox() {
+    DOMImgBoxes = [
+        this.document.querySelector('.imageContainer[data-id="0"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="1"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="2"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="3"] > .imgBox')
+    ]
+
+    for (let i = 0; i < DOMImgBoxes.length; i++) {
+        if(DOMImgBoxes[i] === 'undefined' || DOMImgBoxes[i] === null) continue;
+        DOMImgBoxes[i].addEventListener("click", selectImgBox)
+    }
+}
+
+function selectImgBox() {
+    console.log(event.currentTarget);
 }

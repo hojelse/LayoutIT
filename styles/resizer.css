@@ -12,7 +12,7 @@
 
 .resizer::after {
   content: "";
-  background-color: rgb(0, 140, 255);
+  background-color: white;
   width: 30%;
   position: absolute;
   border-radius: 10px;
