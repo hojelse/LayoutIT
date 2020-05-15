@@ -79,7 +79,13 @@ function startUp() {
         let tempCollectionOfImgBoxes = [null,null,null,null];
         for (let i = 0; i < tempPage.collectionOfImgBoxes.length; i++) {
             if (tempPage.collectionOfImgBoxes[i] === null) continue;
-            tempCollectionOfImgBoxes[i] = Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]);
+            let tempImgBox = Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]);
+            let tempDiv = document.createElement("div");
+            tempDiv.classList.add("imgBox");
+            tempDiv.classList.add("draggable");
+            tempImgBox.div = tempDiv;
+            tempImgBox.setURL(tempImgBox.url);         
+            tempCollectionOfImgBoxes[i] = tempImgBox;
         }
         tempPage.collectionOfImgBoxes = tempCollectionOfImgBoxes;
         tempCollectionOfPages[i] = tempPage;
@@ -126,7 +132,6 @@ class ImgBox {
         let div = document.createElement("div");
         div.classList.add("imgBox");
         div.classList.add("draggable");
-        if(this.url !== undefined) this.setURL(this.url);
         this.div = div;
     }
 
@@ -135,10 +140,7 @@ class ImgBox {
     }
 
     setURL(url) {
-        console.log(url); 
-        console.log(this.url);
         this.url = url;
-        console.log(this.url);
         this.div.style.backgroundImage = "url(" + url + ")";
     }
 }
@@ -161,12 +163,7 @@ function clearImageBoxes() {
 
 function uploadNewImg(event) {
     let url = URL.createObjectURL(event.target.files[0])
-    console.log(url); 
-    console.log(event.target.files[0]);
-    let tempCurrentPage = collectionOfPages[currPageNumber - 1]
-    tempCurrentPage.addImage(url);
-    
-
+    collectionOfPages[currPageNumber - 1].addImage(url);
 }
 
 function goLeft() {
@@ -307,7 +304,7 @@ function savePage() {
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
     for (var i = 0; i < localBooks.length; i++) {
         if (localBooks[i].title == localStorage.getItem("currBook")) {
-            localBooks[i] = thisbook;
+            localBooks[i] = thisbook;          
         }
     }
     localStorage.setItem("booklist", JSON.stringify(localBooks));

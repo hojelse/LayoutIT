@@ -26,6 +26,7 @@ class Page {
               break;
           }
       }
+      thisbook.pages[currPageNumber-1] = this;
   }
 
   swapImage(a, b){       
