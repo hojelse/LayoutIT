@@ -16,8 +16,7 @@ let currPageNumber;
 
 let chooseTheme;
 
-
-window.onload = function() {
+window.onload = function () {
     console.log("scripts");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
@@ -30,7 +29,7 @@ window.onload = function() {
     console.log("set firekey event");
 
     themes = document.getElementsByName("theme");
-    
+
     window.onresize = resizePage;
 
     page = document.getElementById('page');
@@ -50,142 +49,132 @@ window.onload = function() {
         this.document.querySelector('.imageContainer[data-id="2"]'),
         this.document.querySelector('.imageContainer[data-id="3"]')
     ]
-    
+
+    let aTags = this.document.querySelectorAll('a');
+    for (let i = 0; i < aTags.length; i++) {
+        aTags[i].addEventListener('click', savePage)
+    }
+
     startUp();
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
 
     document.getElementById("booktitle").innerHTML = thisbook.title;
-  
-    //changeToCurrPage();
-    
+
 }
 
 function startUp() {
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
     let currBook = localStorage.getItem("currBook");
-    for(var i = 0; i < localBooks.length; i++){
-        if(localBooks[i].title == currBook){
+    for (let i = 0; i < localBooks.length; i++) {
+        if (localBooks[i].title == currBook) {
             thisbook = localBooks[i];
         }
     }
-    collectionOfPages = thisbook.pages;
+
+    // Cast pages
+    let tempCollectionOfPages = [];
+    for (let i = 0; i < thisbook.pages.length; i++) {
+        let tempPage = Object.assign(new Page(i), thisbook.pages[i]);
+        let tempCollectionOfImgBoxes = [null,null,null,null];
+        for (let i = 0; i < tempPage.collectionOfImgBoxes.length; i++) {
+            if (tempPage.collectionOfImgBoxes[i] === null) continue;
+            let tempImgBox = Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]);
+            let tempDiv = document.createElement("div");
+            tempDiv.classList.add("imgBox");
+            tempDiv.classList.add("draggable");
+            tempImgBox.div = tempDiv;
+            tempImgBox.setURL(tempImgBox.url);         
+            tempCollectionOfImgBoxes[i] = tempImgBox;
+        }
+        tempPage.collectionOfImgBoxes = tempCollectionOfImgBoxes;
+        tempCollectionOfPages[i] = tempPage;
+    }
+    collectionOfPages = tempCollectionOfPages;
+
     pageAmount = collectionOfPages.length;
     currPageNumber = parseInt(localStorage.getItem("clickedPage"));
 }
 
 
 function getDataFromApi() {
-    
+
     fetch('https://itu-sdbg-s2020.now.sh/api/themes')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.themes);
-        currentTheme = thisbook.theme;
-        console.log(currentTheme);
-        apiData = data.themes[currentTheme];
-        page.style.backgroundColor = apiData.styles.secondaryColor;
-        themesFromApi = data.themes;
-        setTheme(thisbook.theme);
-        changeToCurrPage();
-        resizePage();  
-        resizeLayoutInit();
-    })
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => {
+            currentTheme = thisbook.theme;
+            apiData = data.themes[currentTheme];
+            page.style.backgroundColor = apiData.styles.secondaryColor;
+            themesFromApi = data.themes;
+            setTheme(thisbook.theme);
+            changeToCurrPage();
+            resizePage();
+            resizeLayoutInit();
+        })
+        .catch(error => console.error(error));
 }
 
 function firekey(e) {
     e = e || window.event;
 
-    switch(e.keyCode){
+    switch (e.keyCode) {
         case 37:
             goLeft();
             break;
         case 39:
             goRight();
-            break;           
+            break;
     }
 }
 
-
 class ImgBox {
-    constructor(){
+    constructor() {
         let div = document.createElement("div");
         div.classList.add("imgBox");
         div.classList.add("draggable");
         this.div = div;
     }
 
-    getDiv(){
+    getDiv() {
         return this.div;
     }
 
-    setURL(url){
+    setURL(url) {
+        this.url = url;
         this.div.style.backgroundImage = "url(" + url + ")";
-        return this;
     }
 }
 
 // customElements.define("img-box", ImgBox); // Påkræves for at extend standart DOM elementer
 
-let LAYOUTS = {
-    ONE_IMAGE: 1,
-    TWO_IMAGE: 2,
-    THREE_IMAGE: 3,
-    FOUR_IMAGE: 4
-}
-
-class Page {
-    
-    constructor(pageNumber) {
-        this.pageNumber = pageNumber;
-        this.texts = [];
-        this.collectionOfImgBoxes = [null,null,null,null];
-        this.layout = LAYOUTS.FOUR_IMAGE;
-    }
-
-    addImage(url) {
-        for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
-            let currentImgBox = this.collectionOfImgBoxes[i];
-            if (currentImgBox ===  'undefined' || currentImgBox === null){
-                let newImgBox = new ImgBox();
-                newImgBox.setURL(url);
-                this.collectionOfImgBoxes[i] = newImgBox;
-                clearImageBoxes();
-                fillImageBoxes(this.collectionOfImgBoxes);
-                break;
-            }
-        }
-    }
-
-    swapImage(a, b){       
-        let temp = this.collectionOfImgBoxes[a];
-        this.collectionOfImgBoxes[a] = this.collectionOfImgBoxes[b];
-        this.collectionOfImgBoxes[b] = temp;
-    }
-}
-
 function fillImageBoxes(collectionOfImgBoxes) {
     for (let i = 0; i < imageContainers.length; i++) {
-        if(collectionOfImgBoxes[i] == undefined) continue;
+        if (collectionOfImgBoxes[i] == undefined) continue;
         imageContainers[i].appendChild(collectionOfImgBoxes[i].getDiv());
     }
     initDragAndDrop(); // drag drop
 }
 
-function clearImageBoxes(){
+function setImageContainersResizeState(page){
+    console.log("setting resize state : " + page.resizeState);
+    for (let i = 0; i < imageContainers.length; i++) {
+        imageContainers[i].style.flexGrow = page.resizeState[i];      
+    }
+}
+
+function clearImageBoxes() {
     for (let i = 0; i < imageContainers.length; i++) {
         imageContainers[i].innerHTML = "";
     }
 }
 
-function uploadNewImg(event){
+function uploadNewImg(event) {
     let url = URL.createObjectURL(event.target.files[0])
-    collectionOfPages[currPageNumber-1].addImage(url);
+    collectionOfPages[currPageNumber - 1].addImage(url);
 }
 
 function goLeft() {
-    if(currPageNumber != 1){
+    if (currPageNumber != 1) {
         savePage();
         currPageNumber -= 1;
         changeToCurrPage();
@@ -193,7 +182,7 @@ function goLeft() {
 }
 
 function goRight() {
-    if(currPageNumber != pageAmount){
+    if (currPageNumber != pageAmount) {
         savePage();
         currPageNumber += 1;
         changeToCurrPage();
@@ -203,25 +192,26 @@ function goRight() {
 function changeToCurrPage() {
     clearImageBoxes()
     textContainer.innerHTML = ""
-    let currPage = collectionOfPages[currPageNumber-1];
-    pageNumberSpan.innerText = currPage.pageNumber+1;
+    let currPage = collectionOfPages[currPageNumber - 1];
+    pageNumberSpan.innerText = currPage.pageNumber + 1;
 
     var textlist = currPage.texts;
-    
-    for(var i = 0; i < textlist.length; i++){
+
+    for (var i = 0; i < textlist.length; i++) {
         let text = textlist[i];
         setUpTextField(text);
     }
 
-    if(currPageNumber == pageAmount){
+    if (currPageNumber == pageAmount) {
         addPageButton.hidden = false;
         goRightButton.hidden = true;
     } else {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
-    
+    setImageContainersResizeState(currPage);
     fillImageBoxes(currPage.collectionOfImgBoxes);
+    setUpSelectableImgBox();
 }
 
 function setUpTextField(text) {
@@ -248,7 +238,7 @@ function setUpTextField(text) {
 
 function addPage() {
     pageAmount++;
-    collectionOfPages.push(new Page(pageAmount-1));
+    collectionOfPages.push(new Page(pageAmount - 1));
 
     savePage();
     currPageNumber++;
@@ -269,7 +259,7 @@ function resizePage() {
     const pageContainer = document.querySelector('.pageContainer');
 
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
-    if(pageConainerIsWide){
+    if (pageConainerIsWide) {
         pageContainer.style.flexDirection = "column";
         page.style.width = pageContainer.offsetHeight * aWidth + "px";
         page.style.height = "auto";
@@ -288,13 +278,13 @@ function setThemeFromDropdown() {
     thisbook.theme = selectedTheme;
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
     let currBook = localStorage.getItem("currBook");
-    for(var i = 0; i < localBooks.length; i++){
-        if(localBooks[i].title == currBook){
+    for (var i = 0; i < localBooks.length; i++) {
+        if (localBooks[i].title == currBook) {
             localBooks[i] = thisbook;
         }
     }
     localStorage.setItem("booklist", JSON.stringify(localBooks));
-    
+
     setTheme(currentTheme);
 }
 
@@ -309,21 +299,46 @@ function setTheme(theme) {
     });
 }
 
-function savePage() {
-    var page = collectionOfPages[currPageNumber-1];
+function savePage() {   
+    var page = collectionOfPages[currPageNumber - 1];
     var textlist = page.texts;
-    textlist.splice(0,textlist.length);
+    textlist.splice(0, textlist.length);
+
+    for (let i = 0; i < imageContainers.length; i++) {
+        page.resizeState[i] = imageContainers[i].style.flexGrow;
+        thisbook.pages[currPageNumber-1] = page;
+    }
 
     var pagetexts = document.getElementsByClassName('pagetext');
-    for(var i = 0; i < pagetexts.length; i++){
+    for (var i = 0; i < pagetexts.length; i++) {
         textlist.push(pagetexts[i].value);
     }
 
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
-    for(var i = 0; i < localBooks.length; i++){
-        if(localBooks[i].title == localStorage.getItem("currBook")){
-            localBooks[i] = thisbook;
+    for (var i = 0; i < localBooks.length; i++) {
+        if (localBooks[i].title == localStorage.getItem("currBook")) {
+            localBooks[i] = thisbook;          
         }
     }
     localStorage.setItem("booklist", JSON.stringify(localBooks));
+}
+
+let currentlySelectedImgBox = null;
+
+function setUpSelectableImgBox() {
+    DOMImgBoxes = [
+        this.document.querySelector('.imageContainer[data-id="0"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="1"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="2"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="3"] > .imgBox')
+    ]
+
+    for (let i = 0; i < DOMImgBoxes.length; i++) {
+        if(DOMImgBoxes[i] === 'undefined' || DOMImgBoxes[i] === null) continue;
+        DOMImgBoxes[i].addEventListener("click", selectImgBox)
+    }
+}
+
+function selectImgBox() {
+    console.log(event.currentTarget);
 }
