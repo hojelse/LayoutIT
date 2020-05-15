@@ -18,13 +18,21 @@ async function updateBookList() {
     const bookList = document.getElementById("bookList");
     bookList.innerHTML = "";
     for(i = 0; i < 5; i++) {
-        const book = document.createElement("a");
+        const book = document.createElement("div");
         book.className = 'book';
-        book.href = './pages.html'; /* Skal ændres til at gå til visning af bogen*/
+        /*book.href = './pages.html'; /* Skal ændres til at gå til visning af bogen*/
 
         const title = document.createElement("div");
         title.appendChild(document.createTextNode("Book " + (i+1)));
         book.appendChild(title);
+
+        const view = document.createElement("a");
+        view.className = 'hoverButton';
+        /* printLabel is a placeholder for an icon */
+        const viewLabel = document.createElement("div");
+        viewLabel.appendChild(document.createTextNode("view"));
+        view.appendChild(viewLabel);
+        book.appendChild(view);
 
         const edit = document.createElement("a");
         edit.className = 'hoverButton';
@@ -46,17 +54,20 @@ async function updateBookList() {
         bookList.appendChild(book);
 
         book.onmouseenter = function() {
+            view.style.visibility = 'visible';
             edit.style.visibility = 'visible';
             print.style.visibility = 'visible';
         }
 
         book.onmouseleave = function() {
+            view.style.visibility = 'hidden';
             edit.style.visibility = 'hidden';
             print.style.visibility = 'hidden';
         }
 
-        const spacing = (book.offsetHeight-2*edit.offsetHeight)/3;
-        edit.style.bottom = spacing + "px";
-        print.style.bottom = spacing*2 + edit.offsetHeight + "px";
+        const spacing = (book.offsetHeight-3*view.offsetHeight)/4;
+        view.style.bottom = spacing*3 + view.offsetHeight*2 + "px"
+        edit.style.bottom = spacing*2 + view.offsetHeight + "px";
+        print.style.bottom = spacing + "px";
     }
 }
