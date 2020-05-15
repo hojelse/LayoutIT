@@ -23,7 +23,6 @@ class Book {
 }
 
 window.onload = function () {
-    console.log("scripts");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
     document.getElementById("addPage").onclick = addPage;
@@ -32,7 +31,6 @@ window.onload = function () {
     document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
     document.onkeydown = firekey;
-    console.log("set firekey event");
 
     themes = document.getElementsByName("theme");
 
@@ -62,8 +60,8 @@ window.onload = function () {
     }
 
     thisbook = new Book();
+    collectionOfPages.push(new Page(0));
     pageAmount = 1;
-    currPage = new Page(1);
     currPageNumber = 1;
     //startUp();
     getDataFromApi();
@@ -203,7 +201,6 @@ function changeToCurrPage() {
     clearImageBoxes()
     textContainer.innerHTML = ""
     let currPage = collectionOfPages[currPageNumber - 1];
-    console.log(currPage);
     pageNumberSpan.innerText = currPage.pageNumber + 1;
 
     var textlist = currPage.texts;
