@@ -4,16 +4,11 @@ let page;
 let imageInput;
 let pageNumberSpan;
 let textContainer;
-let imgBox0;
-let imgBox1;
-let imgBox2;
-let imgBox3;
-let imgBoxs;
+let imageContainers;
 let themes;
 let currentTheme;
 let themesFromApi;
 let chooseTheme;
-
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -28,29 +23,24 @@ window.onload = function() {
 
     themes = document.getElementsByName("theme");
     
-
     window.onresize = resizePage;
 
     page = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
     goRightButton = this.document.getElementById('right');
-    imageInput = this.document.querySelector('#imgInput')
-    pageNumberSpan = this.document.querySelector('.pageNumber')
+    imageInput = this.document.querySelector('#imgInput');
+    pageNumberSpan = this.document.querySelector('.pageNumber');
 
     chooseTheme = this.document.getElementById("chooseTheme");
 
-    textContainer = this.document.querySelector('.textContainer')
-    imgBox0 = this.document.querySelector('#imgBox0')
-    imgBox1 = this.document.querySelector('#imgBox1')
-    imgBox2 = this.document.querySelector('#imgBox2')
-    imgBox3 = this.document.querySelector('#imgBox3')
-    
+    textContainer = this.document.querySelector('.textContainer');
 
-    imgBoxes = [
-        imgBox0,
-        imgBox1,
-        imgBox2,
-        imgBox3
+
+    imageContainers = [
+        this.document.querySelector('#imageContainer0'),
+        this.document.querySelector('#imageContainer1'),
+        this.document.querySelector('#imageContainer2'),
+        this.document.querySelector('#imageContainer3')
     ]
 
     pageAmount++;
@@ -98,43 +88,82 @@ let currPageNumber = 0;
 
 let collectionOfPages = [];
 
+
+
+class ImgBox {
+    constructor(){
+        let div = document.createElement("div");
+        div.classList.add("imgBox");
+        div.classList.add("draggable");
+        this.div = div;
+    }
+
+    getDiv(){
+        return this.div;
+    }
+
+    setURL(url){
+        this.div.style.backgroundImage = "url(" + url + ")";
+        return this;
+    }
+}
+
+// customElements.define("img-box", ImgBox); // Påkræves for at extend standart DOM elementer
+
+let LAYOUTS = {
+    ONE_IMAGE: 1,
+    TWO_IMAGE: 2,
+    THREE_IMAGE: 3,
+    FOUR_IMAGE: 4
+}
+
 class Page {
-    collectionOfImages = []
     
     constructor(pageNumber) {
         this.pageNumber = pageNumber;
         this.texts = [];
+        this.collectionOfImgBoxes = [null,null,null,null];
+        this.layout = LAYOUTS.FOUR_IMAGE;
     }
 
-    addImage(img) {
-        this.collectionOfImages.push(img)
-        clearImageBoxes()
-        fillImageBoxes(this.collectionOfImages)
+    addImage(url) {
+        for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
+            let currentImgBox = this.collectionOfImgBoxes[i];
+            if (currentImgBox ===  'undefined' || currentImgBox === null){
+                let newImgBox = new ImgBox();
+                newImgBox.setURL(url);
+                this.collectionOfImgBoxes[i] = newImgBox;
+                clearImageBoxes();
+                fillImageBoxes(this.collectionOfImgBoxes);
+                break;
+            }
+        }
+    }
+
+    swapImage(a, b){       
+        let temp = this.collectionOfImgBoxes[a];
+        this.collectionOfImgBoxes[a] = this.collectionOfImgBoxes[b];
+        this.collectionOfImgBoxes[b] = temp;
     }
 }
 
-function fillImageBoxes(collectionOfImages) {
-    for (let i = 0; i < imgBoxes.length; i++) {
-        if(collectionOfImages[i] == undefined) continue;
-        console.log(collectionOfImages[i].src);
-        console.log(imgBoxes[i]);
-        
-        imgBoxes[i].style.backgroundImage = "url(" + collectionOfImages[i].src + ")";  
+function fillImageBoxes(collectionOfImgBoxes) {
+    for (let i = 0; i < imageContainers.length; i++) {
+        if(collectionOfImgBoxes[i] == undefined) continue;
+        imageContainers[i].appendChild(collectionOfImgBoxes[i].getDiv());
     }
+    initDragAndDrop(); // drag drop
 }
 
-function clearImageBoxes(){   
-    for (let i = 0; i < imgBoxes.length; i++) {
-        imgBoxes[i].style.backgroundImage = "none";
+function clearImageBoxes(){
+    for (let i = 0; i < imageContainers.length; i++) {
+        imageContainers[i].innerHTML = "";
     }
 }
 
 function uploadNewImg(event){
     let url = URL.createObjectURL(event.target.files[0])
-    let img = new Image();
-    img.src = url;
-    
-    collectionOfPages[currPageNumber-1].addImage(img);
+    collectionOfPages[currPageNumber-1].addImage(url);
 }
 
 function goLeft() {
@@ -173,7 +202,7 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
-    fillImageBoxes(currPage.collectionOfImages);
+    fillImageBoxes(currPage.collectionOfImgBoxes);
 }
 
 function setUpTextField(text) {
@@ -229,19 +258,6 @@ function resizePage() {
         page.style.width = "auto";
     }
 }
-
-/*
-function getTheme(index) {
-fetch('https://itu-sdbg-s2020.now.sh/api/themes')
-.then(response => response.json())
-.then(data => {
-    apiData = data.themes[index];
-    console.log(data.themes[index]); // Prints result from `response.json()` in getRequest
-    console.log(data.themes[2].styles.secondaryColor);
-})
-.catch(error => console.error(error))
-}
-*/
 
 function setThemeFromDropdown() {
 
