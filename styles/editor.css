@@ -62,3 +62,11 @@ body {
 .arrowButton:hover {
   opacity: 0.6;
 }
+
+.draggable:hover {
+  cursor: grab;
+}
+
+.draggable:active {
+  cursor: grabbing;
+}
