@@ -13,6 +13,7 @@ let thisbook;
 let collectionOfPages = [];
 let pageAmount;
 let currPageNumber;
+let titleInput;
 
 let chooseTheme;
 
@@ -23,10 +24,12 @@ class Book {
 }
 
 window.onload = function () {
+    titleInput = this.document.getElementById("titleInput");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
     document.getElementById("addPage").onclick = addPage;
     document.getElementById("addText").onclick = addTextField;
+    document.getElementById("titleInput").onkeyup = this.updateTitle;
 
     document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
@@ -194,6 +197,14 @@ function goRight() {
         savePage();
         currPageNumber += 1;
         changeToCurrPage();
+    }
+}
+
+function updateTitle() {
+    if (titleInput.value === "") {
+        document.title = "Editor";
+    } else {
+        document.title = titleInput.value;
     }
 }
 
