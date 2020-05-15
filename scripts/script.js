@@ -16,6 +16,12 @@ let currPageNumber;
 
 let chooseTheme;
 
+class Book {
+    pages = [];
+    title = "title";
+    theme = 0;
+}
+
 window.onload = function () {
     console.log("scripts");
     document.getElementById("left").onclick = goLeft;
@@ -55,7 +61,11 @@ window.onload = function () {
         aTags[i].addEventListener('click', savePage)
     }
 
-    startUp();
+    thisbook = new Book();
+    pageAmount = 1;
+    currPage = new Page(1);
+    currPageNumber = 1;
+    //startUp();
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
 
@@ -193,6 +203,7 @@ function changeToCurrPage() {
     clearImageBoxes()
     textContainer.innerHTML = ""
     let currPage = collectionOfPages[currPageNumber - 1];
+    console.log(currPage);
     pageNumberSpan.innerText = currPage.pageNumber + 1;
 
     var textlist = currPage.texts;
