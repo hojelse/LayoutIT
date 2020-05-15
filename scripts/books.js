@@ -19,7 +19,7 @@ async function updateBookList() {
     bookList.innerHTML = "";
     for(i = 0; i < 5; i++) {
         const book = document.createElement("div");
-        book.className = 'book';
+        book.className = 'book unselectable';
         /*book.href = './pages.html'; /* Skal ændres til at gå til visning af bogen*/
 
         const title = document.createElement("div");
@@ -28,6 +28,7 @@ async function updateBookList() {
 
         const view = document.createElement("a");
         view.className = 'hoverButton';
+        view.onmouseup = function() {view.click()}
         /* printLabel is a placeholder for an icon */
         const viewLabel = document.createElement("div");
         viewLabel.appendChild(document.createTextNode("view"));
@@ -37,6 +38,7 @@ async function updateBookList() {
         const edit = document.createElement("a");
         edit.className = 'hoverButton';
         edit.href = './pages.html';
+        edit.onmouseup = function() {edit.click()}
         /* editLabel is a placeholder for an icon */
         const editLabel = document.createElement("div");
         editLabel.appendChild(document.createTextNode("edit"));
@@ -45,6 +47,7 @@ async function updateBookList() {
 
         const print = document.createElement("a");
         print.className = 'hoverButton';
+        print.onmouseup = function() {print.click()}
         /* printLabel is a placeholder for an icon */
         const printLabel = document.createElement("div");
         printLabel.appendChild(document.createTextNode("print"));
@@ -53,13 +56,13 @@ async function updateBookList() {
 
         bookList.appendChild(book);
 
-        book.onmouseenter = function() {
+        book.onmousedown = function() {
             view.style.visibility = 'visible';
             edit.style.visibility = 'visible';
             print.style.visibility = 'visible';
         }
 
-        book.onmouseleave = function() {
+        book.onmouseup = function() {
             view.style.visibility = 'hidden';
             edit.style.visibility = 'hidden';
             print.style.visibility = 'hidden';
