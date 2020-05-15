@@ -57,9 +57,8 @@ window.onload = function() {
 
     document.getElementById("booktitle").innerHTML = thisbook.title;
   
-    changeToCurrPage();
-    resizePage();  
-    resizeLayoutInit();
+    //changeToCurrPage();
+    
 }
 
 function startUp() {
@@ -88,6 +87,9 @@ function getDataFromApi() {
         page.style.backgroundColor = apiData.styles.secondaryColor;
         themesFromApi = data.themes;
         setTheme(thisbook.theme);
+        changeToCurrPage();
+        resizePage();  
+        resizeLayoutInit();
     })
     .catch(error => console.error(error));
 }
