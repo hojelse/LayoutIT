@@ -50,14 +50,12 @@ window.onload = function() {
         this.document.querySelector('.imageContainer[data-id="2"]'),
         this.document.querySelector('.imageContainer[data-id="3"]')
     ]
-    chooseTheme.value = 2;
     
     startUp();
     getDataFromApi();
+    chooseTheme.value = thisbook.theme;
 
     document.getElementById("booktitle").innerHTML = thisbook.title;
-
-    setTheme(thisbook.theme);
   
     changeToCurrPage();
     resizePage();  
@@ -89,6 +87,7 @@ function getDataFromApi() {
         apiData = data.themes[currentTheme];
         page.style.backgroundColor = apiData.styles.secondaryColor;
         themesFromApi = data.themes;
+        setTheme(thisbook.theme);
     })
     .catch(error => console.error(error));
 }
@@ -283,6 +282,16 @@ function setThemeFromDropdown() {
 
     let selectedTheme = chooseTheme.value;
     currentTheme = selectedTheme;
+
+    thisbook.theme = selectedTheme;
+    let localBooks = JSON.parse(localStorage.getItem("booklist"));
+    let currBook = localStorage.getItem("currBook");
+    for(var i = 0; i < localBooks.length; i++){
+        if(localBooks[i].title == currBook){
+            localBooks[i] = thisbook;
+        }
+    }
+    localStorage.setItem("booklist", JSON.stringify(localBooks));
     
     setTheme(currentTheme);
 }
