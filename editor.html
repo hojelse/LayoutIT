@@ -68,17 +68,13 @@
         <button class="addImage" onclick="imgInput.click();">Add Image</button>
         <input id="imgInput" type="file" style="display: none;">
         <button class="addSticker">Add Sticker</button>
-        <button class="setTheme">Set Theme</button>
-       
-    </div>
-    <div class="dropdown">
-        <label for="chooseTheme">Theme</label>
-        <select id="chooseTheme" onchange="setThemeFromDropdown()">
+        <select id="chooseTheme" onchange="setThemeFromDropdown()" class="dropdown">
             <option value="0" id="børnebog">Childrens book</option>
             <option value="1" id="rejsebog">Travel book</option>
             <option value="2" id="formel">Formal book</option>
         </select>
     </div>
+ 
     <script defer src="scripts/dragdrop.js"></script>
     <script defer src="scripts/resizelayout.js"></script>
 </body>

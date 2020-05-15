@@ -16,6 +16,18 @@ class Page {
   }
 
   addImage(url) {
+
+    let freeRealestate = 0;
+    for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
+        let currentImgBox = this.collectionOfImgBoxes[i];
+        if (currentImgBox === 'undefined' || currentImgBox === null){
+            freeRealestate = 1;
+        }
+    }
+
+
+
+if (freeRealestate === 1) {
       for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
           let currentImgBox = this.collectionOfImgBoxes[i];
           if (currentImgBox === 'undefined' || currentImgBox === null){
@@ -28,6 +40,9 @@ class Page {
           }
       }
       thisbook.pages[currPageNumber-1] = this;
+    } else {
+        alert("Maximum of 4 images has been reached.");
+    }
   }
 
   swapImage(a, b){       

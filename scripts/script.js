@@ -70,8 +70,6 @@ window.onload = function () {
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
 
-    document.getElementById("booktitle").innerHTML = thisbook.title;
-
 }
 
 function startUp() {
@@ -250,7 +248,7 @@ function setUpTextField(text) {
         }
     });
     textField.value = text;
-    textField.style.color = themesFromApi[currentTheme].styles.primaryColor;
+    textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     textContainer.appendChild(textField);
 }
