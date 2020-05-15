@@ -61,10 +61,9 @@ function getDataFromApi() {
     fetch('https://itu-sdbg-s2020.now.sh/api/themes')
     .then(response => response.json())
     .then(data => {
-        apiData = data.themes[0];
+        currentTheme = 0;
+        apiData = data.themes[currentTheme];
         page.style.backgroundColor = apiData.styles.secondaryColor;
-        textContainer.style.color = apiData.styles.primaryColor;
-
         themesFromApi = data.themes;
     })
     .catch(error => console.error(error));
@@ -222,6 +221,8 @@ function setUpTextField(text) {
         }
     });
     textField.value = text;
+    textField.style.color = themesFromApi[currentTheme].styles.primaryColor;
+    textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     textContainer.appendChild(textField);
 }
 
@@ -262,10 +263,16 @@ function resizePage() {
 function setThemeFromDropdown() {
 
     let selectedTheme = chooseTheme.value;
-
-    console.log(selectedTheme);
+    currentTheme = selectedTheme;
     page.style.backgroundColor = themesFromApi[selectedTheme].styles.secondaryColor;
-    textContainer.style.color = themesFromApi[selectedTheme].styles.primaryColor;
+
+    let textFields = document.querySelectorAll('.pagetext');
+
+    textFields.forEach(element => {
+        element.style.color = themesFromApi[selectedTheme].styles.primaryColor;
+        element.style.fontFamily = themesFromApi[selectedTheme].styles.fontFamily;
+    });
+
 }
 
 
