@@ -1,4 +1,5 @@
-var totalBooks = 5;
+var currentBookData;
+let localBooks;
 
 window.onload = function() {
     window.addEventListener('resize', resize);
@@ -20,7 +21,7 @@ function startUp() {
 class Book {
     pages = [];
     title = "title";
-    theme = 2;
+    theme = 0;
 }
 
 function addBook() {
@@ -30,7 +31,7 @@ function addBook() {
     books.push(newBook);
     localStorage.setItem("booklist", JSON.stringify(books));
 
-    updateBookList();
+    window.location.href = "./pages.html";
 }
 
 function openBook() {
@@ -48,7 +49,7 @@ function resize() {
     const bookList = document.getElementById("bookList");
     const bookContainer = document.getElementById("bookContainer");
 
-    bookList.style.width = 220 * Math.min(parseInt(bookContainer.offsetWidth/220), totalBooks) + "px";
+    bookList.style.width = 220 * Math.min(parseInt(bookContainer.offsetWidth/220), localBooks.length) + "px";
 }
 
 async function updateBookList() {
@@ -66,11 +67,14 @@ async function updateBookList() {
     addBookButton.appendChild(icon);
     bookList.appendChild(addBookButton);
 
-    let localBooks = JSON.parse(localStorage.getItem("booklist"));
+    localBooks = JSON.parse(localStorage.getItem("booklist"));
     for(i = 0; i < localBooks.length; i++) {
-        const book = document.createElement("a");
+        currentBookData = localBooks[i];
+        const book = document.createElement("div");
         book.className = 'book';
         book.onclick = openBook;
+
+        setTheme(book);
 
         const title = document.createElement("div");
         title.appendChild(document.createTextNode(localBooks[i].title));
@@ -111,4 +115,19 @@ async function updateBookList() {
         edit.style.bottom = spacing + "px";
         print.style.bottom = spacing*2 + edit.offsetHeight + "px";
     }
+}
+
+function setTheme(currentBookElement) {
+    /* mangler fonts*/
+    fetch('https://itu-sdbg-s2020.now.sh/api/themes')
+    .then(response => response.json())
+    .then(data => {
+        const index = currentBookData.theme;
+        apiData = data.themes[index];
+        console.log(apiData);
+        currentBookElement.style.backgroundColor = "#" + apiData.styles.secondaryColor;
+        currentBookElement.style.color = "#" + apiData.styles.primaryColor;
+        currentBookElement.style.fontFamily = apiData.styles.fontFamily;
+    })
+    .catch(error => console.error(error))
 }
