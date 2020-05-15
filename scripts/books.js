@@ -1,3 +1,5 @@
+var totalBooks = 5;
+
 window.onload = function() {
     
     window.addEventListener('resize', resize);
@@ -10,14 +12,27 @@ function resize() {
     const bookList = document.getElementById("bookList");
     const bookContainer = document.getElementById("bookContainer");
 
-    bookList.style.width = 220 * parseInt(bookContainer.offsetWidth/220) + "px";
+    bookList.style.width = 220 * Math.min(parseInt(bookContainer.offsetWidth/220), totalBooks) + "px";
 }
 
 async function updateBookList() {
     /* Der mangeler API kald i denne funktion */
     const bookList = document.getElementById("bookList");
     bookList.innerHTML = "";
-    for(i = 0; i < 5; i++) {
+    
+    const book = document.createElement("div");
+    book.className = 'book unselectable';
+
+    const icon = document.createElement("img");
+    icon.src = '/assets/plus.svg';
+    icon.className =  'addNew';
+
+    book.appendChild(icon);
+    bookList.appendChild(book);
+
+
+
+    for(i = 0; i < totalBooks; i++) {
         const book = document.createElement("div");
         book.className = 'book unselectable';
         /*book.href = './pages.html'; /* Skal ændres til at gå til visning af bogen*/
@@ -28,7 +43,6 @@ async function updateBookList() {
 
         const view = document.createElement("a");
         view.className = 'hoverButton';
-        view.onmouseup = function() {view.click()}
         /* printLabel is a placeholder for an icon */
         const viewLabel = document.createElement("div");
         viewLabel.appendChild(document.createTextNode("view"));
@@ -38,7 +52,6 @@ async function updateBookList() {
         const edit = document.createElement("a");
         edit.className = 'hoverButton';
         edit.href = './pages.html';
-        edit.onmouseup = function() {edit.click()}
         /* editLabel is a placeholder for an icon */
         const editLabel = document.createElement("div");
         editLabel.appendChild(document.createTextNode("edit"));
@@ -47,7 +60,6 @@ async function updateBookList() {
 
         const print = document.createElement("a");
         print.className = 'hoverButton';
-        print.onmouseup = function() {print.click()}
         /* printLabel is a placeholder for an icon */
         const printLabel = document.createElement("div");
         printLabel.appendChild(document.createTextNode("print"));
@@ -56,13 +68,13 @@ async function updateBookList() {
 
         bookList.appendChild(book);
 
-        book.onmousedown = function() {
+        book.onmouseover = function() {
             view.style.visibility = 'visible';
             edit.style.visibility = 'visible';
             print.style.visibility = 'visible';
         }
 
-        book.onmouseup = function() {
+        book.onmouseleave = function() {
             view.style.visibility = 'hidden';
             edit.style.visibility = 'hidden';
             print.style.visibility = 'hidden';

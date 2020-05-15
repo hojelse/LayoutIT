@@ -52,6 +52,12 @@
     color: #333333;
 }
 
+.addNew {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+
 .content {
     background-color: white;
     margin: 20px;
