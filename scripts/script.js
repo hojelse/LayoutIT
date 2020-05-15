@@ -8,7 +8,14 @@ let imageContainers;
 let themes;
 let currentTheme;
 let themesFromApi;
+
+let thisbook;
+let collectionOfPages = [];
+let pageAmount;
+let currPageNumber;
+
 let chooseTheme;
+
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -43,16 +50,26 @@ window.onload = function() {
         this.document.querySelector('.imageContainer[data-id="3"]')
     ]
 
-    pageAmount++;
-    collectionOfPages.push(new Page(pageAmount));
+    startUp();
     
-    currPageNumber++;
+    document.getElementById("booktitle").innerHTML = thisbook.title;
     changeToCurrPage();
     resizePage();  
-
-    getDataFromApi();
-
     resizeLayoutInit();
+    getDataFromApi();
+}
+
+function startUp() {
+    let localBooks = JSON.parse(localStorage.getItem("booklist"));
+    let currBook = localStorage.getItem("currBook");
+    for(var i = 0; i < localBooks.length; i++){
+        if(localBooks[i].title == currBook){
+            thisbook = localBooks[i];
+        }
+    }
+    collectionOfPages = thisbook.pages;
+    pageAmount = collectionOfPages.length;
+    currPageNumber = localStorage.getItem("clickedPage");
 }
 
 
@@ -81,12 +98,6 @@ function firekey(e) {
             break;           
     }
 }
-
-let pageAmount = 0;
-let currPageNumber = 0;
-
-let collectionOfPages = [];
-
 
 
 class ImgBox {
@@ -185,7 +196,7 @@ function changeToCurrPage() {
     clearImageBoxes()
     textContainer.innerHTML = ""
     let currPage = collectionOfPages[currPageNumber-1];
-    pageNumberSpan.innerText = currPage.pageNumber;
+    pageNumberSpan.innerText = currPage.pageNumber+1;
 
     var textlist = currPage.texts;
     
@@ -228,12 +239,11 @@ function setUpTextField(text) {
 
 function addPage() {
     pageAmount++;
-    collectionOfPages.push(new Page(pageAmount));
-    
+    collectionOfPages.push(new Page(pageAmount-1));
+
     savePage();
     currPageNumber++;
     changeToCurrPage();
-    
 }
 
 function addTextField() {
@@ -288,4 +298,12 @@ function savePage() {
     for(var i = 0; i < pagetexts.length; i++){
         textlist.push(pagetexts[i].value);
     }
+
+    let localBooks = JSON.parse(localStorage.getItem("booklist"));
+    for(var i = 0; i < localBooks.length; i++){
+        if(localBooks[i].title == localStorage.getItem("currBook")){
+            localBooks[i] = thisbook;
+        }
+    }
+    localStorage.setItem("booklist", JSON.stringify(localBooks));
 }
