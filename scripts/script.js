@@ -76,7 +76,7 @@ function startUp() {
         let tempPage = Object.assign(new Page(i), thisbook.pages[i]);
         let tempCollectionOfImgBoxes = [];
         for (let i = 0; i < tempPage.collectionOfImgBoxes.length; i++) {
-            tempCollectionOfImgBoxes.push(Object.assign(new ImgBox(i), tempPage.collectionOfImgBoxes[i]));
+            tempCollectionOfImgBoxes.push(Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]));
             // debugger;
         }
         // debugger;
@@ -134,9 +134,11 @@ class ImgBox {
     }
 
     setURL(url) {
+        console.log(url); 
+        console.log(this.url);
         this.url = url;
+        console.log(this.url);
         this.div.style.backgroundImage = "url(" + url + ")";
-        return this;
     }
 }
 
@@ -158,8 +160,12 @@ function clearImageBoxes() {
 
 function uploadNewImg(event) {
     let url = URL.createObjectURL(event.target.files[0])
+    console.log(url); 
+    console.log(event.target.files[0]);
     let tempCurrentPage = collectionOfPages[currPageNumber - 1]
     tempCurrentPage.addImage(url);
+    
+
 }
 
 function goLeft() {
