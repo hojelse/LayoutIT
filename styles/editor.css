@@ -48,6 +48,14 @@ body {
   background: url('../assets/plus.png');
 }
 
+.addImage {
+  background: url('../assets/addImage.png');
+}
+
+.addText {
+  background: url('../assets/addText.png');
+}
+
 .arrowButton {
   background-size: contain;
   background-repeat: no-repeat;
