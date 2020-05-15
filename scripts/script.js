@@ -50,13 +50,16 @@ window.onload = function () {
         this.document.querySelector('.imageContainer[data-id="3"]')
     ]
 
+    let aTags = this.document.querySelectorAll('a');
+    for (let i = 0; i < aTags.length; i++) {
+        aTags[i].addEventListener('click', savePage)
+    }
+
     startUp();
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
 
     document.getElementById("booktitle").innerHTML = thisbook.title;
-
-    //changeToCurrPage();
 
 }
 
@@ -291,9 +294,7 @@ function setTheme(theme) {
     });
 }
 
-function savePage() {
-    debugger;
-    
+function savePage() {   
     var page = collectionOfPages[currPageNumber - 1];
     var textlist = page.texts;
     textlist.splice(0, textlist.length);
