@@ -12,6 +12,7 @@ let imgBoxs;
 let themes;
 let currentTheme;
 let themesFromApi;
+let chooseTheme;
 
 
 window.onload = function() {
@@ -36,6 +37,7 @@ window.onload = function() {
     imageInput = this.document.querySelector('#imgInput')
     pageNumberSpan = this.document.querySelector('.pageNumber')
 
+    chooseTheme = this.document.getElementById("chooseTheme");
 
     textContainer = this.document.querySelector('.textContainer')
     imgBox0 = this.document.querySelector('#imgBox0')
@@ -241,14 +243,13 @@ fetch('https://itu-sdbg-s2020.now.sh/api/themes')
 }
 */
 
-function setThemeFromRadioButtons() {
-    for (let i = 0, length = themes.length; i < length; i++) {
-        if (themes[i].checked) {
-            page.style.backgroundColor = themesFromApi[i].styles.secondaryColor;
-            textContainer.style.color = themesFromApi[i].styles.primaryColor;
-        break;
-        }
-    }
+function setThemeFromDropdown() {
+
+    let selectedTheme = chooseTheme.value;
+
+    console.log(selectedTheme);
+    page.style.backgroundColor = themesFromApi[selectedTheme].styles.secondaryColor;
+    textContainer.style.color = themesFromApi[selectedTheme].styles.primaryColor;
 }
 
 
