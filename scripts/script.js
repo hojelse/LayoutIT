@@ -57,7 +57,7 @@ window.onload = function() {
 
     startUp();
     
-    
+    document.getElementById("booktitle").innerHTML = thisbook.title;
     changeToCurrPage();
     resizePage();  
 
@@ -163,7 +163,6 @@ function goRight() {
 function changeToCurrPage() {
     clearImageBoxes()
     textContainer.innerHTML = ""
-    console.log(currPageNumber);
     let currPage = collectionOfPages[currPageNumber-1];
     pageNumberSpan.innerText = currPage.pageNumber+1;
 
