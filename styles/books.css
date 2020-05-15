@@ -52,8 +52,16 @@
     color: #333333;
 }
 
-.addNew {
+.button {
     cursor: pointer;
+}
+
+.icon {
+    height: 25px;
+    width: 25px;
+}
+
+.addNew {
     height: 40px;
     width: 40px;
 }

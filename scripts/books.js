@@ -3,7 +3,6 @@ var totalBooks = 5;
 window.onload = function() {
     
     window.addEventListener('resize', resize);
-    document.getElementById('addbook').onclick = addBook;
 
     startUp();
 
@@ -25,6 +24,7 @@ class Book {
 }
 
 function addBook() {
+    console.log("hello");
     let books = JSON.parse(localStorage.getItem("booklist"));
     let newBook = new Book();
     books.push(newBook);
@@ -55,31 +55,59 @@ async function updateBookList() {
     /* Der mangeler API kald i denne funktion */
     const bookList = document.getElementById("bookList");
     bookList.innerHTML = "";
+
+    const addBookButton = document.createElement("div");
+    addBookButton.className = 'book button unselectable';
+    /*addBookButton.onclick = addBook;*/
+
+    const icon = document.createElement("img");
+    icon.src = '/assets/plus.svg';
+    icon.className =  'addNew';
+
+    addBookButton.appendChild(icon);
+    bookList.appendChild(addBookButton);
+
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
-    for(i = 0; i < localBooks.length; i++) {
+    /*for(i = 0; i < localBooks.length; i++) {*/
+    for(i = 0; i < 5; i++) {
         const book = document.createElement("a");
         book.className = 'book';
         book.onclick = openBook;
 
         const title = document.createElement("div");
-        title.appendChild(document.createTextNode(localBooks[i].title));
+        /*title.appendChild(document.createTextNode(localBooks[i].title));*/
+        title.appendChild(document.createTextNode("book " + i));
         book.appendChild(title);
 
         const edit = document.createElement("a");
         edit.className = 'hoverButton';
         edit.href = './pages.html';
+
+        const editIcon = document.createElement("img");
+        editIcon.src = '/assets/edit.svg';
+        editIcon.className = 'icon';
+        edit.appendChild(editIcon);
+
         /* editLabel is a placeholder for an icon */
-        const editLabel = document.createElement("div");
+        /*const editLabel = document.createElement("div");
         editLabel.appendChild(document.createTextNode("edit"));
-        edit.appendChild(editLabel);
+        edit.appendChild(editLabel);*/
+
         book.appendChild(edit);
 
         const print = document.createElement("a");
         print.className = 'hoverButton';
+
+        const printIcon = document.createElement("img");
+        printIcon.src = '/assets/print.svg';
+        printIcon.className = 'icon';
+        print.appendChild(printIcon);
+
         /* printLabel is a placeholder for an icon */
-        const printLabel = document.createElement("div");
+        /*const printLabel = document.createElement("div");
         printLabel.appendChild(document.createTextNode("print"));
-        print.appendChild(printLabel);
+        print.appendChild(printLabel);*/
+
         book.appendChild(print);
 
         bookList.appendChild(book);
