@@ -19,7 +19,11 @@
 }
 
 .imagesCol:first-child {
-  margin-right: var(--pad);
+  margin-right: calc(var(--pad) / 2);
+}
+
+.imagesCol:last-child {
+  margin-left: calc(var(--pad) / 2);
 }
 
 .resizer {
@@ -43,5 +47,13 @@
 }
 
 .imageContainer:first-child {
-  margin-bottom: var(--pad);
+  margin-bottom: calc(var(--pad) / 2);
+}
+
+.imageContainer:last-child {
+  margin-top: calc(var(--pad) / 2);
+}
+
+.imageContainer {
+  background-color: #eeeeee77;
 }

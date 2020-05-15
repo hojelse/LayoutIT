@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/print.css">
     <link rel="stylesheet" href="styles/pageElements.css">
+
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/waltograph-disney" type="text/css"/>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/nimbus-sans-l" type="text/css"/>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/carlito" type="text/css"/>
+    <link rel="stylesheet" href="styles/resizer.css">
+
 
     <script defer src="scripts/state.js"></script>
     <script src="scripts/api.js"></script>
@@ -31,20 +34,20 @@
             </div>
             <div class="imagesContainer">
                 <div id="imagesCol0" class="imagesCol">
-                    <div id="imageContainer0" data-id="0" class="imageContainer drop-zone">
+                    <div data-id="0" class="imageContainer imageContainer1 drop-zone">
 
                     </div>
-                    <!-- <div class="resizer"></div> -->
-                    <div id="imageContainer1" data-id="1" class="imageContainer drop-zone">
+                    <div class="resizer"></div>
+                    <div data-id="1" class="imageContainer imageContainer2 drop-zone">
 
                     </div>
                 </div>
                 <div id="imagesCol1" class="imagesCol">
-                    <div id="imageContainer2" data-id="2" class="imageContainer drop-zone">
+                    <div data-id="2" class="imageContainer imageContainer1 drop-zone">
 
                     </div>
-                    <!-- <div class="resizer"></div> -->
-                    <div id="imageContainer3" data-id="3" class="imageContainer drop-zone">
+                    <div class="resizer"></div>
+                    <div data-id="3" class="imageContainer imageContainer2 drop-zone">
 
                     </div>
                 </div>
@@ -73,5 +76,6 @@
         </select>
     </div>
     <script defer src="scripts/dragdrop.js"></script>
+    <script defer src="scripts/resizelayout.js"></script>
 </body>
 </html>
