@@ -61,7 +61,7 @@ async function updateBookList() {
     addBookButton.onclick = addBook;
 
     const icon = document.createElement("img");
-    icon.src = '/assets/plus.svg';
+    icon.src = './assets/plus.svg';
     icon.className =  'addNew';
 
     addBookButton.appendChild(icon);
@@ -85,7 +85,7 @@ async function updateBookList() {
         edit.href = './pages.html';
 
         const editIcon = document.createElement("img");
-        editIcon.src = '/assets/edit.svg';
+        editIcon.src = './assets/edit.svg';
         editIcon.className = 'icon';
         edit.appendChild(editIcon);
         book.appendChild(edit);
@@ -94,7 +94,7 @@ async function updateBookList() {
         print.className = 'hoverButton';
 
         const printIcon = document.createElement("img");
-        printIcon.src = '/assets/print.svg';
+        printIcon.src = './assets/print.svg';
         printIcon.className = 'icon';
         print.appendChild(printIcon);
         book.appendChild(print);
