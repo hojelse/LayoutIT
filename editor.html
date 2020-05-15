@@ -62,13 +62,13 @@
         <button class="setTheme">Set Theme</button>
        
     </div>
-    <div class="radiobuttons">
-        <form action="">
-            <input type="radio" name="theme" value="børnebog" id="børnebog" onchange="setThemeFromRadioButtons()" checked="checked">
-            <input type="radio" name="theme" value="rejsebog" id="rejsebog" onchange="setThemeFromRadioButtons()">
-            <input type="radio" name="theme" value="formel" id="formel" onchange="setThemeFromRadioButtons()">
-            <input type="submit" value="submit">
-        </form>
+    <div class="dropdown">
+        <label for="chooseTheme">Theme</label>
+        <select id="chooseTheme" onchange="setThemeFromDropdown()">
+            <option value="0" id="børnebog">Childrens book</option>
+            <option value="1" id="rejsebog">Travel book</option>
+            <option value="2" id="formel">Formal book</option>
+        </select>
     </div>
     <script defer src="scripts/dragdrop.js"></script>
     <script defer src="scripts/resizelayout.js"></script>

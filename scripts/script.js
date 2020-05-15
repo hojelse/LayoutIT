@@ -8,6 +8,7 @@ let imageContainers;
 let themes;
 let currentTheme;
 let themesFromApi;
+let chooseTheme;
 
 window.onload = function() {
     document.getElementById("left").onclick = goLeft;
@@ -30,7 +31,10 @@ window.onload = function() {
     imageInput = this.document.querySelector('#imgInput');
     pageNumberSpan = this.document.querySelector('.pageNumber');
 
+    chooseTheme = this.document.getElementById("chooseTheme");
+
     textContainer = this.document.querySelector('.textContainer');
+
 
     imageContainers = [
         this.document.querySelector('.imageContainer[data-id="0"]'),
@@ -255,27 +259,13 @@ function resizePage() {
     }
 }
 
-/*
-function getTheme(index) {
-fetch('https://itu-sdbg-s2020.now.sh/api/themes')
-.then(response => response.json())
-.then(data => {
-    apiData = data.themes[index];
-    console.log(data.themes[index]); // Prints result from `response.json()` in getRequest
-    console.log(data.themes[2].styles.secondaryColor);
-})
-.catch(error => console.error(error))
-}
-*/
+function setThemeFromDropdown() {
 
-function setThemeFromRadioButtons() {
-    for (let i = 0, length = themes.length; i < length; i++) {
-        if (themes[i].checked) {
-            page.style.backgroundColor = themesFromApi[i].styles.secondaryColor;
-            textContainer.style.color = themesFromApi[i].styles.primaryColor;
-        break;
-        }
-    }
+    let selectedTheme = chooseTheme.value;
+
+    console.log(selectedTheme);
+    page.style.backgroundColor = themesFromApi[selectedTheme].styles.secondaryColor;
+    textContainer.style.color = themesFromApi[selectedTheme].styles.primaryColor;
 }
 
 
