@@ -81,9 +81,7 @@ window.onload = function () {
 
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
-
 }
-
 
 function getDataFromApi() {
 

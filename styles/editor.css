@@ -102,7 +102,8 @@ h2 {
 }
 
 button {
-  filter: invert(100%);
+  fill: var(--hightlight);
+  background-color: var(--hightlight);
 }
 
 .buttons {
@@ -122,15 +123,15 @@ button {
 }
 
 .addPageButton {
-  background: url('../assets/plus.png');
+  background: url('../assets/addPage.svg');
 }
 
 .addImage {
-  background: url('../assets/addImage.png');
+  background: url('../assets/addImage.svg');
 }
 
 .addText {
-  background: url('../assets/addText.png');
+  background: url('../assets/addText.svg');
 }
 
 .arrowButton {
@@ -142,7 +143,6 @@ button {
   cursor: pointer;
   height: 40px;
   width: 80px;
-  /* border: solid red; */
 }
 
 .arrowButton:hover {
