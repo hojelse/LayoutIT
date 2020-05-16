@@ -2,7 +2,8 @@
   border: none;
   width: 100%;
   text-align: center;
-  font-size: 3em;
+  font-size: 250%;
+  background: transparent;
 }
 
 .imagesContainer {
@@ -57,4 +58,8 @@
 
 .imageContainer {
   background-color: #eeeeee77;
+}
+
+.selectedImgBox {
+  box-shadow: 0 0 0 2px white;
 }
