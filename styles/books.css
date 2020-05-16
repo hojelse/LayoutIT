@@ -1,5 +1,6 @@
 body {
-    background-color: var(--hightlight);
+    background-color: #bfc5ca; 
+    margin: 0;
 }
 
 h1 {
@@ -87,17 +88,26 @@ h1 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
 }
 
 #heading {
     align-self: center;
     font-size: 40px;
+    margin-top: 5px;
     padding-bottom: 30px;
+
 }
 
-.text{
+p{
     align-self: center;
-    font-size: 15px;
+    font-size: 30px;
+    padding-bottom: 100px;
+    background: -webkit-linear-gradient(#833ab4, #fcb045);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100%;
+    background-repeat: repeat;
 }
 
 
