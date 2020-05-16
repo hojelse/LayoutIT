@@ -4,6 +4,7 @@
   text-align: center;
   pointer-events: all;
   background: transparent;
+  cursor: move;
 }
 
 .imagesContainer {
@@ -49,11 +50,11 @@
 }
 
 .imageContainer:first-child {
-  margin-bottom: var(--pad);
+  margin-bottom: calc(var(--pad) / 2);
 }
 
 .imageContainer:last-child {
-  margin-top: var(--pad);
+  margin-top: calc(var(--pad) / 2);
 }
 
 .imageContainer {

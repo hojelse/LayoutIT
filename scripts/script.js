@@ -31,7 +31,9 @@ class Book {
 
 window.onload = function () {
     document.body.onmousemove = followCursor.run;
+    document.body.addEventListener('touchmove', followCursor.touchrun);
     document.body.onmouseup = followCursor.end;
+    document.body.addEventListener('touchend', followCursor.end);
     titleInput = this.document.getElementById("titleInput");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
@@ -55,6 +57,7 @@ window.onload = function () {
 
     theDOMpage = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
+    goLeftButton = this.document.getElementById('left');
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput');
     pageNumberSpan = this.document.querySelector('.pageNumber');
@@ -206,6 +209,12 @@ function changeToCurrPage(DOMpage) {
     updateDOMPageWithCurrentPage(DOMpage, currPage)
     setUpSelectableImgBox();
 
+    if(currPageNumber === 1){
+        goLeftButton.classList.add('button-disabled');
+    } else {
+        goLeftButton.classList.remove('button-disabled');
+    }
+
     if (currPageNumber == pageAmount) {
         addPageButton.hidden = false;
         goRightButton.hidden = true;
@@ -237,6 +246,7 @@ function setUpTextField(text, DOMpage) {
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
     textField.addEventListener('mousedown', followCursor.init);
+    textField.addEventListener('touchstart', followCursor.init);
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -255,7 +265,6 @@ function setUpTextField(text, DOMpage) {
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     textField.style.fontSize = text.size + "px";
-    
     document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
     DOMpage.querySelector('.textContainer').appendChild(textField);
 }
@@ -285,7 +294,9 @@ function resizePage() {
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
     if (pageConainerIsWide) {
         pageContainer.style.flexDirection = "column";
-        theDOMpage.style.width = pageContainer.offsetHeight * aWidth + "px";
+        let newWidth = pageContainer.offsetHeight * aWidth + "px";
+        theDOMpage.style.width = newWidth;
+        document.documentElement.style.setProperty('--pageWidth', newWidth);
         theDOMpage.style.height = "auto";
     } else {
         pageContainer.style.flexDirection = "row";
@@ -304,7 +315,7 @@ function resizePage() {
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
         texts[i].style.fontSize = pagetexts[i].size + "px";
-        
+        debugger;
     }
 }
 
@@ -425,9 +436,7 @@ let currentlySelectedImgBox = null;
 let deleteButton = document.querySelector('.delete')
 
 function selectImgBox() {
-    if(currentlySelectedImgBox === event.currentTarget){
-        console.log("same");
-        
+    if(currentlySelectedImgBox === event.currentTarget){      
         currentlySelectedImgBox.classList.remove('selectedImgBox');
         currentlySelectedImgBox = null;
     } else {
@@ -463,7 +472,6 @@ var followCursor = (function(e) {
         },
 
         end: function() {
-            console.log("end");
             dragging = false;
             if(target != null){
                 target.style.border = '1px solid #00000000'
@@ -474,7 +482,6 @@ var followCursor = (function(e) {
         },
 
         run: function(e) {
-            console.log("run");
             if(Boolean(dragging)) {
                 var e = e || window.event;
                 if(prevClientX == null && prevClientY == null){
@@ -488,6 +495,24 @@ var followCursor = (function(e) {
                 target.style.transform += "translateY("+ -dragY +"px)";
                 prevClientX = e.clientX;
                 prevClientY = e.clientY;
+                getMouseCoords(e);
+            }
+        },
+
+        touchrun: function(e) {
+            if(Boolean(dragging)) {
+                var e = e || window.event;
+                if(prevClientX == null && prevClientY == null){
+                    prevClientX = e.changedTouches[0].clientX;
+                    prevClientY = e.changedTouches[0].clientY;
+                }
+                var transform = target.style.transform;
+                var dragX = (prevClientX - e.changedTouches[0].clientX);
+                var dragY = (prevClientY - e.changedTouches[0].clientY);
+                target.style.transform += "translateX("+ -dragX +"px)";
+                target.style.transform += "translateY("+ -dragY +"px)";
+                prevClientX = e.changedTouches[0].clientX;
+                prevClientY = e.changedTouches[0].clientY;
                 getMouseCoords(e);
             }
         }

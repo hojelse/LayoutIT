@@ -1,3 +1,14 @@
+body {
+    background-color: var(--background);
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: var(--hightlight);
+}
+
 .flexCol {
     display: flex;
     flex-direction: column;
@@ -10,6 +21,7 @@
 
 .bookContainer {
     margin: auto;
+    border: solid 2px var(--hightlight);
     justify-content: center;
     width: 100%;
 }
@@ -29,9 +41,8 @@
     height: 150px;
     margin: 10px;
 
+    background-color: var(--hightlight);
     font-size: 20px;
-    background-color: #cfcfcf;
-    color: #333333;
     text-decoration: none;
 }
 
@@ -49,8 +60,7 @@
 
     visibility: hidden;
     text-decoration: none;
-    background-color: #EEEEEE;
-    color: #333333;
+    color: var(--hightlight);
 }
 
 .button {
@@ -68,7 +78,6 @@
 }
 
 .content {
-    background-color: white;
     margin: 20px;
 }
 

@@ -5,7 +5,7 @@
 @media print {
   @page {
     margin: 0;
-    size: 5.5in 5.5in;
+    size: 185mm 185mm;
   }
 
   html {
@@ -37,6 +37,12 @@
   .page {
     height: 100% !important;
     width: 100% !important;
+  }
+
+  .pages {
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
   }
 
   .nav {

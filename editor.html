@@ -26,11 +26,11 @@
 </head>
 <body>
     <div class="nav">
-        <a href="pages.html">Back button</a>
+        <a href="index.html" class="editButton back"></a>
         <div>
-            <button class="printAsPdf">Print as pdf</button>
-            <button class="delete">Delete</button>
-            <a href="index.html">Home</a>
+            <button class="printAsPdf editButton"></button>
+            <button class="delete editButton"></button>
+            <!-- <a href="index.html" class="editButton home"></a> -->
         </div>
     </div>
     <div class="pageInformation">
@@ -66,23 +66,22 @@
         </div>
     </div>
     <div class="buttons">
-        <button id="left" class="leftButton arrowButton"></button>
+        <button id="left" class="leftButton editButton arrowButton"></button>
         <h2>Page <span class="pageNumber">1</span></h2>
-        <button id="right" class="rightButton arrowButton"></button>
-        <button id="addPage" class="addPageButton arrowButton" hidden></button>
+        <button id="right" class="rightButton editButton arrowButton"></button>
+        <button id="addPage" class="addPageButton editButton arrowButton" hidden></button>
     </div>
     <div class="tools">
-        <button id="addText" class="arrowButton addText"></button>
-        <button class="arrowButton addImage" onclick="imgInput.click();"></button>
+        <button id="addText" class="editButton addText"></button>
+        <button class="editButton addImage" onclick="imgInput.click();"></button>
         <input id="imgInput" type="file" style="display: none;">
-        <button class="addSticker">Add Sticker</button>
+        <button class="editButton addSticker"></button>
         <select id="chooseTheme" onchange="setThemeFromDropdown()" class="dropdown">
             <option value="0" id="børnebog">Childrens book</option>
             <option value="1" id="rejsebog">Travel book</option>
             <option value="2" id="formel">Formal book</option>
         </select>
     </div>
- 
     <script defer src="scripts/dragdrop.js"></script>
     <script defer src="scripts/resizelayout.js"></script>
 </body>

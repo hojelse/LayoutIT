@@ -1,27 +1,26 @@
 html {
   height: 100%;
-  --background: #333;
-  --hightlight: #ddd;
+  --pageWidth: 100%;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
   background-color: var(--background);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
   min-height: 100%;
-  --column-width: 100%;
 }
 
 .nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 10px 20px;
   box-sizing: border-box;
-  width: var(--column-width);
+  width: 100%;
 }
 
 .pageInformation {
@@ -61,6 +60,10 @@ body {
 #titleInput {
   font-size: 1.5rem;
   background: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
   border: none;
   text-align: center;
   font-weight: 700;
@@ -69,6 +72,7 @@ body {
 #titleInput::placeholder {
   font-weight: 300;
   font-style: italic;
+  color: inherit;
 }
 
 h2 {
@@ -91,7 +95,7 @@ h2 {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  --pad: 2%;
+  --pad: 10px;
   padding: var(--pad);
   box-shadow: 0 5px 5px -3px #00000033;
   position: relative;
@@ -110,7 +114,10 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
+  box-sizing: border-box;
+  padding: 30px 20px;
   width: 100%;
 }
 
@@ -134,7 +141,27 @@ button {
   background: url('../assets/addText.svg');
 }
 
-.arrowButton {
+.printAsPdf {
+  background: url('../assets/printer.svg');
+}
+
+.delete {
+  background: url('../assets/trash.svg');
+}
+
+.home {
+  background: url('../assets/home.svg');
+}
+
+.addSticker {
+  background: url('../assets/sticker.svg');
+}
+
+.back {
+  background: url('../assets/uturn.svg');
+}
+
+.editButton {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -142,11 +169,37 @@ button {
   outline: none;
   cursor: pointer;
   height: 40px;
+  width: 40px;
+}
+
+.arrowButton {
+  height: 40px;
   width: 80px;
 }
 
 .arrowButton:hover {
   opacity: 0.6;
+}
+
+.tools {
+  padding: 10px 20px;
+  width: 100%;
+  max-width: var(--pageWidth);
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dropdown {
+  background-color: transparent;
+  border: solid 2px var(--hightlight);
+}
+
+.dropdown option {
+  background-color: var(--background);
+  padding: 20px;
 }
 
 .draggable:hover {
@@ -156,6 +209,7 @@ button {
 .draggable:active {
   cursor: grabbing;
 }
+
 .textContainer {
   pointer-events: none;
   overflow: hidden;
@@ -164,4 +218,9 @@ button {
   height: 100%;
   top: 0;
   left: 0;
+}
+
+.button-disabled {
+  cursor: auto;
+  opacity: 0.6;
 }

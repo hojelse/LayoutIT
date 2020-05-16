@@ -1,3 +1,9 @@
 :root {
   --numberOfPages: 100%;
+  --background: #333;
+  --hightlight: #ddd;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
 }
