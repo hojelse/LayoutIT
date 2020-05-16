@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="styles/resizer.css">
 
     <script src="scripts/classPage.js"></script>
-    <script defer src="scripts/state.js"></script>
-    <script src="scripts/api.js"></script>
     <script src="scripts/script.js"></script>
 </head>
 <body>
@@ -35,7 +33,7 @@
     </div>
     <div class="pageInformation">
         <div class="pageInformationContent">
-            <input type="text" id="titleInput" placeholder="Title">
+            <input type="text" maxlength="18" id="titleInput" placeholder="Title">
             <div class="editIcon"></div>
         </div>
     </div>
@@ -72,10 +70,18 @@
         <button id="addPage" class="addPageButton editButton arrowButton" hidden></button>
     </div>
     <div class="tools">
+        <div class="altTools">
+            <p>Margins</p>
+            <input type="range" class="marginsSlider" min="0" max="5" value="2" step="0.1">
+            <div class="marginsOffWrapper">
+                <button class="editButton margins marginsOff"></button>
+            </div>
+        </div>
         <button id="addText" class="editButton addText"></button>
         <button class="editButton addImage" onclick="imgInput.click();"></button>
         <input id="imgInput" type="file" style="display: none;">
-        <button class="editButton addSticker"></button>
+        <!-- <button class="editButton addSticker"></button> -->
+        <button class="editButton margins marginsOn"></button>
         <select id="chooseTheme" onchange="setThemeFromDropdown()" class="dropdown">
             <option value="0" id="børnebog">Childrens book</option>
             <option value="1" id="rejsebog">Travel book</option>

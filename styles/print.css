@@ -10,6 +10,9 @@
 
   html {
     -webkit-print-color-adjust: exact !important;
+  }
+
+  body {
     height: var(--numberOfPages);
   }
 
@@ -18,7 +21,7 @@
   }
 
   .resizer {
-    display: none;
+    display: none !important;
   }
 
   button {

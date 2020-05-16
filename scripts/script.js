@@ -22,6 +22,11 @@ let pageContainer;
 let dragging = false;
 
 let pageTextFactor = 20;
+let pageMarginFactor = 2;
+let marginsSlider;
+let marginsOff;
+
+let altTools;
 
 class Book {
     pages = [];
@@ -40,7 +45,7 @@ window.onload = function () {
     document.getElementById("addPage").onclick = addPage;
     document.getElementById("addText").onclick = addTextField;
     document.getElementById("titleInput").onkeyup = this.updateTitle;
-
+    this.document.querySelector('.marginsOn').addEventListener('click', showMarginsSlider)
     document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
     document.onkeydown = firekey;
@@ -66,6 +71,12 @@ window.onload = function () {
 
     textContainer = this.document.querySelector('.textContainer');
 
+    altTools = this.document.querySelector('.altTools');
+
+    marginsSlider = document.querySelector('.marginsSlider');
+    marginsSlider.addEventListener('change', updatePageMarginFactor)
+    marginsOff = this.document.querySelector('.marginsOff');
+    marginsOff.addEventListener('click', closeAltTools);
 
     imageContainers = [
         this.document.querySelector('.imageContainer[data-id="0"]'),
@@ -86,6 +97,19 @@ window.onload = function () {
 
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
+}
+
+function showMarginsSlider() {
+    altTools.style.display = "flex";
+}
+
+function closeAltTools() {
+    altTools.style.display = "none";
+}
+
+function updatePageMarginFactor() {
+    pageMarginFactor = marginsSlider.value;
+    resizePage();
 }
 
 function getDataFromApi() {
@@ -176,7 +200,7 @@ function getImageContainersFromDOMPage(DOMPage) {
 }
 
 function uploadNewImg(event) {
-    let url = URL.createObjectURL(event.target.files[0])
+    let url = URL.createObjectURL(event.target.files[0]);
     collectionOfPages[currPageNumber - 1].addImage(url);
 }
 
@@ -208,6 +232,7 @@ function changeToCurrPage(DOMpage) {
     let currPage = collectionOfPages[currPageNumber - 1];
     updateDOMPageWithCurrentPage(DOMpage, currPage)
     setUpSelectableImgBox();
+    setUpClickableImageContainer();
 
     if(currPageNumber === 1){
         goLeftButton.classList.add('button-disabled');
@@ -241,23 +266,17 @@ function updateDOMPageWithCurrentPage(DOMpage, currPage) {
 }
 
 function setUpTextField(text, DOMpage) {
-    var textField = document.createElement('input');
+    var textField = document.createElement('div');
     textField.classList.add("pagetext");
-    textField.setAttribute("type", "text");
-    textField.placeholder = "Enter text here";
+    textField.setAttribute("contenteditable", "true");
+    textField.innerText = "Sample text";
     textField.addEventListener('mousedown', followCursor.init);
     textField.addEventListener('touchstart', followCursor.init);
-    textField.addEventListener('keyup', function () {
-        var target = event.target;
-        var text = target.value;
-        if (text.length < 16) {
-            target.size = 16;
-        }
-        else {
-            target.size = text.length + 6;
-        }
-    });
-    textField.value = text.text;
+    if(text.text === ""){
+        textField.innerText = "Sample text";
+    } else {
+        textField.innerText = text.text;
+    }
     let height = theDOMpage.getBoundingClientRect().height;
     let width = theDOMpage.getBoundingClientRect().width;
     textField.style.transform += "translateX("+ text.x * width +"px)";
@@ -303,19 +322,18 @@ function resizePage() {
         theDOMpage.style.height = pageContainer.offsetWidth * aHeight + "px";
         theDOMpage.style.width = "auto";
     }
-
     
     let page = collectionOfPages[currPageNumber - 1];
     let pagetexts = page.texts;
     
     let texts = document.querySelectorAll("#page .pagetext");
+    let height = theDOMpage.getBoundingClientRect().height;
+    let width = theDOMpage.getBoundingClientRect().width;   
+    document.documentElement.style.setProperty('--page-margins', Math.round(height/100) * pageMarginFactor + "px");  
     for(let i = 0; i < texts.length; i++){
-        let height = theDOMpage.getBoundingClientRect().height;
-        let width = theDOMpage.getBoundingClientRect().width;
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
         texts[i].style.fontSize = pagetexts[i].size + "px";
-        debugger;
     }
 }
 
@@ -371,7 +389,7 @@ function savePage() {
         let height = theDOMpage.getBoundingClientRect().height;
         let width = theDOMpage.getBoundingClientRect().width;
 
-        newPageTexts.push(new textObj(matrix.m41/width, matrix.m42/height, thistext.value));
+        newPageTexts.push(new textObj(matrix.m41/width, matrix.m42/height, thistext.innerText));
     }
     page.texts = newPageTexts;
 }
@@ -416,6 +434,17 @@ function postPrintPages() {
     }
 }
 
+function setUpClickableImageContainer() {
+    let imageContainers = this.document.querySelectorAll('.imageContainer');
+    for (let i = 0; i < imageContainers.length; i++) {
+        if(imageContainers[i] === 'undefined' || imageContainers[i] === null) continue;
+        imageContainers[i].addEventListener("click", uploadToThisContainer)
+    }
+}
+
+function uploadToThisContainer() {
+
+}
 
 // selection of images
 function setUpSelectableImgBox() {

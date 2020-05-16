@@ -9,24 +9,25 @@
     <meta name="theme-color" content="#333333" />
     <title>Mine fotobøger</title>
 
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/carlito" type="text/css"/> 
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/nimbus-sans-l" type="text/css"/> 
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/waltograph" type="text/css"/> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/books.css">
     <link rel="stylesheet" href="styles/style.css">
-    <script defer src="scripts/state.js"></script>
-    <script src="scripts/books.js"></script>
-    <script src="scripts/api.js"></script>
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/index.js"></script>
 </head>
 <body>
     <div class="content flexCol">
-        <h1>Mine fotobøger</h1>
-        <div class="bookContainer flexCol" id="bookContainer">
-            <div class="bookList flexRow" id="bookList">
-                <a class="book" id="newBook"></a>
-            </div>
+        <h1>Sej navn på vores hjemmeside</h1>
+        <p>Click on the button and get started today!</p>
+        <div class="container flexCol flexRow" id="bookContainer">
+            <a class="book" id="book" href="./editor.html">
+                <div style="width: 10%; height: 100%;" class="gradient"></div>
+                <div style="width: 5%; height: 100%;"></div>
+                <div style="width: 85%; height: 100%;" class="gradient flexCol flexRow" id="picture">
+                    <img src='.\assets\plus.svg' class='hoverButton' id='hoverButton'><img/>
+                </div>
+            </a>
         </div>
     </div>
 </body>

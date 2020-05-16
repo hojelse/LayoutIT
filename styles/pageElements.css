@@ -1,10 +1,10 @@
 .pagetext {
   border: none;
-  width: 100%;
-  text-align: center;
   pointer-events: all;
   background: transparent;
   cursor: move;
+  width: auto;
+  display: inline-block;
 }
 
 .imagesContainer {
@@ -22,11 +22,11 @@
 }
 
 .imagesCol:first-child {
-  margin-right: calc(var(--pad) / 2);
+  margin-right: calc(var(--page-margins) / 2);
 }
 
 .imagesCol:last-child {
-  margin-left: calc(var(--pad) / 2);
+  margin-left: calc(var(--page-margins) / 2);
 }
 
 .resizer {
@@ -50,11 +50,11 @@
 }
 
 .imageContainer:first-child {
-  margin-bottom: calc(var(--pad) / 2);
+  margin-bottom: calc(var(--page-margins) / 2);
 }
 
 .imageContainer:last-child {
-  margin-top: calc(var(--pad) / 2);
+  margin-top: calc(var(--page-margins) / 2);
 }
 
 .imageContainer {
