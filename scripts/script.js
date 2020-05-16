@@ -454,8 +454,8 @@ function getMouseCoords(e) {
 
 var followCursor = (function(e) {
     var target = null;
-    // var prevClientX = null;
-    // var prevClientY = null;
+    var prevClientX = null;
+    var prevClientY = null;
     
     return {
         init: function() {
@@ -468,8 +468,8 @@ var followCursor = (function(e) {
             dragging = false;
             if(target != null){
                 target.style.border = '1px solid #00000000'
-                // prevClientX = null;
-                // prevClientY = null;
+                prevClientX = null;
+                prevClientY = null;
                 savePage();
             }
         },
@@ -477,26 +477,17 @@ var followCursor = (function(e) {
         run: function(e) {
             if(Boolean(dragging)) {
                 var e = e || window.event;
-                // if(prevClientX == null && prevClientY == null){
-                //     prevClientX = e.clientX;
-                //     prevClientY = e.clientY;
-                // }
+                if(prevClientX == null && prevClientY == null){
+                    prevClientX = e.clientX;
+                    prevClientY = e.clientY;
+                }
                 var transform = target.style.transform;
-                // var dragX = (prevClientX - e.clientX);
-                // var dragY = (prevClientY - e.clientY);
-                console.log(theDOMpage.getComputedStyle());
-                
-                var dragX = (theDOMpage.style.width - e.clientX);
-                var dragY = (theDOMpage.style.heigh - e.clientY);
-                // target.style.transform += "translateX("+ -dragX +"px)";
-                // target.style.transform += "translateY("+ -dragY +"px)";
-                target.style.left = dragX;
-                target.style.top = dragY;
-
-                console.log(dragX,dragY);
-                
-                // prevClientX = e.clientX;
-                // prevClientY = e.clientY;
+                var dragX = (prevClientX - e.clientX);
+                var dragY = (prevClientY - e.clientY);
+                target.style.transform += "translateX("+ -dragX +"px)";
+                target.style.transform += "translateY("+ -dragY +"px)";
+                prevClientX = e.clientX;
+                prevClientY = e.clientY;
                 getMouseCoords(e);
             }
         }
