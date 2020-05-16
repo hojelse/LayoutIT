@@ -22,6 +22,7 @@ let pageContainer;
 let dragging = false;
 
 let pageTextFactor = 20;
+let pageMarginFactor = 100;
 
 class Book {
     pages = [];
@@ -31,7 +32,9 @@ class Book {
 
 window.onload = function () {
     document.body.onmousemove = followCursor.run;
+    document.body.addEventListener('touchmove', followCursor.touchrun);
     document.body.onmouseup = followCursor.end;
+    document.body.addEventListener('touchend', followCursor.end);
     titleInput = this.document.getElementById("titleInput");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
@@ -55,6 +58,7 @@ window.onload = function () {
 
     theDOMpage = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
+    goLeftButton = this.document.getElementById('left');
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput');
     pageNumberSpan = this.document.querySelector('.pageNumber');
@@ -173,7 +177,7 @@ function getImageContainersFromDOMPage(DOMPage) {
 }
 
 function uploadNewImg(event) {
-    let url = URL.createObjectURL(event.target.files[0])
+    let url = URL.createObjectURL(event.target.files[0]);
     collectionOfPages[currPageNumber - 1].addImage(url);
 }
 
@@ -205,6 +209,13 @@ function changeToCurrPage(DOMpage) {
     let currPage = collectionOfPages[currPageNumber - 1];
     updateDOMPageWithCurrentPage(DOMpage, currPage)
     setUpSelectableImgBox();
+    setUpClickableImageContainer();
+
+    if(currPageNumber === 1){
+        goLeftButton.classList.add('button-disabled');
+    } else {
+        goLeftButton.classList.remove('button-disabled');
+    }
 
     if (currPageNumber == pageAmount) {
         addPageButton.hidden = false;
@@ -237,6 +248,7 @@ function setUpTextField(text, DOMpage) {
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
     textField.addEventListener('mousedown', followCursor.init);
+    textField.addEventListener('touchstart', followCursor.init);
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -255,7 +267,6 @@ function setUpTextField(text, DOMpage) {
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     textField.style.fontSize = text.size + "px";
-    
     document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
     DOMpage.querySelector('.textContainer').appendChild(textField);
 }
@@ -294,19 +305,18 @@ function resizePage() {
         theDOMpage.style.height = pageContainer.offsetWidth * aHeight + "px";
         theDOMpage.style.width = "auto";
     }
-
     
     let page = collectionOfPages[currPageNumber - 1];
     let pagetexts = page.texts;
     
     let texts = document.querySelectorAll("#page .pagetext");
+    let height = theDOMpage.getBoundingClientRect().height;
+    let width = theDOMpage.getBoundingClientRect().width;   
+    document.documentElement.style.setProperty('--page-margins', Math.round(height/pageMarginFactor) + "px");  
     for(let i = 0; i < texts.length; i++){
-        let height = theDOMpage.getBoundingClientRect().height;
-        let width = theDOMpage.getBoundingClientRect().width;
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
         texts[i].style.fontSize = pagetexts[i].size + "px";
-        
     }
 }
 
@@ -407,6 +417,17 @@ function postPrintPages() {
     }
 }
 
+function setUpClickableImageContainer() {
+    let imageContainers = this.document.querySelectorAll('.imageContainer');
+    for (let i = 0; i < imageContainers.length; i++) {
+        if(imageContainers[i] === 'undefined' || imageContainers[i] === null) continue;
+        imageContainers[i].addEventListener("click", uploadToThisContainer)
+    }
+}
+
+function uploadToThisContainer() {
+
+}
 
 // selection of images
 function setUpSelectableImgBox() {
@@ -427,9 +448,7 @@ let currentlySelectedImgBox = null;
 let deleteButton = document.querySelector('.delete')
 
 function selectImgBox() {
-    if(currentlySelectedImgBox === event.currentTarget){
-        console.log("same");
-        
+    if(currentlySelectedImgBox === event.currentTarget){      
         currentlySelectedImgBox.classList.remove('selectedImgBox');
         currentlySelectedImgBox = null;
     } else {
@@ -488,6 +507,24 @@ var followCursor = (function(e) {
                 target.style.transform += "translateY("+ -dragY +"px)";
                 prevClientX = e.clientX;
                 prevClientY = e.clientY;
+                getMouseCoords(e);
+            }
+        },
+
+        touchrun: function(e) {
+            if(Boolean(dragging)) {
+                var e = e || window.event;
+                if(prevClientX == null && prevClientY == null){
+                    prevClientX = e.changedTouches[0].clientX;
+                    prevClientY = e.changedTouches[0].clientY;
+                }
+                var transform = target.style.transform;
+                var dragX = (prevClientX - e.changedTouches[0].clientX);
+                var dragY = (prevClientY - e.changedTouches[0].clientY);
+                target.style.transform += "translateX("+ -dragX +"px)";
+                target.style.transform += "translateY("+ -dragY +"px)";
+                prevClientX = e.changedTouches[0].clientX;
+                prevClientY = e.changedTouches[0].clientY;
                 getMouseCoords(e);
             }
         }

@@ -1,3 +1,14 @@
+body {
+    background-color: var(--hightlight);
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: var(--background);
+}
+
 .flexCol {
     display: flex;
     flex-direction: column;
@@ -29,9 +40,8 @@
     height: 150px;
     margin: 10px;
 
+    background-color: var(--background);
     font-size: 20px;
-    background-color: #cfcfcf;
-    color: #333333;
     text-decoration: none;
 }
 
@@ -49,8 +59,7 @@
 
     visibility: hidden;
     text-decoration: none;
-    background-color: #EEEEEE;
-    color: #333333;
+    color: var(--background);
 }
 
 .button {
@@ -68,7 +77,6 @@
 }
 
 .content {
-    background-color: white;
     margin: 20px;
 }
 

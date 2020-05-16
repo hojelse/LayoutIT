@@ -39,6 +39,12 @@
     width: 100% !important;
   }
 
+  .pages {
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
   .nav {
     display: none;
   }
