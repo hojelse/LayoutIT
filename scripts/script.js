@@ -303,19 +303,20 @@ function resizePage() {
         theDOMpage.style.height = pageContainer.offsetWidth * aHeight + "px";
         theDOMpage.style.width = "auto";
     }
-
     
     let page = collectionOfPages[currPageNumber - 1];
     let pagetexts = page.texts;
     
     let texts = document.querySelectorAll("#page .pagetext");
+    let height = theDOMpage.getBoundingClientRect().height;
+    let width = theDOMpage.getBoundingClientRect().width;
+    // console.log(Math.round(height/100));
+    
+    document.documentElement.style.setProperty('--page-margins', Math.round(height/100) + "px");  
     for(let i = 0; i < texts.length; i++){
-        let height = theDOMpage.getBoundingClientRect().height;
-        let width = theDOMpage.getBoundingClientRect().width;
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
         texts[i].style.fontSize = pagetexts[i].size + "px";
-        debugger;
     }
 }
 
