@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 2" viewBox="0 0 32 40" x="0px" y="0px">
+  <title>Bin, delete, dustbin, remove, trashcan</title>
+  <path fill="white" d="M28,12a1,1,0,0,0,1-1V7a1,1,0,0,0-1-1H21V3a1,1,0,0,0-1-1H12a1,1,0,0,0-1,1V6H4A1,1,0,0,0,3,7v4a1,1,0,0,0,1,1H28ZM13,4h6V6H13Z" />
+  <path fill="white" d="M6,29a1,1,0,0,0,1,1H25a1,1,0,0,0,1-1V13H6ZM20,15a1,1,0,0,1,2,0V25a1,1,0,0,1-2,0Zm-5,0a1,1,0,0,1,2,0V25a1,1,0,0,1-2,0Zm-5,0a1,1,0,0,1,2,0V25a1,1,0,0,1-2,0Z" />
+</svg>
