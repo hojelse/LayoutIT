@@ -1,5 +1,5 @@
 body {
-    background-color: #bfc5ca; 
+    background-color: rgb(230, 230, 237); 
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
@@ -41,13 +41,15 @@ h1 {
     width: 200px;
     height: 150px;
     margin: 10px;
-
    
     background: -webkit-linear-gradient(#833ab4, #fcb045);
-
+    
     font-size: 20px;
     text-decoration: none;
 }
+
+@media (hover: hover) {
+
 
 .hoverButton {
     width: 45px;
@@ -56,6 +58,7 @@ h1 {
     fill: red;
     visibility: hidden;
     text-decoration: none;
+}
 }
 
 .button {
@@ -92,7 +95,7 @@ h1 {
     font-size: 40px;
     margin-top: 5px;
     font-family: 'Roboto', sans-serif;
-    padding-bottom: 40x;
+    padding-bottom: 45x;
     font-weight: 700;
 }
 
@@ -105,6 +108,10 @@ p {
     font-weight: 500;
     background-size: 100%;
     background-repeat: repeat;
+}
+
+@media (hover: hover) {
+
 }
 
 
