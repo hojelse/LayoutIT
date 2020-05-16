@@ -48,6 +48,9 @@ h1 {
     text-decoration: none;
 }
 
+@media (hover: hover) {
+
+
 .hoverButton {
     width: 45px;
     height: 45px;
@@ -55,6 +58,7 @@ h1 {
     fill: red;
     visibility: hidden;
     text-decoration: none;
+}
 }
 
 .button {
@@ -104,6 +108,10 @@ p {
     font-weight: 500;
     background-size: 100%;
     background-repeat: repeat;
+}
+
+@media (hover: hover) {
+
 }
 
 
