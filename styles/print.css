@@ -64,4 +64,8 @@
     background: none !important;
   }
 
+  .selectedImgBox {
+    box-shadow: none;
+  }
+
 }

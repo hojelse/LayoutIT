@@ -43,6 +43,8 @@ window.onload = function () {
 
     document.querySelector('.printAsPdf').onclick = printAsPdf;
 
+    this.document.querySelector('.delete').onclick = deleteCurrentlySelectedImgBox;
+
     window.onresize = resizePage;
 
     theDOMpage = document.getElementById('page');
@@ -302,8 +304,8 @@ function setTheme(theme) {
 }
 
 function savePage() {   
-    var page = collectionOfPages[currPageNumber - 1];
-    var textlist = page.texts;
+    let page = collectionOfPages[currPageNumber - 1];
+    let textlist = page.texts;
     textlist.splice(0, textlist.length);
 
     for (let i = 0; i < imageContainers.length; i++) {
@@ -311,9 +313,20 @@ function savePage() {
         thisbook.pages[currPageNumber-1] = page;
     }
 
-    var pagetexts = theDOMpage.querySelectorAll('.pagetext');
+    for (let i = 0; i < imageContainers.length; i++) {
+        let div = imageContainers[i].querySelector('.imgBox');
+        if(div !== null){
+            let newImgBox = new ImgBox();
+            newImgBox.div = div;
+            thisbook.pages[currPageNumber-1].collectionOfImgBoxes[i] = newImgBox;
+        } else {
+            thisbook.pages[currPageNumber-1].collectionOfImgBoxes[i] = null;
+        }
+    }
+
+    let pagetexts = theDOMpage.querySelectorAll('.pagetext');
     let newPageTexts = [];
-    for (var i = 0; i < pagetexts.length; i++) {
+    for (let i = 0; i < pagetexts.length; i++) {
         newPageTexts.push(pagetexts[i].value);
     }
     page.texts = newPageTexts;
@@ -323,6 +336,7 @@ function printAsPdf() {
     savePage();
     postPrintPages();
     window.print();
+    changeToCurrPage(theDOMpage);
 }
 
 function postPrintPages() {
@@ -375,4 +389,11 @@ function selectImgBox() {
         currentlySelectedImgBox.classList.add('selectedImgBox');
     }
     console.log(currentlySelectedImgBox);
+}
+
+function deleteCurrentlySelectedImgBox() {
+    if(currentlySelectedImgBox === null) return;
+    currentlySelectedImgBox.remove();
+    savePage();
+    changeToCurrPage(theDOMpage); 
 }
