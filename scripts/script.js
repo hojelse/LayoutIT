@@ -247,12 +247,13 @@ function setUpTextField(text, DOMpage) {
             target.size = text.length + 6;
         }
     });
-    textField.value = text;
+    textField.value = text.text;
+    textField.style.transform += "translateX("+ text.x +"px)";
+    textField.style.transform += "translateY("+ text.y +"px)";
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
     DOMpage.querySelector('.textContainer').appendChild(textField);
-    
 }
 
 function addPage() {
@@ -265,7 +266,7 @@ function addPage() {
 }
 
 function addTextField() {
-    setUpTextField("", theDOMpage);
+    setUpTextField(new textObj(0,0,""), theDOMpage);
 }
 
 
@@ -332,9 +333,22 @@ function savePage() {
     let pagetexts = theDOMpage.querySelectorAll('.pagetext');
     let newPageTexts = [];
     for (let i = 0; i < pagetexts.length; i++) {
-        newPageTexts.push(pagetexts[i].value);
+        let thistext = pagetexts[i];
+        let trans = window.getComputedStyle(thistext, null);
+        let matrix = new WebKitCSSMatrix(trans.webkitTransform);
+
+        console.log(matrix);
+        newPageTexts.push(new textObj(matrix.m41, matrix.m42, thistext.value));
     }
     page.texts = newPageTexts;
+}
+
+class textObj{
+    constructor(posX, posY, text){
+        this.x = posX;
+        this.y = posY;
+        this.text = text;
+    }
 }
 
 function printAsPdf() {
@@ -423,9 +437,11 @@ var followCursor = (function(e) {
         end: function() {
             console.log("end");
             dragging = false;
-            target.style.border = '1px solid #00000000'
-            prevClientX = null;
-            prevClientY = null;
+            if(target != null){
+                target.style.border = '1px solid #00000000'
+                prevClientX = null;
+                prevClientY = null;
+            }
         },
 
         run: function(e) {
