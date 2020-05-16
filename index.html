@@ -12,6 +12,7 @@
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/carlito" type="text/css"/> 
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/nimbus-sans-l" type="text/css"/> 
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/waltograph" type="text/css"/> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/books.css">
@@ -22,10 +23,14 @@
 </head>
 <body>
     <div class="content flexCol">
-        <h1>Mine fotobøger</h1>
+        <h1 id ="heading">Sej navn på vores hjemmeside</h1>
+        <p>Click on the button and get started today!</p>
         <div class="bookContainer flexCol" id="bookContainer">
             <div class="bookList flexRow" id="bookList">
-                <a class="book" id="newBook"></a>
+                <a class="book" id="book" href="./editor.html">
+                    <img src='.\assets\plus.svg' class='hoverButton' id='hoverButton'>
+                    <img/>
+                </a>
             </div>
         </div>
     </div>

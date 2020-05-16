@@ -1,10 +1,10 @@
 .pagetext {
   border: none;
-  width: 100%;
-  text-align: center;
   pointer-events: all;
   background: transparent;
   cursor: move;
+  width: auto;
+  display: inline-block;
 }
 
 .imagesContainer {
