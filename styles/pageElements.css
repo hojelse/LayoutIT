@@ -4,6 +4,7 @@
   text-align: center;
   pointer-events: all;
   background: transparent;
+  cursor: move;
 }
 
 .imagesContainer {

@@ -76,6 +76,7 @@ body {
 #titleInput::placeholder {
   font-weight: 300;
   font-style: italic;
+  color: inherit;
 }
 
 h2 {
@@ -212,6 +213,7 @@ button {
 .draggable:active {
   cursor: grabbing;
 }
+
 .textContainer {
   pointer-events: none;
   overflow: hidden;
@@ -220,4 +222,9 @@ button {
   height: 100%;
   top: 0;
   left: 0;
+}
+
+.button-disabled {
+  cursor: auto;
+  opacity: 0.6;
 }

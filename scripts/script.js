@@ -55,6 +55,7 @@ window.onload = function () {
 
     theDOMpage = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
+    goLeftButton = this.document.getElementById('left');
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput');
     pageNumberSpan = this.document.querySelector('.pageNumber');
@@ -206,6 +207,12 @@ function changeToCurrPage(DOMpage) {
     updateDOMPageWithCurrentPage(DOMpage, currPage)
     setUpSelectableImgBox();
 
+    if(currPageNumber === 1){
+        goLeftButton.classList.add('button-disabled');
+    } else {
+        goLeftButton.classList.remove('button-disabled');
+    }
+
     if (currPageNumber == pageAmount) {
         addPageButton.hidden = false;
         goRightButton.hidden = true;
@@ -255,7 +262,6 @@ function setUpTextField(text, DOMpage) {
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     textField.style.fontSize = text.size + "px";
-    
     document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
     DOMpage.querySelector('.textContainer').appendChild(textField);
 }
@@ -306,7 +312,7 @@ function resizePage() {
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
         texts[i].style.fontSize = pagetexts[i].size + "px";
-        
+        debugger;
     }
 }
 
@@ -427,9 +433,7 @@ let currentlySelectedImgBox = null;
 let deleteButton = document.querySelector('.delete')
 
 function selectImgBox() {
-    if(currentlySelectedImgBox === event.currentTarget){
-        console.log("same");
-        
+    if(currentlySelectedImgBox === event.currentTarget){      
         currentlySelectedImgBox.classList.remove('selectedImgBox');
         currentlySelectedImgBox = null;
     } else {
