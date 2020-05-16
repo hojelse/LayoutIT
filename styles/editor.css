@@ -1,7 +1,7 @@
 html {
   height: 100%;
-  --background: #ccc;
-  --hightlight: #444;
+  --background: #333;
+  --hightlight: #ddd;
 }
 
 body {
@@ -92,8 +92,16 @@ h2 {
   box-sizing: border-box;
   --pad: 10px;
   padding: var(--pad);
-  box-shadow: 0 5px 5px -3px #555;
+  box-shadow: 0 5px 5px -3px #00000033;
   position: relative;
+}
+
+* {
+  color: var(--hightlight);
+}
+
+button {
+  filter: invert(100%);
 }
 
 .buttons {
@@ -105,11 +113,11 @@ h2 {
 }
 
 .leftButton {
-  background: url('../assets/leftArrow.png');
+  background: url('../assets/leftArrow.svg');
 }
 
 .rightButton {
-  background: url('../assets/rightArrow.png');
+  background: url('../assets/rightArrow.svg');
 }
 
 .addPageButton {
