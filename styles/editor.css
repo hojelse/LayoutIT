@@ -1,14 +1,78 @@
 html {
   height: 100%;
+  --background: #ccc;
+  --hightlight: #444;
 }
 
 body {
-  background-color: #f6f6f6;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   min-height: 100%;
+  --column-width: 100%;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  width: var(--column-width);
+}
+
+.pageInformation {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.pageInformationContent {
+  position: relative;
+}
+
+.editIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../assets/editIcon.svg');
+
+  opacity: 0;
+  transition: 0.1s ease-in-out;
+}
+
+.pageInformation:hover .editIcon {
+  
+  opacity: 1;
+}
+
+#titleInput {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  text-align: center;
+  font-weight: 700;
+}
+
+#titleInput::placeholder {
+  font-weight: 300;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 1em;
+  font-weight: 700;
 }
 
 .pageContainer {
@@ -28,16 +92,19 @@ body {
   box-sizing: border-box;
   --pad: 10px;
   padding: var(--pad);
+  box-shadow: 0 5px 5px -3px #555;
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .leftButton {
-  background: url('../assets/leftArrow.png');
+  background: url('../assets/leftArrow.svg');
 }
 
 .rightButton {
@@ -63,8 +130,9 @@ body {
   border: none;
   outline: none;
   cursor: pointer;
-  height: 50px;
-  width: 60px;
+  height: 40px;
+  width: 80px;
+  /* border: solid red; */
 }
 
 .arrowButton:hover {
