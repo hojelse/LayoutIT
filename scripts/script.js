@@ -22,6 +22,7 @@ let pageContainer;
 let dragging = false;
 
 let pageTextFactor = 20;
+let pageMarginFactor = 100;
 
 class Book {
     pages = [];
@@ -176,7 +177,7 @@ function getImageContainersFromDOMPage(DOMPage) {
 }
 
 function uploadNewImg(event) {
-    let url = URL.createObjectURL(event.target.files[0])
+    let url = URL.createObjectURL(event.target.files[0]);
     collectionOfPages[currPageNumber - 1].addImage(url);
 }
 
@@ -208,6 +209,7 @@ function changeToCurrPage(DOMpage) {
     let currPage = collectionOfPages[currPageNumber - 1];
     updateDOMPageWithCurrentPage(DOMpage, currPage)
     setUpSelectableImgBox();
+    setUpClickableImageContainer();
 
     if(currPageNumber === 1){
         goLeftButton.classList.add('button-disabled');
@@ -309,10 +311,8 @@ function resizePage() {
     
     let texts = document.querySelectorAll("#page .pagetext");
     let height = theDOMpage.getBoundingClientRect().height;
-    let width = theDOMpage.getBoundingClientRect().width;
-    // console.log(Math.round(height/100));
-    
-    document.documentElement.style.setProperty('--page-margins', Math.round(height/100) + "px");  
+    let width = theDOMpage.getBoundingClientRect().width;   
+    document.documentElement.style.setProperty('--page-margins', Math.round(height/pageMarginFactor) + "px");  
     for(let i = 0; i < texts.length; i++){
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
@@ -417,6 +417,17 @@ function postPrintPages() {
     }
 }
 
+function setUpClickableImageContainer() {
+    let imageContainers = this.document.querySelectorAll('.imageContainer');
+    for (let i = 0; i < imageContainers.length; i++) {
+        if(imageContainers[i] === 'undefined' || imageContainers[i] === null) continue;
+        imageContainers[i].addEventListener("click", uploadToThisContainer)
+    }
+}
+
+function uploadToThisContainer() {
+
+}
 
 // selection of images
 function setUpSelectableImgBox() {
