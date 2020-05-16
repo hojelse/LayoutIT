@@ -72,43 +72,10 @@ window.onload = function () {
     collectionOfPages.push(new Page(0));
     pageAmount = 1;
     currPageNumber = 1;
-    //startUp();
+
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
 
-}
-
-function startUp() {
-    let localBooks = JSON.parse(localStorage.getItem("booklist"));
-    let currBook = localStorage.getItem("currBook");
-    for (let i = 0; i < localBooks.length; i++) {
-        if (localBooks[i].title == currBook) {
-            thisbook = localBooks[i];
-        }
-    }
-
-    // Cast pages
-    let tempCollectionOfPages = [];
-    for (let i = 0; i < thisbook.pages.length; i++) {
-        let tempPage = Object.assign(new Page(i), thisbook.pages[i]);
-        let tempCollectionOfImgBoxes = [null,null,null,null];
-        for (let i = 0; i < tempPage.collectionOfImgBoxes.length; i++) {
-            if (tempPage.collectionOfImgBoxes[i] === null) continue;
-            let tempImgBox = Object.assign(new ImgBox(), tempPage.collectionOfImgBoxes[i]);
-            let tempDiv = document.createElement("div");
-            tempDiv.classList.add("imgBox");
-            tempDiv.classList.add("draggable");
-            tempImgBox.div = tempDiv;
-            tempImgBox.setURL(tempImgBox.url);         
-            tempCollectionOfImgBoxes[i] = tempImgBox;
-        }
-        tempPage.collectionOfImgBoxes = tempCollectionOfImgBoxes;
-        tempCollectionOfPages[i] = tempPage;
-    }
-    collectionOfPages = tempCollectionOfPages;
-
-    pageAmount = collectionOfPages.length;
-    currPageNumber = parseInt(localStorage.getItem("clickedPage"));
 }
 
 
@@ -320,14 +287,6 @@ function setThemeFromDropdown() {
     currentTheme = selectedTheme;
 
     thisbook.theme = selectedTheme;
-    let localBooks = JSON.parse(localStorage.getItem("booklist"));
-    let currBook = localStorage.getItem("currBook");
-    for (var i = 0; i < localBooks.length; i++) {
-        if (localBooks[i].title == currBook) {
-            localBooks[i] = thisbook;
-        }
-    }
-    localStorage.setItem("booklist", JSON.stringify(localBooks));
 
     setTheme(currentTheme);
 }
@@ -359,14 +318,6 @@ function savePage() {
         newPageTexts.push(pagetexts[i].value);
     }
     page.texts = newPageTexts;
-
-    let localBooks = JSON.parse(localStorage.getItem("booklist"));
-    for (var i = 0; i < localBooks.length; i++) {
-        if (localBooks[i].title == localStorage.getItem("currBook")) {
-            localBooks[i] = thisbook;          
-        }
-    }
-    localStorage.setItem("booklist", JSON.stringify(localBooks));
 }
 
 function printAsPdf() {
