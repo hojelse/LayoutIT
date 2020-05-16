@@ -48,18 +48,24 @@ h1 {
     text-decoration: none;
 }
 
+.hoverButton {
+    width: 55px;
+    height: 55px;
+}
+
 @media (hover: hover) {
 
-
-.hoverButton {
+    .hoverButton {
     width: 45px;
     height: 45px;
 
     fill: red;
     visibility: hidden;
     text-decoration: none;
+    }
 }
-}
+
+
 
 .button {
     cursor: pointer;
