@@ -21,7 +21,7 @@
   }
 
   .resizer {
-    display: none;
+    display: none !important;
   }
 
   button {
