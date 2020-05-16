@@ -285,7 +285,9 @@ function resizePage() {
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
     if (pageConainerIsWide) {
         pageContainer.style.flexDirection = "column";
-        theDOMpage.style.width = pageContainer.offsetHeight * aWidth + "px";
+        let newWidth = pageContainer.offsetHeight * aWidth + "px";
+        theDOMpage.style.width = newWidth;
+        document.documentElement.style.setProperty('--pageWidth', newWidth);
         theDOMpage.style.height = "auto";
     } else {
         pageContainer.style.flexDirection = "row";

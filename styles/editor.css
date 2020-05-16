@@ -2,6 +2,7 @@ html {
   height: 100%;
   --background: #333;
   --hightlight: #ddd;
+  --pageWidth: 100%;
 }
 
 body {
@@ -11,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
   min-height: 100%;
   --column-width: 100%;
 }
@@ -19,6 +21,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 10px 20px;
   box-sizing: border-box;
   width: var(--column-width);
@@ -61,6 +64,10 @@ body {
 #titleInput {
   font-size: 1.5rem;
   background: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
   border: none;
   text-align: center;
   font-weight: 700;
@@ -110,6 +117,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   box-sizing: border-box;
   padding: 30px 20px;
@@ -148,13 +156,22 @@ button {
   background: url('../assets/home.svg');
 }
 
-.arrowButton {
+.addSticker {
+  background: url('../assets/sticker.svg');
+}
+
+.editButton {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   border: none;
   outline: none;
   cursor: pointer;
+  height: 40px;
+  width: 40px;
+}
+
+.arrowButton {
   height: 40px;
   width: 80px;
 }
@@ -165,6 +182,18 @@ button {
 
 .tools {
   padding: 10px 20px;
+  width: 100%;
+  max-width: var(--pageWidth);
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dropdown {
+  background-color: transparent;
+  border: solid 2px var(--hightlight);
 }
 
 .draggable:hover {
