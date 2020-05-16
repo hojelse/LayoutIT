@@ -196,6 +196,7 @@ button {
 .dropdown {
   background-color: transparent;
   border: solid 2px var(--hightlight);
+  width: 35%;
 }
 
 .dropdown option {
