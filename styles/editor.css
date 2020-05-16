@@ -93,6 +93,7 @@ h2 {
   --pad: 10px;
   padding: var(--pad);
   box-shadow: 0 5px 5px -3px #555;
+  position: relative;
 }
 
 .buttons {
@@ -145,4 +146,17 @@ h2 {
 
 .draggable:active {
   cursor: grabbing;
+}
+.textContainer {
+  pointer-events: none;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.pagetext {
+  pointer-events: all;
 }

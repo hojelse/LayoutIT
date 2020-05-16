@@ -19,6 +19,8 @@ let chooseTheme;
 
 let pageContainer;
 
+let dragging = false;
+
 class Book {
     pages = [];
     title = "title";
@@ -26,6 +28,8 @@ class Book {
 }
 
 window.onload = function () {
+    document.body.onmousemove = followCursor.run;
+    document.body.onmouseup = followCursor.end;
     titleInput = this.document.getElementById("titleInput");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
@@ -232,6 +236,7 @@ function setUpTextField(text, DOMpage) {
     textField.classList.add("pagetext");
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
+    textField.addEventListener('mousedown', followCursor.init);
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -403,3 +408,49 @@ function deleteCurrentlySelectedImgBox() {
     savePage();
     changeToCurrPage(theDOMpage); 
 }
+
+function getMouseCoords(e) {
+    var e = e || window.event;
+    document.getElementsByClassName('pagetext').innerHTML = e.clientX + ', ' + e.clientY + '<br>' + e.screenX + ', ' + e.screenY;
+}
+
+var followCursor = (function(e) {
+    var target = null;
+    var prevClientX = null;
+    var prevClientY = null;
+    
+    return {
+        init: function() {
+            target = event.target;
+            dragging = true;
+            target.style.border = '1px solid red';
+        },
+
+        end: function() {
+            console.log("end");
+            dragging = false;
+            target.style.border = '1px solid #00000000'
+            prevClientX = null;
+            prevClientY = null;
+        },
+
+        run: function(e) {
+            console.log("run");
+            if(Boolean(dragging)) {
+                var e = e || window.event;
+                if(prevClientX == null && prevClientY == null){
+                    prevClientX = e.clientX;
+                    prevClientY = e.clientY;
+                }
+                var transform = target.style.transform;
+                var dragX = (prevClientX - e.clientX);
+                var dragY = (prevClientY - e.clientY);
+                target.style.transform += "translateX("+ -dragX +"px)";
+                target.style.transform += "translateY("+ -dragY +"px)";
+                prevClientX = e.clientX;
+                prevClientY = e.clientY;
+                getMouseCoords(e);
+            }
+        }
+    };
+}());
