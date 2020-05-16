@@ -248,8 +248,10 @@ function setUpTextField(text, DOMpage) {
         }
     });
     textField.value = text.text;
-    textField.style.transform += "translateX("+ text.x +"px)";
-    textField.style.transform += "translateY("+ text.y +"px)";
+    let height = theDOMpage.getBoundingClientRect().height;
+    let width = theDOMpage.getBoundingClientRect().width;
+    textField.style.transform += "translateX("+ text.x * width +"px)";
+    textField.style.transform += "translateY("+ text.y * height +"px)";
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
     document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
@@ -287,6 +289,18 @@ function resizePage() {
         pageContainer.style.flexDirection = "row";
         theDOMpage.style.height = pageContainer.offsetWidth * aHeight + "px";
         theDOMpage.style.width = "auto";
+    }
+
+    //savePage();
+    let page = collectionOfPages[currPageNumber - 1];
+    let pagetexts = page.texts;
+    
+    let texts = document.getElementsByClassName("pagetext");
+    for(let i = 0; i < texts.length; i++){
+        let height = theDOMpage.getBoundingClientRect().height;
+        let width = theDOMpage.getBoundingClientRect().width;
+        texts[i].style.transform = "translateX("+ pagetexts[i].x * width +"px)";
+        texts[i].style.transform += "translateY("+ pagetexts[i].y * height +"px)";
     }
 }
 
@@ -339,9 +353,10 @@ function savePage() {
         let thistext = pagetexts[i];
         let trans = window.getComputedStyle(thistext, null);
         let matrix = new WebKitCSSMatrix(trans.webkitTransform);
+        let height = theDOMpage.getBoundingClientRect().height;
+        let width = theDOMpage.getBoundingClientRect().width;
 
-        console.log(matrix);
-        newPageTexts.push(new textObj(matrix.m41, matrix.m42, thistext.value));
+        newPageTexts.push(new textObj(matrix.m41/width, matrix.m42/height, thistext.value));
     }
     page.texts = newPageTexts;
 }
@@ -447,6 +462,7 @@ var followCursor = (function(e) {
                 target.style.border = '1px solid #00000000'
                 prevClientX = null;
                 prevClientY = null;
+                savePage();
             }
         },
 
