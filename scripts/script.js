@@ -463,7 +463,6 @@ var followCursor = (function(e) {
         },
 
         end: function() {
-            console.log("end");
             dragging = false;
             if(target != null){
                 target.style.border = '1px solid #00000000'
@@ -474,7 +473,6 @@ var followCursor = (function(e) {
         },
 
         run: function(e) {
-            console.log("run");
             if(Boolean(dragging)) {
                 var e = e || window.event;
                 if(prevClientX == null && prevClientY == null){
