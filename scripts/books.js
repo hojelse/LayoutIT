@@ -4,34 +4,12 @@ let localBooks;
 window.onload = function() {
     window.addEventListener('resize', resize);
 
-    startUp();
-
     updateBookList();
     resize();
 }
 
-function startUp() {
-    if(localStorage.getItem('booklist') == null){
-        localStorage.setItem("booklist", JSON.stringify([]));
-    }
-    localStorage.setItem("currBook", "");
-    localStorage.setItem("clickedPage", "");
-}
-
-class Book {
-    pages = [];
-    title = "title";
-    theme = 0;
-}
-
 function addBook() {
-    console.log("hello");
-    let books = JSON.parse(localStorage.getItem("booklist"));
-    let newBook = new Book();
-    books.push(newBook);
-    localStorage.setItem("booklist", JSON.stringify(books));
-
-    window.location.href = "./pages.html";
+    window.location.href = "./editor.html";
 }
 
 function openBook() {
@@ -39,8 +17,6 @@ function openBook() {
     var target = e.target || e.srcElement;
     var book = target.children;
     var title = book[0].innerHTML;
-    
-    localStorage.setItem("currBook", title);
 
     window.location.href = "./pages.html"
 }
@@ -66,55 +42,6 @@ async function updateBookList() {
 
     addBookButton.appendChild(icon);
     bookList.appendChild(addBookButton);
-
-    localBooks = JSON.parse(localStorage.getItem("booklist"));
-    for(i = 0; i < localBooks.length; i++) {
-        currentBookData = localBooks[i];
-        const book = document.createElement("div");
-        book.className = 'book';
-        book.onclick = openBook;
-
-        setTheme(book);
-
-        const title = document.createElement("div");
-        title.appendChild(document.createTextNode(localBooks[i].title));
-        book.appendChild(title);
-
-        const edit = document.createElement("a");
-        edit.className = 'hoverButton';
-        edit.href = './pages.html';
-
-        const editIcon = document.createElement("img");
-        editIcon.src = './assets/edit.svg';
-        editIcon.className = 'icon';
-        edit.appendChild(editIcon);
-        book.appendChild(edit);
-
-        const print = document.createElement("a");
-        print.className = 'hoverButton';
-
-        const printIcon = document.createElement("img");
-        printIcon.src = './assets/print.svg';
-        printIcon.className = 'icon';
-        print.appendChild(printIcon);
-        book.appendChild(print);
-
-        bookList.appendChild(book);
-
-        book.onmouseenter = function() {
-            edit.style.visibility = 'visible';
-            print.style.visibility = 'visible';
-        }
-
-        book.onmouseleave = function() {
-            edit.style.visibility = 'hidden';
-            print.style.visibility = 'hidden';
-        }
-
-        const spacing = (book.offsetHeight-2*edit.offsetHeight)/3;
-        edit.style.bottom = spacing + "px";
-        print.style.bottom = spacing*2 + edit.offsetHeight + "px";
-    }
 }
 
 function setTheme(currentBookElement) {
