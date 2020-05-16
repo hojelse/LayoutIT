@@ -1,6 +1,7 @@
 body {
     background-color: #bfc5ca; 
     margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -41,7 +42,9 @@ h1 {
     height: 150px;
     margin: 10px;
 
-    background-color: var(--background);
+   
+    background: -webkit-linear-gradient(#833ab4, #fcb045);
+
     font-size: 20px;
     text-decoration: none;
 }
@@ -88,17 +91,18 @@ h1 {
     align-self: center;
     font-size: 40px;
     margin-top: 5px;
-    padding-bottom: 30px;
-
+    font-family: 'Roboto', sans-serif;
+    padding-bottom: 40x;
+    font-weight: 700;
 }
 
-p{
+p {
     align-self: center;
     font-size: 30px;
+    font-family: 'Roboto', sans-serif;
     padding-bottom: 100px;
-    background: -webkit-linear-gradient(#833ab4, #fcb045);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #833ab4;
+    font-weight: 500;
     background-size: 100%;
     background-repeat: repeat;
 }
