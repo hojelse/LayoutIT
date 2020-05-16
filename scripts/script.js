@@ -21,6 +21,8 @@ let pageContainer;
 
 let dragging = false;
 
+let pageTextFactor = 20;
+
 class Book {
     pages = [];
     title = "title";
@@ -252,6 +254,8 @@ function setUpTextField(text, DOMpage) {
     textField.style.transform += "translateY("+ text.y * height +"px)";
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
+    textField.style.fontSize = text.size + "px";
+    
     document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
     DOMpage.querySelector('.textContainer').appendChild(textField);
 }
@@ -274,7 +278,6 @@ function addTextField() {
 // Ratio for A-format pages (A4 A3 ect.)
 // let aHeight = 1.414285714;
 // let aWidth = 0.7070707;
-
 let aHeight = 1;
 let aWidth = 1;
 
@@ -294,13 +297,14 @@ function resizePage() {
     let page = collectionOfPages[currPageNumber - 1];
     let pagetexts = page.texts;
     
-    let texts = document.getElementsByClassName("pagetext");
+    let texts = document.querySelectorAll("#page .pagetext");
     for(let i = 0; i < texts.length; i++){
         let height = theDOMpage.getBoundingClientRect().height;
         let width = theDOMpage.getBoundingClientRect().width;
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
-        // debugger;
-        texts[i].style.fontSize = height / 10 + "px";
+        pagetexts[i].size = height / pageTextFactor;
+        texts[i].style.fontSize = pagetexts[i].size + "px";
+        
     }
 }
 
@@ -366,12 +370,15 @@ class textObj{
         this.x = posX;
         this.y = posY;
         this.text = text;
+        this.size = theDOMpage.getBoundingClientRect().height / pageTextFactor;
+        
     }
 }
 
 function printAsPdf() {
     savePage();
     postPrintPages();
+    resizePage();
     window.print();
     changeToCurrPage(theDOMpage);
 }

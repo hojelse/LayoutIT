@@ -49,11 +49,11 @@
 }
 
 .imageContainer:first-child {
-  margin-bottom: calc(var(--pad) / 2);
+  margin-bottom: var(--pad);
 }
 
 .imageContainer:last-child {
-  margin-top: calc(var(--pad) / 2);
+  margin-top: var(--pad);
 }
 
 .imageContainer {
