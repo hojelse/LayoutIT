@@ -265,8 +265,11 @@ function addTextField() {
 
 
 // Ratio for A-format pages (A4 A3 ect.)
-let aHeight = 1.414285714;
-let aWidth = 0.7070707;
+// let aHeight = 1.414285714;
+// let aWidth = 0.7070707;
+
+let aHeight = 1;
+let aWidth = 1;
 
 function resizePage() {
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
@@ -382,9 +385,12 @@ let deleteButton = document.querySelector('.delete')
 
 function selectImgBox() {
     if(currentlySelectedImgBox === event.currentTarget){
+        console.log("same");
+        
         currentlySelectedImgBox.classList.remove('selectedImgBox');
         currentlySelectedImgBox = null;
     } else {
+        if(currentlySelectedImgBox !== null) currentlySelectedImgBox.classList.remove('selectedImgBox');
         currentlySelectedImgBox = event.currentTarget;
         currentlySelectedImgBox.classList.add('selectedImgBox');
     }

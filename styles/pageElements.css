@@ -2,7 +2,7 @@
   border: none;
   width: 100%;
   text-align: center;
-  font-size: 250%;
+  font-size: 25px;
   background: transparent;
 }
 
@@ -62,4 +62,8 @@
 
 .selectedImgBox {
   box-shadow: 0 0 0 2px white;
+}
+
+.imgBox:hover {
+
 }
