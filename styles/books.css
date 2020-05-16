@@ -1,12 +1,12 @@
 body {
-    background-color: var(--background);
+    background-color: var(--hightlight);
 }
 
 h1 {
     font-weight: 700;
     font-size: 1.5rem;
     margin-bottom: 30px;
-    color: var(--hightlight);
+    color: var(--background);
 }
 
 .flexCol {
@@ -21,7 +21,6 @@ h1 {
 
 .bookContainer {
     margin: auto;
-    border: solid 2px var(--hightlight);
     justify-content: center;
     width: 100%;
 }
@@ -41,7 +40,7 @@ h1 {
     height: 150px;
     margin: 10px;
 
-    background-color: var(--hightlight);
+    background-color: var(--background);
     font-size: 20px;
     text-decoration: none;
 }
@@ -60,7 +59,7 @@ h1 {
 
     visibility: hidden;
     text-decoration: none;
-    color: var(--hightlight);
+    color: var(--background);
 }
 
 .button {
