@@ -31,7 +31,9 @@ class Book {
 
 window.onload = function () {
     document.body.onmousemove = followCursor.run;
+    document.body.addEventListener('touchmove', followCursor.touchrun);
     document.body.onmouseup = followCursor.end;
+    document.body.addEventListener('touchend', followCursor.end);
     titleInput = this.document.getElementById("titleInput");
     document.getElementById("left").onclick = goLeft;
     document.getElementById("right").onclick = goRight;
@@ -244,6 +246,7 @@ function setUpTextField(text, DOMpage) {
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
     textField.addEventListener('mousedown', followCursor.init);
+    textField.addEventListener('touchstart', followCursor.init);
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -492,6 +495,24 @@ var followCursor = (function(e) {
                 target.style.transform += "translateY("+ -dragY +"px)";
                 prevClientX = e.clientX;
                 prevClientY = e.clientY;
+                getMouseCoords(e);
+            }
+        },
+
+        touchrun: function(e) {
+            if(Boolean(dragging)) {
+                var e = e || window.event;
+                if(prevClientX == null && prevClientY == null){
+                    prevClientX = e.changedTouches[0].clientX;
+                    prevClientY = e.changedTouches[0].clientY;
+                }
+                var transform = target.style.transform;
+                var dragX = (prevClientX - e.changedTouches[0].clientX);
+                var dragY = (prevClientY - e.changedTouches[0].clientY);
+                target.style.transform += "translateX("+ -dragX +"px)";
+                target.style.transform += "translateY("+ -dragY +"px)";
+                prevClientX = e.changedTouches[0].clientX;
+                prevClientY = e.changedTouches[0].clientY;
                 getMouseCoords(e);
             }
         }
