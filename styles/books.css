@@ -1,5 +1,5 @@
 body {
-    background-color: #bfc5ca; 
+    background-color: rgb(230, 230, 237); 
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
@@ -41,7 +41,6 @@ h1 {
     width: 200px;
     height: 150px;
     margin: 10px;
-
    
     background: -webkit-linear-gradient(#833ab4, #fcb045);
     
