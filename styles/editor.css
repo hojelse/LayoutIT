@@ -160,6 +160,10 @@ button {
   background: url('../assets/sticker.svg');
 }
 
+.back {
+  background: url('../assets/uturn.svg');
+}
+
 .editButton {
   background-size: contain;
   background-repeat: no-repeat;
@@ -194,6 +198,11 @@ button {
 .dropdown {
   background-color: transparent;
   border: solid 2px var(--hightlight);
+}
+
+.dropdown option {
+  background-color: var(--background);
+  padding: 20px;
 }
 
 .draggable:hover {
