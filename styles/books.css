@@ -41,11 +41,18 @@ h1 {
     width: 200px;
     height: 150px;
     margin: 10px;
-   
-    background: -webkit-linear-gradient(#833ab4, #fcb045);
     
     font-size: 20px;
     text-decoration: none;
+}
+
+.gradient {
+    background: -webkit-linear-gradient(#833ab4, #fcb045);
+}
+
+#picture {
+    justify-content: center;
+    align-items: center;
 }
 
 .hoverButton {
