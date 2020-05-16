@@ -267,6 +267,7 @@ function addPage() {
 
 function addTextField() {
     setUpTextField(new textObj(0,0,""), theDOMpage);
+    savePage();
 }
 
 
@@ -289,7 +290,7 @@ function resizePage() {
         theDOMpage.style.width = "auto";
     }
 
-    //savePage();
+    
     let page = collectionOfPages[currPageNumber - 1];
     let pagetexts = page.texts;
     
@@ -297,8 +298,9 @@ function resizePage() {
     for(let i = 0; i < texts.length; i++){
         let height = theDOMpage.getBoundingClientRect().height;
         let width = theDOMpage.getBoundingClientRect().width;
-        texts[i].style.transform = "translateX("+ pagetexts[i].x * width +"px)";
-        texts[i].style.transform += "translateY("+ pagetexts[i].y * height +"px)";
+        texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
+        // debugger;
+        texts[i].style.fontSize = height / 10 + "px";
     }
 }
 
