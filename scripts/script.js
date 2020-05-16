@@ -276,7 +276,9 @@ function setUpTextField(text, DOMpage) {
     textField.value = text;
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
+    document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[currentTheme].styles.fontFamily);  
     DOMpage.querySelector('.textContainer').appendChild(textField);
+    
 }
 
 function addPage() {
@@ -336,6 +338,7 @@ function setTheme(theme) {
     textFields.forEach(element => {
         element.style.color = "#" + themesFromApi[theme].styles.primaryColor;
         element.style.fontFamily = themesFromApi[theme].styles.fontFamily;
+        document.documentElement.style.setProperty('--fontFamilyPrint', themesFromApi[theme].styles.fontFamily);        
     });
 }
 

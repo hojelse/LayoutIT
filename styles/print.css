@@ -13,6 +13,10 @@
     height: var(--numberOfPages);
   }
 
+  .pagetext {
+    font-family: var(--fontFamilyPrint) !important;
+  }
+
   .resizer {
     display: none;
   }
