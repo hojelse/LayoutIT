@@ -25,8 +25,6 @@ class Page {
             }
         }
 
-
-
         if (freeRealestate === 1) {
             for (let i = 0; i < this.collectionOfImgBoxes.length; i++) {
                 let currentImgBox = this.collectionOfImgBoxes[i];
@@ -40,6 +38,7 @@ class Page {
                 }
             }
             thisbook.pages[currPageNumber - 1] = this;
+            setUpSelectableImgBox();
         } else {
             alert("Maximum of 4 images has been reached.");
         }

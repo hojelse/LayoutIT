@@ -27,6 +27,7 @@
 
   .onlyForPrint {
     display: flex !important;
+    page-break-after: always;
   }
 
   .page {

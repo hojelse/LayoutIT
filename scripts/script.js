@@ -231,7 +231,7 @@ function updateTitle() {
 function changeToCurrPage(DOMpage) {
     let currPage = collectionOfPages[currPageNumber - 1];
     updateDOMPageWithCurrentPage(DOMpage, currPage)
-    // setUpSelectableImgBox();
+    setUpSelectableImgBox();
 
     if (currPageNumber == pageAmount) {
         addPageButton.hidden = false;
@@ -246,9 +246,6 @@ function updateDOMPageWithCurrentPage(DOMpage, currPage) {
     clearImageBoxes(DOMpage)
     DOMpage.querySelector('.textContainer').innerHTML = ""
     pageNumberSpan.innerText = currPage.pageNumber + 1;
-
-    console.log(currPage.texts);
-    
 
     var textlist = currPage.texts;
 
@@ -266,7 +263,6 @@ function setUpTextField(text, DOMpage) {
     textField.classList.add("pagetext");
     textField.setAttribute("type", "text");
     textField.placeholder = "Enter text here";
-    textField.style.background = "transparent";
     textField.addEventListener('keyup', function () {
         var target = event.target;
         var text = target.value;
@@ -397,22 +393,32 @@ function postPrintPages() {
     }
 }
 
-// let currentlySelectedImgBox = null;
 
-// function setUpSelectableImgBox() {
-//     DOMImgBoxes = [
-//         this.document.querySelector('.imageContainer[data-id="0"] > .imgBox'),
-//         this.document.querySelector('.imageContainer[data-id="1"] > .imgBox'),
-//         this.document.querySelector('.imageContainer[data-id="2"] > .imgBox'),
-//         this.document.querySelector('.imageContainer[data-id="3"] > .imgBox')
-//     ]
+// selection of images
+function setUpSelectableImgBox() {
+    DOMImgBoxes = [
+        this.document.querySelector('.imageContainer[data-id="0"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="1"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="2"] > .imgBox'),
+        this.document.querySelector('.imageContainer[data-id="3"] > .imgBox')
+    ]
 
-//     for (let i = 0; i < DOMImgBoxes.length; i++) {
-//         if(DOMImgBoxes[i] === 'undefined' || DOMImgBoxes[i] === null) continue;
-//         DOMImgBoxes[i].addEventListener("click", selectImgBox)
-//     }
-// }
+    for (let i = 0; i < DOMImgBoxes.length; i++) {
+        if(DOMImgBoxes[i] === 'undefined' || DOMImgBoxes[i] === null) continue;
+        DOMImgBoxes[i].addEventListener("click", selectImgBox)
+    }
+}
 
-// function selectImgBox() {
-//     console.log(event.currentTarget);
-// }
+let currentlySelectedImgBox = null;
+let deleteButton = document.querySelector('.delete')
+
+function selectImgBox() {
+    if(currentlySelectedImgBox === event.currentTarget){
+        currentlySelectedImgBox.classList.remove('selectedImgBox');
+        currentlySelectedImgBox = null;
+    } else {
+        currentlySelectedImgBox = event.currentTarget;
+        currentlySelectedImgBox.classList.add('selectedImgBox');
+    }
+    console.log(currentlySelectedImgBox);
+}
