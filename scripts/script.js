@@ -1,6 +1,6 @@
 let addPageButton;
 let goRightButton;
-let page;
+let theDOMpage;
 let imageInput;
 let pageNumberSpan;
 let textContainer;
@@ -45,7 +45,7 @@ window.onload = function () {
 
     window.onresize = resizePage;
 
-    page = document.getElementById('page');
+    theDOMpage = document.getElementById('page');
     addPageButton = document.getElementById('addPage');
     goRightButton = this.document.getElementById('right');
     imageInput = this.document.querySelector('#imgInput');
@@ -119,10 +119,10 @@ function getDataFromApi() {
         .then(data => {
             currentTheme = thisbook.theme;
             apiData = data.themes[currentTheme];
-            page.style.backgroundColor = apiData.styles.secondaryColor;
+            theDOMpage.style.backgroundColor = apiData.styles.secondaryColor;
             themesFromApi = data.themes;
             setTheme(thisbook.theme);
-            changeToCurrPage();
+            changeToCurrPage(theDOMpage);
             resizePage();
             resizeLayoutInit();
         })
@@ -162,7 +162,11 @@ class ImgBox {
 
 // customElements.define("img-box", ImgBox); // Påkræves for at extend standart DOM elementer
 
-function fillImageBoxes(collectionOfImgBoxes) {
+function fillImageBoxes(page, DOMPage) {
+    let imageContainers = getImageContainersFromDOMPage(DOMPage);
+
+    let collectionOfImgBoxes = page.collectionOfImgBoxes;
+
     for (let i = 0; i < imageContainers.length; i++) {
         if (collectionOfImgBoxes[i] == undefined) continue;
         imageContainers[i].appendChild(collectionOfImgBoxes[i].getDiv());
@@ -170,17 +174,29 @@ function fillImageBoxes(collectionOfImgBoxes) {
     initDragAndDrop(); // drag drop
 }
 
-function setImageContainersResizeState(page){
-    console.log("setting resize state : " + page.resizeState);
+function setImageContainersResizeState(page, DOMPage){
+    let imageContainers = getImageContainersFromDOMPage(DOMPage);
+
     for (let i = 0; i < imageContainers.length; i++) {
         imageContainers[i].style.flexGrow = page.resizeState[i];      
     }
 }
 
-function clearImageBoxes() {
+function clearImageBoxes(DOMPage) {
+    let imageContainers = getImageContainersFromDOMPage(DOMPage);
     for (let i = 0; i < imageContainers.length; i++) {
         imageContainers[i].innerHTML = "";
     }
+}
+
+function getImageContainersFromDOMPage(DOMPage) {
+    let imageContainers = [
+        DOMPage.querySelector('.imageContainer[data-id="0"]'),
+        DOMPage.querySelector('.imageContainer[data-id="1"]'),
+        DOMPage.querySelector('.imageContainer[data-id="2"]'),
+        DOMPage.querySelector('.imageContainer[data-id="3"]')
+    ]
+    return imageContainers;
 }
 
 function uploadNewImg(event) {
@@ -192,7 +208,7 @@ function goLeft() {
     if (currPageNumber != 1) {
         savePage();
         currPageNumber -= 1;
-        changeToCurrPage();
+        changeToCurrPage(theDOMpage);
     }
 }
 
@@ -200,7 +216,7 @@ function goRight() {
     if (currPageNumber != pageAmount) {
         savePage();
         currPageNumber += 1;
-        changeToCurrPage();
+        changeToCurrPage(theDOMpage);
     }
 }
 
@@ -212,18 +228,10 @@ function updateTitle() {
     }
 }
 
-function changeToCurrPage() {
-    clearImageBoxes()
-    textContainer.innerHTML = ""
+function changeToCurrPage(DOMpage) {
     let currPage = collectionOfPages[currPageNumber - 1];
-    pageNumberSpan.innerText = currPage.pageNumber + 1;
-
-    var textlist = currPage.texts;
-
-    for (var i = 0; i < textlist.length; i++) {
-        let text = textlist[i];
-        setUpTextField(text);
-    }
+    updateDOMPageWithCurrentPage(DOMpage, currPage)
+    // setUpSelectableImgBox();
 
     if (currPageNumber == pageAmount) {
         addPageButton.hidden = false;
@@ -232,12 +240,28 @@ function changeToCurrPage() {
         addPageButton.hidden = true;
         goRightButton.hidden = false;
     }
-    setImageContainersResizeState(currPage);
-    fillImageBoxes(currPage.collectionOfImgBoxes);
-    // setUpSelectableImgBox();
 }
 
-function setUpTextField(text) {
+function updateDOMPageWithCurrentPage(DOMpage, currPage) {
+    clearImageBoxes(DOMpage)
+    DOMpage.querySelector('.textContainer').innerHTML = ""
+    pageNumberSpan.innerText = currPage.pageNumber + 1;
+
+    console.log(currPage.texts);
+    
+
+    var textlist = currPage.texts;
+
+    for (var i = 0; i < textlist.length; i++) {
+        let text = textlist[i];
+        setUpTextField(text, DOMpage);
+    }
+    
+    setImageContainersResizeState(currPage, DOMpage);
+    fillImageBoxes(currPage, DOMpage);
+}
+
+function setUpTextField(text, DOMpage) {
     var textField = document.createElement('input');
     textField.classList.add("pagetext");
     textField.setAttribute("type", "text");
@@ -256,7 +280,7 @@ function setUpTextField(text) {
     textField.value = text;
     textField.style.color = "#" + themesFromApi[currentTheme].styles.primaryColor;
     textField.style.fontFamily = themesFromApi[currentTheme].styles.fontFamily;
-    textContainer.appendChild(textField);
+    DOMpage.querySelector('.textContainer').appendChild(textField);
 }
 
 function addPage() {
@@ -265,11 +289,11 @@ function addPage() {
 
     savePage();
     currPageNumber++;
-    changeToCurrPage();
+    changeToCurrPage(theDOMpage);
 }
 
 function addTextField() {
-    setUpTextField("");
+    setUpTextField("", theDOMpage);
 }
 
 
@@ -281,12 +305,12 @@ function resizePage() {
     const pageConainerIsWide = pageContainer.offsetHeight / pageContainer.offsetWidth < aHeight;
     if (pageConainerIsWide) {
         pageContainer.style.flexDirection = "column";
-        page.style.width = pageContainer.offsetHeight * aWidth + "px";
-        page.style.height = "auto";
+        theDOMpage.style.width = pageContainer.offsetHeight * aWidth + "px";
+        theDOMpage.style.height = "auto";
     } else {
         pageContainer.style.flexDirection = "row";
-        page.style.height = pageContainer.offsetWidth * aHeight + "px";
-        page.style.width = "auto";
+        theDOMpage.style.height = pageContainer.offsetWidth * aHeight + "px";
+        theDOMpage.style.width = "auto";
     }
 }
 
@@ -309,7 +333,7 @@ function setThemeFromDropdown() {
 }
 
 function setTheme(theme) {
-    page.style.backgroundColor = "#" + themesFromApi[theme].styles.secondaryColor;
+    theDOMpage.style.backgroundColor = "#" + themesFromApi[theme].styles.secondaryColor;
 
     let textFields = document.querySelectorAll('.pagetext');
 
@@ -329,10 +353,12 @@ function savePage() {
         thisbook.pages[currPageNumber-1] = page;
     }
 
-    var pagetexts = document.getElementsByClassName('pagetext');
+    var pagetexts = theDOMpage.querySelectorAll('.pagetext');
+    let newPageTexts = [];
     for (var i = 0; i < pagetexts.length; i++) {
-        textlist.push(pagetexts[i].value);
+        newPageTexts.push(pagetexts[i].value);
     }
+    page.texts = newPageTexts;
 
     let localBooks = JSON.parse(localStorage.getItem("booklist"));
     for (var i = 0; i < localBooks.length; i++) {
@@ -344,6 +370,7 @@ function savePage() {
 }
 
 function printAsPdf() {
+    savePage();
     postPrintPages();
     window.print();
 }
@@ -365,6 +392,7 @@ function postPrintPages() {
         let pageCopy = pageContent.cloneNode(true);
         pageCopy.removeAttribute('id');
         pageCopy.classList.add('onlyForPrint');
+        updateDOMPageWithCurrentPage(pageCopy, collectionOfPages[i]);
         pageContainer.appendChild(pageCopy);
     }
 }
