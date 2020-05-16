@@ -35,6 +35,7 @@ body {
 
 .pageInformationContent {
   position: relative;
+  max-width: var(--pageWidth);
 }
 
 .editIcon {
@@ -64,7 +65,7 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  max-width: 100%;
+  
   border: none;
   text-align: center;
   font-weight: 700;

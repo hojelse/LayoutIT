@@ -243,23 +243,17 @@ function updateDOMPageWithCurrentPage(DOMpage, currPage) {
 }
 
 function setUpTextField(text, DOMpage) {
-    var textField = document.createElement('input');
+    var textField = document.createElement('div');
     textField.classList.add("pagetext");
-    textField.setAttribute("type", "text");
-    textField.placeholder = "Enter text here";
+    textField.setAttribute("contenteditable", "true");
+    textField.innerText = "Sample text";
     textField.addEventListener('mousedown', followCursor.init);
     textField.addEventListener('touchstart', followCursor.init);
-    textField.addEventListener('keyup', function () {
-        var target = event.target;
-        var text = target.value;
-        if (text.length < 16) {
-            target.size = 16;
-        }
-        else {
-            target.size = text.length + 6;
-        }
-    });
-    textField.value = text.text;
+    if(text.text === ""){
+        textField.innerText = "Sample text";
+    } else {
+        textField.innerText = text.text;
+    }
     let height = theDOMpage.getBoundingClientRect().height;
     let width = theDOMpage.getBoundingClientRect().width;
     textField.style.transform += "translateX("+ text.x * width +"px)";
@@ -372,7 +366,7 @@ function savePage() {
         let height = theDOMpage.getBoundingClientRect().height;
         let width = theDOMpage.getBoundingClientRect().width;
 
-        newPageTexts.push(new textObj(matrix.m41/width, matrix.m42/height, thistext.value));
+        newPageTexts.push(new textObj(matrix.m41/width, matrix.m42/height, thistext.innerText));
     }
     page.texts = newPageTexts;
 }
