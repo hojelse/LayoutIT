@@ -22,7 +22,11 @@ let pageContainer;
 let dragging = false;
 
 let pageTextFactor = 20;
-let pageMarginFactor = 100;
+let pageMarginFactor = 2;
+let marginsSlider;
+let marginsOff;
+
+let altTools;
 
 class Book {
     pages = [];
@@ -41,7 +45,7 @@ window.onload = function () {
     document.getElementById("addPage").onclick = addPage;
     document.getElementById("addText").onclick = addTextField;
     document.getElementById("titleInput").onkeyup = this.updateTitle;
-
+    this.document.querySelector('.marginsOn').addEventListener('click', showMarginsSlider)
     document.querySelector('#imgInput').addEventListener('change', uploadNewImg)
 
     document.onkeydown = firekey;
@@ -67,6 +71,12 @@ window.onload = function () {
 
     textContainer = this.document.querySelector('.textContainer');
 
+    altTools = this.document.querySelector('.altTools');
+
+    marginsSlider = document.querySelector('.marginsSlider');
+    marginsSlider.addEventListener('change', updatePageMarginFactor)
+    marginsOff = this.document.querySelector('.marginsOff');
+    marginsOff.addEventListener('click', closeAltTools);
 
     imageContainers = [
         this.document.querySelector('.imageContainer[data-id="0"]'),
@@ -87,6 +97,19 @@ window.onload = function () {
 
     getDataFromApi();
     chooseTheme.value = thisbook.theme;
+}
+
+function showMarginsSlider() {
+    altTools.style.display = "flex";
+}
+
+function closeAltTools() {
+    altTools.style.display = "none";
+}
+
+function updatePageMarginFactor() {
+    pageMarginFactor = marginsSlider.value;
+    resizePage();
 }
 
 function getDataFromApi() {
@@ -306,7 +329,7 @@ function resizePage() {
     let texts = document.querySelectorAll("#page .pagetext");
     let height = theDOMpage.getBoundingClientRect().height;
     let width = theDOMpage.getBoundingClientRect().width;   
-    document.documentElement.style.setProperty('--page-margins', Math.round(height/pageMarginFactor) + "px");  
+    document.documentElement.style.setProperty('--page-margins', Math.round(height/100) * pageMarginFactor + "px");  
     for(let i = 0; i < texts.length; i++){
         texts[i].style.transform = "translate("+ pagetexts[i].x * width +"px , " + pagetexts[i].y * height + "px)";
         pagetexts[i].size = height / pageTextFactor;
