@@ -1,0 +1,80 @@
+body {
+    background-color: rgb(230, 230, 237); 
+    margin: 0;
+}
+
+h1 {
+    align-self: center;
+    color: var(--background);
+    font-size: 40px;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 30px;
+    padding-bottom: 45x;
+    font-weight: 700;
+}
+
+p {
+    align-self: center;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    padding-bottom: 100px;
+    color: #833ab4;
+    font-weight: 500;
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    margin: auto;
+    justify-content: center;
+    width: 100%;
+}
+
+.book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height: 150px;
+}
+
+.gradient {
+    background: -webkit-linear-gradient(#833ab4, #fcb045);
+}
+
+#picture {
+    justify-content: center;
+    align-items: center;
+}
+
+.hoverButton {
+    width: 55px;
+    height: 55px;
+}
+
+@media (hover: hover) {
+    .hoverButton {
+    width: 45px;
+    height: 45px;
+
+    visibility: hidden;
+    text-decoration: none;
+    }
+}
+
+
+
+
+
