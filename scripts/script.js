@@ -252,7 +252,8 @@ function changeToCurrPage(DOMpage) {
 function updateDOMPageWithCurrentPage(DOMpage, currPage) {
     clearImageBoxes(DOMpage)
     DOMpage.querySelector('.textContainer').innerHTML = ""
-    pageNumberSpan.innerText = currPage.pageNumber + 1;
+    let calPageNumber = currPage.pageNumber + 1;
+    pageNumberSpan.innerText = calPageNumber + " of " + pageAmount;
 
     var textlist = currPage.texts;
 
