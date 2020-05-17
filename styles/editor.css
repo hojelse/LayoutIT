@@ -34,8 +34,11 @@ body {
 }
 
 .pageInformationContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   position: relative;
-  max-width: var(--pageWidth);
+  /* max-width: var(--pageWidth); */
 }
 
 .editIcon {
@@ -298,4 +301,10 @@ button {
 .button-disabled {
   cursor: auto;
   opacity: 0.6;
+}
+
+@media screen and (max-height: 615px){
+  .tools {
+    max-width: 100%;
+  }
 }
