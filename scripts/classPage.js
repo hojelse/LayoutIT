@@ -1,3 +1,5 @@
+//Script til Page-objektet. Hver side i billedebogen, er et Page-objekt.
+
 let LAYOUTS = {
     ONE_IMAGE: 1,
     TWO_IMAGE: 2,

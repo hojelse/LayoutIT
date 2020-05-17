@@ -1,3 +1,5 @@
+//Script til index.
+
 let hoverButton;
 
 window.onload = function() {

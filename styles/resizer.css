@@ -1,3 +1,5 @@
+/*Styles vedrørende de barer som kan trækkes i for at resize billederne i billedebogen*/
+
 .resizer {
   width: 100%;
   --hover-area: 40px;

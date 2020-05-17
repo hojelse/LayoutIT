@@ -1,6 +1,8 @@
 // Credit to Rudi Szabó (modified)
 // https://codepen.io/szrudi/details/gOpLyKd
 
+//Script til at kunne flytte billeder.
+
 initDragAndDrop();
 
 function initDragAndDrop() {    

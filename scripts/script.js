@@ -112,6 +112,7 @@ function updatePageMarginFactor() {
     resizePage();
 }
 
+//Denne metode henter informationer om de tre temaer fra api'en.
 function getDataFromApi() {
 
     fetch('https://itu-sdbg-s2020.now.sh/api/themes')
@@ -129,6 +130,7 @@ function getDataFromApi() {
         .catch(error => console.error(error));
 }
 
+//Tillad at skifte mellem sider med piletasterne.
 function firekey(e) {
     e = e || window.event;
 
@@ -142,6 +144,7 @@ function firekey(e) {
     }
 }
 
+//Klasse til de kasser som holder billederne.
 class ImgBox {
     constructor() {
         let div = document.createElement("div");
@@ -159,8 +162,6 @@ class ImgBox {
         this.div.style.backgroundImage = "url(" + url + ")";
     }
 }
-
-// customElements.define("img-box", ImgBox); // Påkræves for at extend standart DOM elementer
 
 function fillImageBoxes(page, DOMPage) {
     let imageContainers = getImageContainersFromDOMPage(DOMPage);
@@ -199,11 +200,13 @@ function getImageContainersFromDOMPage(DOMPage) {
     return imageContainers;
 }
 
+//Upload billede og tilføj til den nuværende side.
 function uploadNewImg(event) {
     let url = URL.createObjectURL(event.target.files[0]);
     collectionOfPages[currPageNumber - 1].addImage(url);
 }
 
+//Gå en side til venstre (altså ned)
 function goLeft() {
     if (currPageNumber != 1) {
         savePage();
@@ -212,6 +215,7 @@ function goLeft() {
     }
 }
 
+//Gå en side til højre.
 function goRight() {
     if (currPageNumber != pageAmount) {
         savePage();
@@ -220,6 +224,7 @@ function goRight() {
     }
 }
 
+//Sæt vinduets titel til den givne titel på bogen.
 function updateTitle() {
     if (titleInput.value === "") {
         document.title = "LayoutIT - Editor";
@@ -266,6 +271,7 @@ function updateDOMPageWithCurrentPage(DOMpage, currPage) {
     fillImageBoxes(currPage, DOMpage);
 }
 
+//Opret et tekstfelt.
 function setUpTextField(text, DOMpage) {
     var textField = document.createElement('div');
     textField.classList.add("pagetext");
@@ -298,6 +304,7 @@ function setUpTextField(text, DOMpage) {
     DOMpage.querySelector('.textContainer').appendChild(textField);
 }
 
+//Tilføj en side.
 function addPage() {
     pageAmount++;
     collectionOfPages.push(new Page(pageAmount - 1));
@@ -313,9 +320,6 @@ function addTextField() {
 }
 
 
-// Ratio for A-format pages (A4 A3 ect.)
-// let aHeight = 1.414285714;
-// let aWidth = 0.7070707;
 let aHeight = 1;
 let aWidth = 1;
 
@@ -347,6 +351,7 @@ function resizePage() {
     }
 }
 
+//Få det valgte tema.
 function setThemeFromDropdown() {
 
     let selectedTheme = chooseTheme.value;
@@ -357,6 +362,7 @@ function setThemeFromDropdown() {
     setTheme(currentTheme);
 }
 
+//Sæt farver og skrifttype ud fra temaet.
 function setTheme(theme) {
     theDOMpage.style.backgroundColor = "#" + themesFromApi[theme].styles.secondaryColor;
 
@@ -369,6 +375,7 @@ function setTheme(theme) {
     });
 }
 
+//Gem placeringen af elementerne på siden.
 function savePage() {   
     let page = collectionOfPages[currPageNumber - 1];
     let textlist = page.texts;
@@ -404,6 +411,7 @@ function savePage() {
     page.texts = newPageTexts;
 }
 
+//Objekt til de tekstfelter som er i billedebogen.
 class textObj{
     constructor(posX, posY, text){
         this.x = posX;
@@ -414,6 +422,7 @@ class textObj{
     }
 }
 
+//Åbn printerdialogen.
 function printAsPdf() {
     savePage();
     postPrintPages();
@@ -421,6 +430,7 @@ function printAsPdf() {
     window.print();
     changeToCurrPage(theDOMpage);
 }
+
 
 function postPrintPages() {
     document.querySelectorAll('.page.onlyForPrint').forEach(onlyForPrintPage => {
@@ -448,13 +458,9 @@ function setUpClickableImageContainer() {
     let imageContainers = this.document.querySelectorAll('.imageContainer');
     for (let i = 0; i < imageContainers.length; i++) {
         if(imageContainers[i] === 'undefined' || imageContainers[i] === null) continue;
-        imageContainers[i].addEventListener("click", uploadToThisContainer)
     }
 }
 
-function uploadToThisContainer() {
-
-}
 
 // selection of images
 function setUpSelectableImgBox() {
@@ -486,6 +492,7 @@ function selectImgBox() {
     console.log(currentlySelectedImgBox);
 }
 
+//Fjern det valgte billede.
 function deleteCurrentlySelectedImgBox() {
     if(currentlySelectedImgBox === null) return;
     currentlySelectedImgBox.remove();
