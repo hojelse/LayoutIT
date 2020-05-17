@@ -50,6 +50,21 @@ p {
     height: 150px;
 }
 
+.leftPartOfBook {
+    width: 10%; 
+    height: 100%;
+}
+
+.centerPartOfBook {
+    width: 5%; 
+    height: 100%;
+}
+
+.rightPartOfBook {
+    width: 85%; 
+    height: 100%;
+}
+
 .gradient {
     background: -webkit-linear-gradient(#833ab4, #fcb045);
 }
