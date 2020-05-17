@@ -273,6 +273,7 @@ function setUpTextField(text, DOMpage) {
     textField.innerText = "Sample text";
     textField.addEventListener('mousedown', followCursor.init);
     textField.addEventListener('touchstart', followCursor.init);
+    textField.addEventListener("click", selectImgBox);
     textField.addEventListener('blur', function() {
         savePage();
         var target = event.target;
