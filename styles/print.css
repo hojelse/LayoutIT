@@ -1,3 +1,5 @@
+/*Styles vedrørende udskrivning af billedebogen*/
+
 .onlyForPrint {
   display: none;
 }
@@ -24,11 +26,7 @@
     display: none !important;
   }
 
-  button {
-    display: none;
-  }
-
-  .page:not(.onlyForPrint) {
+  button, .page:not(.onlyForPrint), .nav, .pageInformation, .buttons, .tools, .dropdown {
     display: none;
   }
 
@@ -46,26 +44,6 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .pageInformation {
-    display: none;
-  }
-
-  .buttons {
-    display: none;
-  }
-
-  .tools {
-    display: none;
-  }
-
-  .dropdown {
-    display: none;
   }
 
   .imageContainer {

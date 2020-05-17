@@ -1,3 +1,5 @@
+/*Styles tilhørende editor-siden*/
+
 html {
   height: 100%;
   --pageWidth: 100%;
@@ -38,7 +40,6 @@ body {
   flex-direction: row;
   justify-content: center;
   position: relative;
-  /* max-width: var(--pageWidth); */
 }
 
 .editIcon {
@@ -215,7 +216,6 @@ button {
   height: 100%;
   background-color: var(--background);
   border: solid var(--hightlight);
-  /* border-width: 1.5px 0 0 0; */
 }
 
 .altTools .marginsOffWrapper {
