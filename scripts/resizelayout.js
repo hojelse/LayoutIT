@@ -1,3 +1,5 @@
+//Scripts til at resize layoutet når vinduets størrelse ændrer sig.
+
 function resizeLayoutInit(){
   const imagesList = document.querySelectorAll('.imagesCol')
   for (let i = 0; i < imagesList.length; i++) {
