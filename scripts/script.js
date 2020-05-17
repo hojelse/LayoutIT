@@ -507,13 +507,11 @@ var followCursor = (function(e) {
         init: function() {
             target = event.target;
             dragging = true;
-            target.style.border = '1px solid red';
         },
 
         end: function() {
             dragging = false;
             if(target != null){
-                target.style.border = '1px solid #00000000'
                 prevClientX = null;
                 prevClientY = null;
                 savePage();

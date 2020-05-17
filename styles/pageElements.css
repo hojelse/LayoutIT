@@ -66,6 +66,8 @@
   z-index: 2;
 }
 
-.imgBox:hover {
-
+.pagetext.selectedImgBox {
+  outline: 5px auto -webkit-focus-ring-color;
+  box-shadow: none;
+  z-index: 2;
 }
