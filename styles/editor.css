@@ -302,3 +302,9 @@ button {
   cursor: auto;
   opacity: 0.6;
 }
+
+@media screen and (max-height: 615px){
+  .tools {
+    max-width: 100%;
+  }
+}
