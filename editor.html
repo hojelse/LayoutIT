@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--HTMl metadata-->
     <meta charset="UTF-8">
     <meta name="description" content="Create your own awesome picture book">
     <meta name="keywords" content="Picture book, design, good looking, uwu nuzzles">
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="https://fontlibrary.org/face/waltograph-disney" type="text/css"/>
     <link rel="stylesheet" href="https://fontlibrary.org/face/nimbus-sans-l" type="text/css"/>
     <link rel="stylesheet" href="https://fontlibrary.org/face/carlito" type="text/css"/>
+    <!--Den benyttede font-->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/resizer.css">
 
@@ -25,25 +27,28 @@
     <script src="scripts/script.js"></script>
 </head>
 <body>
+    <!--Menupunkterne øverst-->
     <div class="nav">
         <a href="index.html" class="editButton back"></a>
         <div>
             <button class="printAsPdf editButton"></button>
             <button class="delete editButton"></button>
-            <!-- <a href="index.html" class="editButton home"></a> -->
         </div>
     </div>
+    <!---->
     <div class="pageInformation">
         <div class="pageInformationContent">
             <input type="text" maxlength="30" id="titleInput" placeholder="Your book title">
             <div class="editIcon"></div>
         </div>
     </div>
+    <!--Den aktuelle side som redigeres-->
     <div id="pages" class="pageContainer">
         <div id="page" class="page">
             <div id="textContainer" class="textContainer">
             </div>
             <div class="imagesContainer">
+                <!--De to venstre billeder-->
                 <div id="imagesCol0" class="imagesCol">
                     <div data-id="0" class="imageContainer imageContainer1 drop-zone">
 
@@ -53,6 +58,7 @@
 
                     </div>
                 </div>
+                <!--De to højre billeder-->
                 <div id="imagesCol1" class="imagesCol">
                     <div data-id="2" class="imageContainer imageContainer1 drop-zone">
 
@@ -65,17 +71,18 @@
             </div>
         </div>
     </div>
+    <!--Knapper til at skifte side, samt visning af sidenummer-->
     <div class="buttons">
         <button id="left" class="leftButton editButton arrowButton"></button>
         <h2>Page <span class="pageNumber">1</span></h2>
         <button id="right" class="rightButton editButton arrowButton"></button>
         <button id="addPage" class="addPageButton editButton arrowButton" hidden></button>
     </div>
+    <!--Værktøjerne til at redigere fotobogen-->
     <div class="tools">
         <button id="addText" class="editButton addText"></button>
         <button class="editButton addImage" onclick="imgInput.click();"></button>
         <input id="imgInput" type="file" style="display: none;">
-        <!-- <button class="editButton addSticker"></button> -->
         <button class="editButton margins marginsOn"></button>
         <select id="chooseTheme" onchange="setThemeFromDropdown()" class="dropdown">
             <option value="0" id="børnebog">Childrens book</option>
