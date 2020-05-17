@@ -222,7 +222,7 @@ function goRight() {
 
 function updateTitle() {
     if (titleInput.value === "") {
-        document.title = "Editor";
+        document.title = "LayoutIT - Editor";
     } else {
         document.title = titleInput.value;
     }
