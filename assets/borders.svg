@@ -1,0 +1,12 @@
+<svg fill="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny" x="0px" y="0px" viewBox="0 0 100 125" xml:space="preserve">
+  <path d="M82.5,20c0-1.381-1.119-2.5-2.5-2.5H20c-1.381,0-2.5,1.119-2.5,2.5v60c0,1.381,1.119,2.5,2.5,2.5h60  c1.381,0,2.5-1.119,2.5-2.5V20z M77.5,77.5h-55v-55h55V77.5z" />
+  <circle cx="50" cy="30" r="2.5" />
+  <circle cx="50" cy="40" r="2.5" />
+  <circle cx="50" cy="60" r="2.5" />
+  <circle cx="50" cy="70" r="2.5" />
+  <circle cx="70" cy="50" r="2.5" />
+  <circle cx="60" cy="50" r="2.5" />
+  <circle cx="50" cy="50" r="2.5" />
+  <circle cx="40" cy="50" r="2.5" />
+  <circle cx="30" cy="50" r="2.5" />
+</svg>
