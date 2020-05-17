@@ -182,7 +182,7 @@ button {
   width: 80px;
 }
 
-.arrowButton:hover {
+.editButton:hover {
   opacity: 0.6;
 }
 
@@ -266,6 +266,10 @@ button {
   background-color: transparent;
   border: solid 2px var(--hightlight);
   width: 35%;
+}
+
+.dropdown:hover {
+  cursor: pointer;
 }
 
 .dropdown option {
