@@ -272,6 +272,13 @@ function setUpTextField(text, DOMpage) {
     textField.innerText = "Sample text";
     textField.addEventListener('mousedown', followCursor.init);
     textField.addEventListener('touchstart', followCursor.init);
+    textField.addEventListener('blur', function() {
+        var target = event.target;
+        var text = target.innerText;
+        if(text.length === 1){
+            target.remove();
+        }
+    });
     if(text.text === ""){
         textField.innerText = "Sample text";
     } else {
