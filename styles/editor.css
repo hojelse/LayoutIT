@@ -219,9 +219,6 @@ button {
   width: 40px;
   height: 40px;
   padding: 5px 0 0 5px;
-  /* border: solid 1px white; */
-  /* background-color: #9999ff55; */
-  /* border-radius: 50%; */
   display: flex;
   justify-content: center;
   align-items: center;
