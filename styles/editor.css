@@ -211,14 +211,17 @@ button {
   width: 100%;
   height: 100%;
   background-color: var(--background);
+  border: solid var(--hightlight);
+  /* border-width: 1.5px 0 0 0; */
 }
 
 .altTools .marginsOffWrapper {
   width: 40px;
   height: 40px;
   padding: 5px 0 0 5px;
-  background-color: #9999ff55;
-  border-radius: 50%;
+  /* border: solid 1px white; */
+  /* background-color: #9999ff55; */
+  /* border-radius: 50%; */
   display: flex;
   justify-content: center;
   align-items: center;
