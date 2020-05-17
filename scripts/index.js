@@ -1,4 +1,4 @@
-//Script til index.
+//Script til mouseover af book
 
 let hoverButton;
 
