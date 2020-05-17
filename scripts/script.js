@@ -273,9 +273,10 @@ function setUpTextField(text, DOMpage) {
     textField.addEventListener('mousedown', followCursor.init);
     textField.addEventListener('touchstart', followCursor.init);
     textField.addEventListener('blur', function() {
+        savePage();
         var target = event.target;
-        var text = target.innerText;
-        if(text.length === 1){
+        var text = target.textContent;
+        if(text.length === 0){
             target.remove();
         }
     });
